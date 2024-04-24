@@ -10,7 +10,7 @@
         <form method="post" action="?m=kriteria_ubah&ID=<?=$row->id_kriteria?>">
             <div class="form-group">
                 <label>Kode Kriteria <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="kode_kriteria" value="<?=$row->kode_kriteria?>" readonly=""/>
+                <input class="form-control" type="text" name="kode_kriteria" value="<?=$row->kode_kriteria?>" />
             </div>
             <div class="form-group">
                 <label>Nama Kriteria <span class="text-danger">*</span></label>

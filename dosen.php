@@ -16,12 +16,12 @@
                                 endif
                             ?>
                         </div>
-                        <div class="form-group pull-right col-md-3 col-md-offset-1">
+                        <!-- <div class="form-group pull-right col-md-3 col-md-offset-1">
                             <select class="form-control" name="prodi_id" onchange="form.submit()">
                                 <option readonly="readonly">-- Pilih Prodi --</option>
                                 <?=get_prodiview_option(set_value('prodi_id'))?>
                             </select>
-                        </div>
+                        </div> -->
                     </div>
                 </center>
                 </form>
@@ -36,9 +36,9 @@
                     <th>Kode</th>
                     <th>Nama Dosen</th>
                     <th>Jenis Kelamin</th>
-                    <th>Pendidikan Terakhir</th>
-                    <th>Tempat/Tanggal Lahir</th>
-                    <th>Agama</th>
+                    <th>Pendidikan S1</th>
+                    <th>Pendidikan S2</th>
+                    <th>Pendidikan S3</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -54,9 +54,9 @@
                 <td><?=$row->kode_dosen?></td>
                 <td><?=$row->nama_dosen?></td>
                 <td><?=$row->jenis_kelamin?></td>
-                <td><?=$row->pendidikan_terakhir?></td>
-                <td><?=$row->tempat_lahir.", ".tgl_indo($row->tanggal_lahir)?></td>
-                <td><?=$row->agama?></td>
+                <td><?=$row->pendidikan_s1?></td>
+                <td><?=$row->pendidikan_s2?></td>
+                <td><?=$row->pendidikan_s3?></td>
                 <td class="text-center">
                     <a class="btn btn-xs btn-info" href="?m=dosen_detail&ID=<?=$row->id_dosen?>"><span class="glyphicon glyphicon-th-list"></span> Detail</a>
                     <a class="btn btn-xs btn-warning" href="?m=dosen_ubah&ID=<?=$row->id_dosen?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a>

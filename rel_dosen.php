@@ -24,14 +24,14 @@ foreach($rows as $row){
             <div class="col-sm-12">
                 <form method="POST">
                     <center>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="form-group pull-right col-md-3 col-md-offset-1">
                             <select class="form-control" name="prodi_id" onchange="form.submit()">
                                 <option readonly="readonly">-- Pilih Prodi --</option>
                                 <?=get_prodiview_option(set_value('prodi_id'))?>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </center>
                 </form>
             </div>

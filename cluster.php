@@ -8,12 +8,12 @@
                 <form method="POST">
                     <center>
                     <div class="row">
-                        <div class="form-group pull-right col-md-3 col-md-offset-1 col-xs-12">
+                        <!-- <div class="form-group pull-right col-md-3 col-md-offset-1 col-xs-12">
                             <select class="form-control" name="prodi_id" onchange="form.submit()">
                                 <option readonly="readonly" value="0">-- Pilih Prodi --</option>
                                 <?=get_prodiview_option(set_value('prodi_id'))?>
                             </select>
-                        </div>
+                        </div> -->
                         <?php if(($_REQUEST['prodi_id'])==!0){ ?>
                         <div class="form-group col-md-1 col-xs-12">
                             <a class="btn btn-success" href="cluster_cetak.php?m=cluster&prodi=<?= $_REQUEST['prodi_id']; ?>"><span class="glyphicon glyphicon-download-alt"></span> Download Hasil Clustering</a>

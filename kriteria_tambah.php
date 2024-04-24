@@ -7,7 +7,7 @@
         <form method="post" action="?m=kriteria_tambah">
             <div class="form-group">
                 <label>Kode Kriteria <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="kode_kriteria" value="<?=set_value('kode_kriteria', kode_oto('kode_kriteria', 'tb_kriteria', 'C', 1))?>" readonly=""/>
+                <input class="form-control" type="text" name="kode_kriteria" value="<?=set_value('kode_kriteria', kode_oto('kode_kriteria', 'tb_kriteria', 'K', 1))?>" />
             </div>
             <div class="form-group">
                 <label>Nama Kriteria <span class="text-danger">*</span></label>

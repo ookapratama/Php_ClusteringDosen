@@ -66,13 +66,13 @@
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-3">
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>Prodi <span class="text-danger">*</span></label>
                             <select class="form-control" name="prodi_id">
                                 <option readonly="readonly">-- Pilih Prodi --</option>
                                 <?=get_prodiview_option(set_value('prodi_id'))?>
                             </select>
-                        </div>
+                        </div> -->
                         <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-screenshot"></span> Proses Cluster</button>
                     </div>
                 </form>
