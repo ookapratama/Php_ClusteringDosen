@@ -37,7 +37,7 @@
                     <th>Pendidikan Terakhir</th>
                     <th>Tempat/Tanggal Lahir</th>
                     <th>Agama</th>
-                    <th>Aksi</th>
+                    <!-- <th>Aksi</th> -->
                 </tr>
             </thead>
             <?php
@@ -56,9 +56,9 @@
                 <td><?=$row->pendidikan_terakhir?></td>
                 <td><?=$row->tempat_lahir.", ".tgl_indo($row->tanggal_lahir)?></td>
                 <td><?=$row->agama?></td>
-                <td class="text-center">
+                <!-- <td class="text-center">
                     <a class="btn btn-xs btn-warning" href="?m=cluster_ubah&ID=<?=$row->id_dosen?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a>
-                </td>
+                </td> -->
             </tr>
             <?php endforeach; ?>
         </table>

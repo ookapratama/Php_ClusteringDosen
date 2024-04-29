@@ -7,12 +7,12 @@ $row = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
 <div class="row">
     <div class="col-sm-4">
         <form method="post" action="aksi.php?act=rel_dosen_ubah&ID=<?=$row->id_dosen?>">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label>Lakukan Perhitungan? (Ya/Tidak)</label>
             <select class="form-control" name="hitung">
                 <?=get_hitung_option($row->hitung)?>
             </select>
-        </div>
+        </div> -->
         <?php
         $rows = $db->get_results("SELECT ra.ID, k.kode_kriteria, k.nama_kriteria, ra.nilai FROM tb_rel_dosen ra INNER JOIN tb_kriteria k ON k.id_kriteria=ra.id_kriteria  WHERE id_dosen='$_GET[ID]' ORDER BY kode_kriteria");
         foreach($rows as $row):?>

@@ -172,6 +172,12 @@ if ($mod == 'prodi_tambah') {
     header("location:index.php?m=dosen");
 }
 
+// JURNAL PENELITIAN
+if ($mod == 'jurnal_hapus') {
+    $db->query("DELETE FROM tb_jurnal WHERE id='$_GET[ID]'");
+    header("location:index.php?m=jurnal");
+}
+
 /* CLUSTER MANUAL */
 if ($mod == 'cluster_ubah') {
     $nama_bidangilmu = $_POST['cluster'];

@@ -23,15 +23,15 @@
                             <td>NIDN</td>
                             <td><?=$row->nidn?></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>NODOS</td>
                             <td><?=$row->nodos?></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td>Jenis Kelamin</td>
                             <td><?=$row->jenis_kelamin?></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>Foto</td>
                             <td>
                             <?php if (($row->gambar)==null) { echo "Foto tidak tersedia"; } else { ?>
@@ -40,10 +40,18 @@
                             </p>
                             <?php } ?>
                             </td>
+                        </tr> -->
+                        <tr>
+                            <td>Pendidikan S1</td>
+                            <td><?=$row->pendidikan_s1?></td>
                         </tr>
                         <tr>
-                            <td>Pendidikan Terakhir</td>
-                            <td><?=$row->pendidikan_terakhir?></td>
+                            <td>Pendidikan S2</td>
+                            <td><?=$row->pendidikan_s2?></td>
+                        </tr>
+                        <tr>
+                            <td>Pendidikan S3</td>
+                            <td><?=$row->pendidikan_s3?></td>
                         </tr>
                         <tr>
                             <td>Tempat Lahir</td>
@@ -57,10 +65,10 @@
                             <td>Agama</td>
                             <td><?=$row->agama?></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>Alamat</td>
                             <td><?=$row->alamat?></td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
