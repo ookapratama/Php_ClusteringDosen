@@ -1,5 +1,7 @@
 <?php
 $prodi = $_REQUEST['prodi_id'];
+
+$id_dosen = $_GET['ID'];
 // $rows = $db->get_results("SELECT a.id_dosen, ra.id_kriteria, ra.nilai, a.hitung           
 //         FROM tb_rel_dosen ra 
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
@@ -11,11 +13,13 @@ $prodi = $_REQUEST['prodi_id'];
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
 //         ORDER BY ra.id_dosen, ra.id_kriteria");
 
-$rows = $db->get_results("SELECT a.id, a.judul_jurnal, b.nama_dosen, b.kode_dosen, c.nama_bidangilmu 
+$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.kode_dosen, b.nama_dosen, b.kode_dosen, c.nama_bidangilmu 
         FROM tb_penelitian a 
         INNER JOIN tb_dosen b ON a.kode_dosen = b.id_dosen
         INNER JOIN tb_bidangilmu c ON a.bidang_ilmu = c.id_bidangilmu
+        WHERE a.kode_dosen = $id_dosen
         ");
+
 
 $data = array();
 
@@ -40,7 +44,7 @@ foreach ($rows as $row) {
                 <?php
                 $status = get_prodi_status();
                 if ($status) :
-                  echo '<a class="btn btn-success" href="?m=dosen_tambah"><span class="glyphicon glyphicon-pencil"></span> Tambah Data</a>';
+                  echo '<a class="btn btn-success" href="?m=jurnal_tambah"><span class="glyphicon glyphicon-pencil"></span> Tambah Data</a>';
                 endif
                 ?>
               </div>

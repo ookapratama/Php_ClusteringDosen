@@ -173,8 +173,8 @@ if ($mod == 'prodi_tambah') {
 }
 
 // JURNAL PENELITIAN
-if ($mod == 'jurnal_hapus') {
-    $db->query("DELETE FROM tb_jurnal WHERE id='$_GET[ID]'");
+if ($act == 'jurnal_hapus') {
+    $db->query("DELETE FROM tb_penelitian WHERE id='$_GET[ID]'");
     header("location:index.php?m=jurnal");
 }
 
