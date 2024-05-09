@@ -26,9 +26,9 @@ $data = array();
 $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
 
 
-foreach ($rows as $row) {
-  $data[$row->id_dosen][$row->id_kriteria]  = $row->nilai;
-}
+// foreach ($rows as $row) {
+//   $data[$row->id_dosen][$row->id_kriteria]  = $row->nilai;
+// }
 ?>
 <div class="page-header">
   <h1>Jurnal Penelitian Dosen &raquo; <small><?= $get_dosen->nama_dosen ?></h1>

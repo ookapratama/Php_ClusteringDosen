@@ -1,6 +1,6 @@
 <?php
-$status = get_prodi_status();
-if ($status) :
+//$status = get_prodi_status();
+//if ($status) :
 ?>
     <div class="page-header">
         <h1>Tambah Jurnal Penelitian</h1>
@@ -101,9 +101,9 @@ if ($status) :
 
                 <div class="form-group">
                     <button class="btn btn-primary notif-registrasi"><span class="glyphicon glyphicon-send"></span> Simpan</button>
-                    <a class="btn btn-danger" href="?m=dosen"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
+                    <a class="btn btn-danger" href="?m=jurnal"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
                 </div>
             </form>
         </div>
     </div>
-<?php endif ?>
+<?php //endif ?>
