@@ -15,11 +15,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Dumping data for table cluster_dosen.tb_admin: ~1 rows (approximately)
-REPLACE INTO `tb_admin` (`user`, `pass`) VALUES
+INSERT INTO `tb_admin` (`user`, `pass`) VALUES
 	('admin', 'admin');
 
 -- Dumping data for table cluster_dosen.tb_bidangilmu: ~5 rows (approximately)
-REPLACE INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
+INSERT INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
 	(9, 'Sains'),
 	(10, 'Komputer'),
 	(11, 'Sistem Informasi'),
@@ -27,7 +27,7 @@ REPLACE INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
 	(13, 'Manajemen Bisnis');
 
 -- Dumping data for table cluster_dosen.tb_dosen: ~16 rows (approximately)
-REPLACE INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_kelamin`, `pendidikan_s1`, `pendidikan_s2`, `pendidikan_s3`, `tempat_lahir`, `tanggal_lahir`, `agama`, `prodi_id`, `nama_bidangilmu`, `hitung`) VALUES
+INSERT INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_kelamin`, `pendidikan_s1`, `pendidikan_s2`, `pendidikan_s3`, `tempat_lahir`, `tanggal_lahir`, `agama`, `prodi_id`, `nama_bidangilmu`, `hitung`) VALUES
 	(14, 'TIA0002', 'Abdul Kadir Jailani, S.Kom., M', '0025067501', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-21', 'Kristen Protestan', 4, 'K3', 'Ya'),
 	(15, 'TIA0003', 'Abdul Rauf, Dr., S.H., M.H.', '0924097202', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-28', 'Katolik', 4, 'K2', 'Ya'),
 	(16, 'TIA0004', 'Abdul Ibrahim, Dr., S.T., M.T.', '931127016', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-23', 'Kristen Protestan', 4, 'K3', 'Ya'),
@@ -46,7 +46,7 @@ REPLACE INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_
 	(30, 'BD00069', 'Ooka Pratama', '202249', 'Laki-laki', 'S.Kom', 'M.Kom', '-', 'Makassar', '2024-04-25', 'Islam', 11, '0', 'Ya');
 
 -- Dumping data for table cluster_dosen.tb_kriteria: ~5 rows (approximately)
-REPLACE INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VALUES
+INSERT INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VALUES
 	(4, 'K1', 'Komputer'),
 	(12, 'K2', 'Sistem Informasi'),
 	(13, 'K3', 'Elektro'),
@@ -54,11 +54,11 @@ REPLACE INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VAL
 	(16, 'K5', 'Sains');
 
 -- Dumping data for table cluster_dosen.tb_penelitian: ~1 rows (approximately)
-REPLACE INTO `tb_penelitian` (`id`, `kode_dosen`, `judul_jurnal`, `bidang_ilmu`) VALUES
+INSERT INTO `tb_penelitian` (`id`, `kode_dosen`, `judul_jurnal`, `bidang_ilmu`) VALUES
 	(1, '14', 'Jurnal Implementasi Design THinking', '9');
 
 -- Dumping data for table cluster_dosen.tb_prodi: ~6 rows (approximately)
-REPLACE INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
+INSERT INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
 	(4, 'TI', 'tidak aktif'),
 	(5, 'SI', 'tidak aktif'),
 	(6, 'MI', 'tidak aktif'),
@@ -67,7 +67,7 @@ REPLACE INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
 	(11, 'Bisnis Digital', 'tidak aktif');
 
 -- Dumping data for table cluster_dosen.tb_rel_dosen: ~116 rows (approximately)
-REPLACE INTO `tb_rel_dosen` (`ID`, `id_dosen`, `id_kriteria`, `nilai`, `prodi_id`) VALUES
+INSERT INTO `tb_rel_dosen` (`ID`, `id_dosen`, `id_kriteria`, `nilai`, `prodi_id`) VALUES
 	(41, 0, 4, 0, 4),
 	(44, 0, 4, 0, 4),
 	(47, 0, 4, 0, 4),
