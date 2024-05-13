@@ -14,9 +14,24 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- Dumping structure for table cluster_dosen.tb_admin
+CREATE TABLE IF NOT EXISTS `tb_admin` (
+  `user` varchar(16) NOT NULL,
+  `pass` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Dumping data for table cluster_dosen.tb_admin: ~1 rows (approximately)
 INSERT INTO `tb_admin` (`user`, `pass`) VALUES
 	('admin', 'admin');
+
+-- Dumping structure for table cluster_dosen.tb_bidangilmu
+CREATE TABLE IF NOT EXISTS `tb_bidangilmu` (
+  `id_bidangilmu` int NOT NULL AUTO_INCREMENT,
+  `nama_bidangilmu` varchar(35) NOT NULL,
+  PRIMARY KEY (`nama_bidangilmu`),
+  KEY `kelas_id` (`id_bidangilmu`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table cluster_dosen.tb_bidangilmu: ~5 rows (approximately)
 INSERT INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
@@ -25,6 +40,25 @@ INSERT INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
 	(11, 'Sistem Informasi'),
 	(12, 'Elektro'),
 	(13, 'Manajemen Bisnis');
+
+-- Dumping structure for table cluster_dosen.tb_dosen
+CREATE TABLE IF NOT EXISTS `tb_dosen` (
+  `id_dosen` int NOT NULL AUTO_INCREMENT,
+  `kode_dosen` varchar(255) NOT NULL,
+  `nama_dosen` varchar(30) NOT NULL,
+  `nidn` varchar(25) NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `pendidikan_s1` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `pendidikan_s2` varchar(50) DEFAULT NULL,
+  `pendidikan_s3` varchar(50) DEFAULT NULL,
+  `tempat_lahir` varchar(25) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `agama` enum('Islam','Kristen Protestan','Katolik','Hindu','Buddha','Kong Hu Cu') NOT NULL,
+  `prodi_id` int NOT NULL,
+  `nama_bidangilmu` varchar(35) NOT NULL,
+  `hitung` enum('Ya','Tidak') DEFAULT NULL,
+  PRIMARY KEY (`id_dosen`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table cluster_dosen.tb_dosen: ~16 rows (approximately)
 INSERT INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_kelamin`, `pendidikan_s1`, `pendidikan_s2`, `pendidikan_s3`, `tempat_lahir`, `tanggal_lahir`, `agama`, `prodi_id`, `nama_bidangilmu`, `hitung`) VALUES
@@ -45,6 +79,14 @@ INSERT INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_k
 	(28, 'TIA0006', 'Arham Arifin, S.Kom., M.T', '0905058904', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-23', 'Islam', 4, '0', 'Ya'),
 	(30, 'BD00069', 'Ooka Pratama', '202249', 'Laki-laki', 'S.Kom', 'M.Kom', '-', 'Makassar', '2024-04-25', 'Islam', 11, '0', 'Ya');
 
+-- Dumping structure for table cluster_dosen.tb_kriteria
+CREATE TABLE IF NOT EXISTS `tb_kriteria` (
+  `id_kriteria` int NOT NULL AUTO_INCREMENT,
+  `kode_kriteria` varchar(16) NOT NULL,
+  `nama_kriteria` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_kriteria`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
 -- Dumping data for table cluster_dosen.tb_kriteria: ~5 rows (approximately)
 INSERT INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VALUES
 	(4, 'K1', 'Komputer'),
@@ -53,9 +95,26 @@ INSERT INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VALU
 	(15, 'K4', 'Manajemen Bisnis'),
 	(16, 'K5', 'Sains');
 
+-- Dumping structure for table cluster_dosen.tb_penelitian
+CREATE TABLE IF NOT EXISTS `tb_penelitian` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `kode_dosen` varchar(50) NOT NULL DEFAULT '',
+  `judul_jurnal` varchar(100) NOT NULL DEFAULT '',
+  `bidang_ilmu` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- Dumping data for table cluster_dosen.tb_penelitian: ~1 rows (approximately)
 INSERT INTO `tb_penelitian` (`id`, `kode_dosen`, `judul_jurnal`, `bidang_ilmu`) VALUES
 	(1, '14', 'Jurnal Implementasi Design THinking', '9');
+
+-- Dumping structure for table cluster_dosen.tb_prodi
+CREATE TABLE IF NOT EXISTS `tb_prodi` (
+  `prodi_id` int NOT NULL AUTO_INCREMENT,
+  `nama_prodi` varchar(20) DEFAULT NULL,
+  `status` enum('aktif','tidak aktif') DEFAULT NULL,
+  PRIMARY KEY (`prodi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table cluster_dosen.tb_prodi: ~6 rows (approximately)
 INSERT INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
@@ -65,6 +124,19 @@ INSERT INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
 	(7, 'RPL', 'tidak aktif'),
 	(10, 'Kewirausahaan', 'aktif'),
 	(11, 'Bisnis Digital', 'tidak aktif');
+
+-- Dumping structure for table cluster_dosen.tb_rel_dosen
+CREATE TABLE IF NOT EXISTS `tb_rel_dosen` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `id_dosen` int NOT NULL,
+  `id_kriteria` int NOT NULL,
+  `nilai` double NOT NULL,
+  `prodi_id` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `id_siswa` (`id_dosen`),
+  KEY `id_kriteria` (`id_kriteria`),
+  KEY `tahun_id` (`prodi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=460 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table cluster_dosen.tb_rel_dosen: ~116 rows (approximately)
 INSERT INTO `tb_rel_dosen` (`ID`, `id_dosen`, `id_kriteria`, `nilai`, `prodi_id`) VALUES
