@@ -54,7 +54,7 @@ function get_data(){
         FROM tb_dosen a 
         	INNER JOIN tb_rel_dosen ra ON ra.id_dosen=a.id_dosen
         	INNER JOIN tb_kriteria k ON k.id_kriteria=ra.id_kriteria
-            WHERE a.prodi_id='$prodi' AND a.hitung='Ya'
+            WHERE  a.hitung='Ya'
         ORDER BY a.id_dosen, k.id_kriteria");
     $data = array();
     foreach($rows as $row){
@@ -115,6 +115,29 @@ function get_prodiview_option($selected = ''){
             $a.="<option value='$row->prodi_id' selected>$row->nama_prodi</option>";
         else
             $a.="<option value='$row->prodi_id'>$row->nama_prodi</option>";
+    }
+    return $a;
+}
+
+function get_dosen_option($selected = ''){
+    global $db;
+    $rows = $db->get_results("SELECT id_dosen, nama_dosen FROM tb_dosen WHERE id_dosen = '". $_SESSION['id_dosen_global'] ."' ORDER BY id_dosen DESC");
+    foreach($rows as $row){
+        if($row->id_dosen==$selected)
+            $a.="<option value='$row->id_dosen' selected>$row->nama_dosen</option>";
+        else
+            $a.="<option selected value='$row->id_dosen'>$row->nama_dosen</option>";
+    }
+    return $a;
+}
+function get_kriteria_option($selected = ''){
+    global $db;
+    $rows = $db->get_results("SELECT id_kriteria, nama_kriteria FROM tb_kriteria ORDER BY id_kriteria DESC");
+    foreach($rows as $row){
+        if($row->id_kriteria==$selected)
+            $a.="<option value='$row->id_kriteria' selected>$row->nama_kriteria</option>";
+        else
+            $a.="<option value='$row->id_kriteria'>$row->nama_kriteria</option>";
     }
     return $a;
 }

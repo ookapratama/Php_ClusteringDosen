@@ -2,6 +2,9 @@
 $prodi = $_REQUEST['prodi_id'];
 
 $id_dosen = $_GET['ID'];
+
+session_start();
+$_SESSION['id_dosen_global'] = $_GET['ID'];
 // $rows = $db->get_results("SELECT a.id_dosen, ra.id_kriteria, ra.nilai, a.hitung           
 //         FROM tb_rel_dosen ra 
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
@@ -13,10 +16,10 @@ $id_dosen = $_GET['ID'];
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
 //         ORDER BY ra.id_dosen, ra.id_kriteria");
 
-$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.kode_dosen, b.nama_dosen, b.kode_dosen, c.nama_bidangilmu 
+$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.kode_dosen, b.nama_dosen, b.kode_dosen, c.nama_kriteria, c.id_kriteria 
         FROM tb_penelitian a 
         INNER JOIN tb_dosen b ON a.kode_dosen = b.id_dosen
-        INNER JOIN tb_bidangilmu c ON a.bidang_ilmu = c.id_bidangilmu
+        INNER JOIN tb_kriteria c ON a.bidang_ilmu = c.id_kriteria
         WHERE a.kode_dosen = $id_dosen
         ");
 
@@ -93,11 +96,11 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
             <td><?= $val->kode_dosen ?></td>
             <td><?= $val->nama_dosen ?></td>
             <td><?= $val->judul_jurnal ?></td>
-            <td><?= $val->nama_bidangilmu ?></td>
+            <td><?= $val->nama_kriteria ?></td>
 
             <td class="text-center">
-              <a class="btn btn-xs btn-warning" href="?m=jurnal_ubah.php&ID=<?= $val->id ?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a>
-              <a class="btn btn-xs btn-danger notif-hapus" href="aksi.php?act=jurnal_hapus&ID=<?= $val->id ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+              <!-- <a class="btn btn-xs btn-warning" href="?m=jurnal_ubah.php&ID=<?= $val->id ?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a> -->
+              <a class="btn btn-xs btn-danger notif-hapus" href="aksi.php?act=jurnal_hapus&ID=<?= $val->id ?>&kode_dosen=<?= $val->kode_dosen ?>&id_kriteria=<?= $val->id_kriteria ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
             </td>
           </tr>
         <?php endforeach; ?>

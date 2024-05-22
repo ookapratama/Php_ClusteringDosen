@@ -174,8 +174,32 @@ if ($mod == 'prodi_tambah') {
 
 // JURNAL PENELITIAN
 if ($act == 'jurnal_hapus') {
+    var_dump($_GET['id_kriteria']);
+
+    $db->query("UPDATE tb_rel_dosen SET nilai=nilai - 1 WHERE id_kriteria= '" . $_GET['id_kriteria'] . "' ");
+
     $db->query("DELETE FROM tb_penelitian WHERE id='$_GET[ID]'");
-    header("location:index.php?m=jurnal");
+    header("location:index.php?m=jurnal&ID= '" .  $_SESSION['id_dosen_global'] . "'  ");
+}
+
+if ($mod == 'jurnal_tambah') {
+    // var_dump($_POST);
+    $id_dosen = $_POST['kode_dosen'];
+    $judul_jurnal = $_POST['judul_jurnal'];
+    $id_kriteria = $_POST['id_kriteria'];
+
+
+    if ($id_dosen == '' || $judul_jurnal == '' || $id_kriteria == '')
+        print_msg("Field bertanda * tidak boleh kosong!");
+    elseif ($db->get_results("SELECT * FROM tb_penelitian WHERE judul_jurnal='$judul_jurnal'"))
+        print_msg("Judul Jurnal sudah ada!");
+    else {
+
+        $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria'");
+
+        $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria')");
+        sweet_alert_direct("Operasi Berhasil", "Jurnal Berhasil Ditambahkan.", "success", "3500", "true", "?m=jurnal&ID=$id_dosen");
+    }
 }
 
 /* CLUSTER MANUAL */

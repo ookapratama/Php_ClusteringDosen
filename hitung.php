@@ -25,14 +25,16 @@
                 $maksimum   = $_POST['maksimum'];   
                 $pembobot   = $_POST['pembobot'];   
                 $epsilon    = $_POST['epsilon'];
-                $prodi      = $_POST['prodi_id'];     
+                // $prodi      = $_POST['prodi_id'];     
                 if($cluster < 2 || $maksimum < 10){
                     sweet_alert_direct("Kesalahan", "Masukkan minimal 2 clustering, dan 10 iterasi.", "error", "4000", "true", "?m=hitung");
                 } elseif($cluster >= 12){
                     sweet_alert_direct("Kesalahan", "Maksimal cluster adalah 11.", "error", "4000", "true", "?m=hitung");
-                } elseif($prodi==0) {
-                    sweet_alert_direct("Kesalahan", "Prodi Belum Dipilih.", "error", "4000", "true", "?m=hitung");
-                } elseif($data==null) {
+                } 
+                // elseif($prodi==0) {
+                //     sweet_alert_direct("Kesalahan", "Prodi Belum Dipilih.", "error", "4000", "true", "?m=hitung");
+                // } 
+                elseif($data==null) {
                     sweet_alert_direct("Notifikasi", "Data dosen diprodi tersebut, tidak tersedia.", "info", "4000", "true", "?m=hitung");
                 } else {
                     $succes = true;
@@ -70,7 +72,7 @@
                             <label>Prodi <span class="text-danger">*</span></label>
                             <select class="form-control" name="prodi_id">
                                 <option readonly="readonly">-- Pilih Prodi --</option>
-                                <?=get_prodiview_option(set_value('prodi_id'))?>
+                                <?php //  echo get_prodiview_option(set_value('prodi_id'))?>
                             </select>
                         </div> -->
                         <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-screenshot"></span> Proses Cluster</button>
