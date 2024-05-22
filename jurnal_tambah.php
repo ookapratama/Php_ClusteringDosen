@@ -27,6 +27,11 @@ session_start();
             </div>
 
             <div class="form-group">
+                <label>Mata Kuliah<span class="text-danger">*</span></label>
+                <input class="form-control" type="text" name="mata_kuliah" placeholder="Isi Mata Kuliah" />
+            </div>
+
+            <div class="form-group">
                 <label>Pilih Bidang Keilmuan<span class="text-danger">*</span></label>
                 <select class="form-control" name="id_kriteria" id="id_kriteria" onchange="pilihProdi()">
                     <option readonly="readonly">- Pilih Bidang Ilmu -</option>

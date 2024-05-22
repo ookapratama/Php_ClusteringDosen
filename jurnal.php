@@ -16,7 +16,7 @@ $_SESSION['id_dosen_global'] = $_GET['ID'];
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
 //         ORDER BY ra.id_dosen, ra.id_kriteria");
 
-$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.kode_dosen, b.nama_dosen, b.kode_dosen, c.nama_kriteria, c.id_kriteria 
+$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.mata_kuliah, a.kode_dosen, b.nama_dosen, b.kode_dosen, c.nama_kriteria, c.id_kriteria 
         FROM tb_penelitian a 
         INNER JOIN tb_dosen b ON a.kode_dosen = b.id_dosen
         INNER JOIN tb_kriteria c ON a.bidang_ilmu = c.id_kriteria
@@ -86,6 +86,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
           <th>Kode</th>
           <th>Nama Dosen</th>
           <th>Judul Jurnal</th>
+          <th>Mata Kuliah</th>
           <th>Bidang Ilmu</th>
           <th>Aksi</th>
         </tr>
@@ -96,6 +97,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
             <td><?= $val->kode_dosen ?></td>
             <td><?= $val->nama_dosen ?></td>
             <td><?= $val->judul_jurnal ?></td>
+            <td><?= $val->mata_kuliah ?></td>
             <td><?= $val->nama_kriteria ?></td>
 
             <td class="text-center">

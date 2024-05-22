@@ -59,7 +59,7 @@ foreach($rows as $row){
             <?php endforeach?>
             <td class="text-center">
                 <a class="btn btn-xs btn-primary" href="?m=jurnal&ID=<?= $key ?>"><span class="glyphicon glyphicon-list-alt"></span> Lihat Jurnal</a> 
-                <a class="btn btn-xs btn-warning" href="?m=rel_dosen_ubah&ID=<?=$key?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a>        
+                <!-- <a class="btn btn-xs btn-warning" href="?m=rel_dosen_ubah&ID=<?=$key?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a>         -->
             </td>
         </tr>
         <?php endforeach; ?>

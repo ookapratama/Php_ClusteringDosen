@@ -187,6 +187,7 @@ if ($mod == 'jurnal_tambah') {
     $id_dosen = $_POST['kode_dosen'];
     $judul_jurnal = $_POST['judul_jurnal'];
     $id_kriteria = $_POST['id_kriteria'];
+    $mata_kuliah = $_POST['mata_kuliah'];
 
 
     if ($id_dosen == '' || $judul_jurnal == '' || $id_kriteria == '')
@@ -197,7 +198,7 @@ if ($mod == 'jurnal_tambah') {
 
         $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria'");
 
-        $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria')");
+        $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria', '$mata_kuliah')");
         sweet_alert_direct("Operasi Berhasil", "Jurnal Berhasil Ditambahkan.", "success", "3500", "true", "?m=jurnal&ID=$id_dosen");
     }
 }
