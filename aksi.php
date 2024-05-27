@@ -188,7 +188,9 @@ if ($mod == 'jurnal_tambah') {
     $judul_jurnal = $_POST['judul_jurnal'];
     $id_kriteria = $_POST['id_kriteria'];
     $mata_kuliah = $_POST['mata_kuliah'];
+    $prodi_id = $_POST['prodi_id'];
 
+    // var_dump($_POST);
 
     if ($id_dosen == '' || $judul_jurnal == '' || $id_kriteria == '')
         print_msg("Field bertanda * tidak boleh kosong!");
@@ -196,7 +198,7 @@ if ($mod == 'jurnal_tambah') {
         print_msg("Judul Jurnal sudah ada!");
     else {
 
-        $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria'");
+        $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria' AND prodi_id='$prodi_id' ");
 
         $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria', '$mata_kuliah')");
         sweet_alert_direct("Operasi Berhasil", "Jurnal Berhasil Ditambahkan.", "success", "3500", "true", "?m=jurnal&ID=$id_dosen");

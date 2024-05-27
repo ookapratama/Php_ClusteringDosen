@@ -22,6 +22,10 @@ session_start();
             </div>
 
             <div class="form-group">
+                <input class="form-control" type="hidden" name="prodi_id" value="<?= $_SESSION['prodi_dosen_global'] ?>" placeholder="Prodi ID" />
+            </div>
+
+            <div class="form-group">
                 <label>Nama Jurnal Penelitian<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="judul_jurnal" placeholder="Isi Judul Jurnal" />
             </div>

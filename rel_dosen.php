@@ -5,7 +5,7 @@ $prodi= $_REQUEST['prodi_id'];
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
 //             WHERE a.prodi_id='$prodi'
 //         ORDER BY ra.id_dosen, ra.id_kriteria");
-$rows = $db->get_results("SELECT a.id_dosen, ra.id_kriteria, ra.nilai, a.hitung           
+$rows = $db->get_results("SELECT a.id_dosen, ra.id_kriteria, ra.nilai, a.hitung, a.prodi_id           
         FROM tb_rel_dosen ra 
         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
         ORDER BY ra.id_dosen, ra.id_kriteria");
@@ -50,15 +50,16 @@ foreach($rows as $row){
             </tr>
         </thead>
         <tbody>
-        <?php foreach($data as $key => $val):?>
+        <?php foreach($data as $key => $val): ?>
         <tr>
             <td><?=$ALTERNATIF[$key]->kode_dosen?></td>
             <td><?=$ALTERNATIF[$key]->nama_dosen?></td>
             <?php foreach($val as $k => $v):?>
             <td><?=$v?></td>               
             <?php endforeach?>
+            
             <td class="text-center">
-                <a class="btn btn-xs btn-primary" href="?m=jurnal&ID=<?= $key ?>"><span class="glyphicon glyphicon-list-alt"></span> Lihat Jurnal</a> 
+                <a class="btn btn-xs btn-primary" href="?m=jurnal&ID=<?= $key ?>&prodi_id=<?= $ALTERNATIF[$key]->prodi_id ?>"><span class="glyphicon glyphicon-list-alt"></span> Lihat Jurnal</a> 
                 <!-- <a class="btn btn-xs btn-warning" href="?m=rel_dosen_ubah&ID=<?=$key?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a>         -->
             </td>
         </tr>

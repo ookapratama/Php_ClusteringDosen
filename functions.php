@@ -13,7 +13,7 @@ include'includes/fcm.php';
 $mod = $_GET['m'];
 $act = $_GET['act'];
 
-$rows = $db->get_results("SELECT id_dosen, kode_dosen, nama_dosen, hitung FROM tb_dosen ORDER BY id_dosen");
+$rows = $db->get_results("SELECT id_dosen, kode_dosen, nama_dosen, hitung, prodi_id FROM tb_dosen ORDER BY id_dosen");
 foreach($rows as $row){
     $ALTERNATIF[$row->id_dosen] = $row;
 }
@@ -121,7 +121,7 @@ function get_prodiview_option($selected = ''){
 
 function get_dosen_option($selected = ''){
     global $db;
-    $rows = $db->get_results("SELECT id_dosen, nama_dosen FROM tb_dosen WHERE id_dosen = '". $_SESSION['id_dosen_global'] ."' ORDER BY id_dosen DESC");
+    $rows = $db->get_results("SELECT id_dosen, nama_dosen, prodi_id FROM tb_dosen WHERE id_dosen = '". $_SESSION['id_dosen_global'] ."' ORDER BY id_dosen DESC");
     foreach($rows as $row){
         if($row->id_dosen==$selected)
             $a.="<option value='$row->id_dosen' selected>$row->nama_dosen</option>";
