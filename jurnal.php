@@ -18,7 +18,7 @@ $_SESSION['prodi_dosen_global'] = $_GET['prodi_id'];
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
 //         ORDER BY ra.id_dosen, ra.id_kriteria");
 
-$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.mata_kuliah, a.kode_dosen, b.nama_dosen, b.kode_dosen, b.prodi_id, c.nama_kriteria, c.id_kriteria, d.nama_prodi
+$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.mata_kuliah, a.kode_dosen, b.nama_dosen, b.kode_dosen, b.id_dosen, b.prodi_id, c.nama_kriteria, c.id_kriteria, d.nama_prodi
         FROM tb_penelitian a 
         INNER JOIN tb_dosen b ON a.kode_dosen = b.id_dosen
         INNER JOIN tb_kriteria c ON a.bidang_ilmu = c.id_kriteria
@@ -107,7 +107,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
 
             <td class="text-center">
               <!-- <a class="btn btn-xs btn-warning" href="?m=jurnal_ubah.php&ID=<?= $val->id ?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a> -->
-              <a class="btn btn-xs btn-danger notif-hapus" href="aksi.php?act=jurnal_hapus&ID=<?= $val->id ?>&kode_dosen=<?= $val->kode_dosen ?>&id_kriteria=<?= $val->id_kriteria ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+              <a class="btn btn-xs btn-danger notif-hapus" href="aksi.php?act=jurnal_hapus&ID=<?= $val->id ?>&kode_dosen=<?= $val->id_dosen ?>&id_kriteria=<?= $val->id_kriteria ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
             </td>
           </tr>
         <?php endforeach; ?>

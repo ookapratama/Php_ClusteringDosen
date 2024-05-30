@@ -174,12 +174,15 @@ if ($mod == 'prodi_tambah') {
 
 // JURNAL PENELITIAN
 if ($act == 'jurnal_hapus') {
-    var_dump($_GET['id_kriteria']);
+    $id_jurnal = $_GET['ID'];
+    $kode_dosen = $_GET['kode_dosen'];
+    $id_kriteria = $_GET['id_kriteria'];
 
-    $db->query("UPDATE tb_rel_dosen SET nilai=nilai - 1 WHERE id_kriteria= '" . $_GET['id_kriteria'] . "' ");
+    $db->query("UPDATE tb_rel_dosen SET nilai=nilai - 1 WHERE id_kriteria= '$id_kriteria' AND id_dosen = '$kode_dosen'  ");
 
-    $db->query("DELETE FROM tb_penelitian WHERE id='$_GET[ID]'");
-    header("location:index.php?m=jurnal&ID= '" .  $_SESSION['id_dosen_global'] . "'  ");
+    $db->query("DELETE FROM tb_penelitian WHERE id='$id_jurnal'");
+
+    header("location:index.php?m=jurnal&ID=$kode_dosen");
 }
 
 if ($mod == 'jurnal_tambah') {
