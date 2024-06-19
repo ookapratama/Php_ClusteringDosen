@@ -178,7 +178,7 @@ if ($act == 'jurnal_hapus') {
     $kode_dosen = $_GET['kode_dosen'];
     $id_kriteria = $_GET['id_kriteria'];
 
-    $db->query("UPDATE tb_rel_dosen SET nilai=nilai - 1 WHERE id_kriteria= '$id_kriteria' AND id_dosen = '$kode_dosen'  ");
+    $db->query("UPDATE tb_rel_dosen SET nilai_kriteria = 0, penelitian = 0, pengajaran = 0, bimbingan = 0 WHERE id_kriteria= '$id_kriteria' AND id_dosen = '$kode_dosen'  ");
 
     $db->query("DELETE FROM tb_penelitian WHERE id='$id_jurnal'");
 
@@ -189,21 +189,75 @@ if ($mod == 'jurnal_tambah') {
     // var_dump($_POST);
     $id_dosen = $_POST['kode_dosen'];
     $judul_jurnal = $_POST['judul_jurnal'];
-    $id_kriteria = $_POST['id_kriteria'];
     $mata_kuliah = $_POST['mata_kuliah'];
+    $penelitian = (int)$_POST['penelitian'];
+    $pengajaran = (int)$_POST['pengajaran'];
+    $bimbingan = (int)$_POST['bimbingan'];
     $prodi_id = $_POST['prodi_id'];
+    // die(var_dump($id_dosen));
 
-    // var_dump($_POST);
-
-    if ($id_dosen == '' || $judul_jurnal == '' || $id_kriteria == '')
+    if ($id_dosen == '' || $judul_jurnal == '' || $mata_kuliah == '' || $penelitian == '' || $pengajaran == '' || $bimbingan == '') {
         print_msg("Field bertanda * tidak boleh kosong!");
-    elseif ($db->get_results("SELECT * FROM tb_penelitian WHERE judul_jurnal='$judul_jurnal'"))
+        return;
+    } elseif ($db->get_results("SELECT * FROM tb_penelitian WHERE judul_jurnal='$judul_jurnal'")) {
         print_msg("Judul Jurnal sudah ada!");
-    else {
+        return;
+    } else {
+        // $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria' AND prodi_id='$prodi_id' AND id_dosen ='$id_dosen' ");
 
-        $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria' AND prodi_id='$prodi_id' AND id_dosen ='$id_dosen' ");
+        // $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria', '$mata_kuliah')");
+        include 'fuzzy_logic.php';
 
-        $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria', '$mata_kuliah')");
+        // Terapkan logika fuzzy
+        $hasil = determineDominasi($penelitian, $pengajaran, $bimbingan, $db);
+
+        if ($hasil === null) {
+            print_msg("Tidak dapat menentukan bidang dominan berdasarkan data yang diberikan.");
+            return;
+        }
+
+
+        $kriteria_penelitian = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$penelitian'");
+        $kriteria_pengajaran = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$pengajaran'");
+        $kriteria_bimbingan = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$bimbingan'");
+
+        $existing_entry = $db->get_row("SELECT * FROM tb_rel_dosen WHERE id_dosen='$id_dosen' AND id_kriteria='$hasil' AND prodi_id='$prodi_id'");
+
+        $data_kriteria = array(
+            $penelitian,
+            $pengajaran,
+            $bimbingan,
+        );
+
+
+
+        // var_dump($hasil);
+        // var_dump($data_kriteria);
+        // die('stop');
+        // var_dump($id_dosen);
+        // var_dump($prodi_id);
+
+        // foreach ([$penelitian, $pengajaran, $bimbingan] as $data_id) {
+            $update_query = "
+                UPDATE tb_rel_dosen 
+                SET 
+                    penelitian = CASE WHEN id_kriteria = $penelitian THEN penelitian + 1 ELSE penelitian END,
+                    pengajaran = CASE WHEN id_kriteria = $pengajaran THEN pengajaran + 1 ELSE pengajaran END,
+                    bimbingan = CASE WHEN id_kriteria = $bimbingan THEN bimbingan + 1 ELSE bimbingan END
+                WHERE id_dosen = '$id_dosen' 
+                AND prodi_id = '$prodi_id'
+            ";
+        
+            $db->query($update_query);
+        // }
+        // die('true');
+
+        $db->query("
+            INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) 
+            VALUES ('$id_dosen', '$judul_jurnal', '$hasil', '$mata_kuliah')
+        ");
+
+
         sweet_alert_direct("Operasi Berhasil", "Jurnal Berhasil Ditambahkan.", "success", "3500", "true", "?m=jurnal&ID=$id_dosen");
     }
 }
@@ -218,6 +272,43 @@ if ($mod == 'cluster_ubah') {
         $db->query("UPDATE tb_dosen SET nama_bidangilmu='$nama_bidangilmu' WHERE id_dosen='$_GET[ID]'");
         sweet_alert_direct("Operasi Berhasil", "Cluster Berhasil Diubah.", "success", "3500", "true", "?m=cluster");
     }
+}
+
+/* RULES */
+if ($mod == 'rules_tambah') {
+    $pengajaran = $_POST['pengajaran'];
+    $penelitian = $_POST['penelitian'];
+    $bimbingan = $_POST['bimbingan'];
+    $hasil = $_POST['hasil'];
+
+    if ($pengajaran == '' || $penelitian == '' || $bimbingan == '' || $hasil == '') {
+        print_msg("Field bertanda * tidak boleh kosong!");
+        return;
+    } else {
+        // var_dump($_POST);
+        // die($_POST);
+        $db->query("INSERT INTO tb_rules (pengajaran, penelitian, bimbingan, hasil) 
+            VALUES ('$pengajaran', '$penelitian', '$bimbingan', '$hasil')");
+        sweet_alert_direct("Operasi Berhasil", "rules Berhasil Ditambahkan.", "success", "3500", "true", "?m=rules");
+    }
+} else if ($mod == 'rules_ubah') {
+    $id_rules = $_POST['id_rules'];
+    $pengajaran = $_POST['pengajaran'];
+    $penelitian = $_POST['penelitian'];
+    $bimbingan = $_POST['bimbingan'];
+    $hasil = $_POST['hasil'];
+
+    if ($pengajaran == '' || $penelitian == '' || $bimbingan == '' || $hasil == '') {
+        print_msg("Field bertanda * tidak boleh kosong!");
+        return;
+    } else {
+        $db->query("UPDATE tb_rules SET pengajaran='$pengajaran', penelitian='$penelitian', bimbingan='$bimbingan', hasil='$hasil' WHERE id='$id_rules'");
+        sweet_alert_direct("Operasi Berhasil", "rules Berhasil Diubah.", "success", "3500", "true", "?m=rules");
+    }
+} else if ($act == 'rules_hapus') {
+    // die($act);
+    $db->query("DELETE FROM tb_rules WHERE id='$_GET[ID]'");
+    header("location:index.php?m=rules");
 }
 
 /* KRITERIA */

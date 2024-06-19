@@ -68,8 +68,8 @@
                 </ul>
             </li>
             <li>
-              <a href="?m=hitung">
-                <span class="glyphicon glyphicon-hourglass"></span> Perhitungan
+              <a href="?m=rules">
+                <span class="glyphicon glyphicon-hourglass"></span> Rules
               </a>
             </li>    
             <li>
