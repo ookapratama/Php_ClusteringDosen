@@ -107,9 +107,6 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
             <td><?= $val->nama_prodi ?></td>
             <td><?= $val->judul_jurnal ?></td>
             <td><?= $val->mata_kuliah ?></td>
-            <!-- <td><?= $val->penelitian ?? 0 ?></td>
-            <td><?= $val->bimbingan ?? 0 ?></td>
-            <td><?= $val->pengajaran ?? 0 ?></td> -->
             <td><?= $val->nama_kriteria ?></td>
 
             <td class="text-center">
