@@ -1,0 +1,7 @@
+[user]
+    email=ookapratama2@gmail.com
+    name=ookapratama
+
+[alias]
+    setpromail = "config user.email 'ookapratama2@gmail.com'"
+

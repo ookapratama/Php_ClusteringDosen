@@ -36,6 +36,14 @@ session_start();
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label>Tahunn Jurnal<span class="text-danger">*</span></label>
+                        <select class="form-control" name="tahunJurnal" id="penelitian">
+                            <option readonly="readonly">- Pilih Tahun Jurnal -</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <h5>Bidang Pengajaran</h5>
@@ -51,6 +59,14 @@ session_start();
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
+                    <!-- <div class="form-group">
+                        <label>Tahunn Ajaran<span class="text-danger">*</span></label>
+                        <select class="form-control" name="tahunAjaran" id="penelitian" >
+                            <option readonly="readonly">- Pilih Tahun Ajaran -</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div> -->
                 </div>
                 <div class="col-md-4">
                     <h5>Bidang Bimbingan</h5>
@@ -65,6 +81,14 @@ session_start();
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
+                    <!-- <div class="form-group">
+                        <label>Tahunn Bimbingan<span class="text-danger">*</span></label>
+                        <select class="form-control" name="tahunBimbingan" id="penelitian" >
+                            <option readonly="readonly">- Pilih Tahun Bimbingan -</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div> -->
                 </div>
             </div>
             <div class="form-group ">

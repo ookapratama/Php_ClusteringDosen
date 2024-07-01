@@ -188,14 +188,17 @@ if ($act == 'jurnal_hapus') {
 if ($mod == 'jurnal_tambah') {
     // var_dump($_POST);
     $id_dosen = $_POST['kode_dosen'];
+    $penelitian = $_POST['penelitian'];
     $judul_jurnal = $_POST['judul_jurnal'];
+    $pengajaran = $_POST['pengajaran'];
     $mata_kuliah = $_POST['mata_kuliah'];
-    $penelitian = (int)$_POST['penelitian'];
-    $pengajaran = (int)$_POST['pengajaran'];
-    $bimbingan = (int)$_POST['bimbingan'];
+    $bimbingan = $_POST['bimbingan'];
+    $judul_bimbingan = $_POST['judul_bimbingan'];
+    $tahun = $_POST['tahunJurnal'];
     $prodi_id = $_POST['prodi_id'];
-    // die(var_dump($id_dosen));
-
+    // die(var_dump($_POST));
+    // var_dump($_POST['bimbingan']);
+    
     if ($id_dosen == '' || $judul_jurnal == '' || $mata_kuliah == '' || $penelitian == '' || $pengajaran == '' || $bimbingan == '') {
         print_msg("Field bertanda * tidak boleh kosong!");
         return;
@@ -204,23 +207,24 @@ if ($mod == 'jurnal_tambah') {
         return;
     } else {
         // $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria' AND prodi_id='$prodi_id' AND id_dosen ='$id_dosen' ");
-
+        
         // $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria', '$mata_kuliah')");
         include 'fuzzy_logic.php';
-
+        
         // Terapkan logika fuzzy
         $hasil = determineDominasi($penelitian, $pengajaran, $bimbingan, $db);
-
+        
         if ($hasil === null) {
             print_msg("Tidak dapat menentukan bidang dominan berdasarkan data yang diberikan.");
             return;
         }
-
-
+        
+        
         $kriteria_penelitian = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$penelitian'");
         $kriteria_pengajaran = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$pengajaran'");
         $kriteria_bimbingan = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$bimbingan'");
-
+        
+        // die(var_dump($hasil));
         $existing_entry = $db->get_row("SELECT * FROM tb_rel_dosen WHERE id_dosen='$id_dosen' AND id_kriteria='$hasil' AND prodi_id='$prodi_id'");
 
         $data_kriteria = array(
@@ -253,8 +257,8 @@ if ($mod == 'jurnal_tambah') {
         // die('true');
 
         $db->query("
-            INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) 
-            VALUES ('$id_dosen', '$judul_jurnal', '$hasil', '$mata_kuliah')
+            INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah, tahunJurnal, judulBimbingan) 
+            VALUES ('$id_dosen', '$judul_jurnal', '$hasil', '$mata_kuliah', '$tahun', '$judul_bimbingan')
         ");
 
 
