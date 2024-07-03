@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS `tb_admin` (
   PRIMARY KEY (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_admin: ~1 rows (approximately)
+-- Dumping data for table cluster_dosen.tb_admin: ~0 rows (approximately)
+DELETE FROM `tb_admin`;
 INSERT INTO `tb_admin` (`user`, `pass`) VALUES
 	('admin', 'admin');
 
@@ -33,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `tb_bidangilmu` (
   KEY `kelas_id` (`id_bidangilmu`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_bidangilmu: ~4 rows (approximately)
+-- Dumping data for table cluster_dosen.tb_bidangilmu: ~5 rows (approximately)
+DELETE FROM `tb_bidangilmu`;
 INSERT INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
 	(9, 'Sains'),
 	(10, 'Komputer'),
@@ -60,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `tb_dosen` (
   PRIMARY KEY (`id_dosen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_dosen: ~20 rows (approximately)
+-- Dumping data for table cluster_dosen.tb_dosen: ~21 rows (approximately)
+DELETE FROM `tb_dosen`;
 INSERT INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_kelamin`, `pendidikan_s1`, `pendidikan_s2`, `pendidikan_s3`, `tempat_lahir`, `tanggal_lahir`, `agama`, `prodi_id`, `nama_bidangilmu`, `hitung`) VALUES
 	(14, 'TIA0002', 'Abdul Kadir Jailani, S.Kom., M', '0025067501', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-21', 'Kristen Protestan', 4, 'K1', 'Ya'),
 	(15, 'TIA0003', 'Abdul Rauf, Dr., S.H., M.H.', '0924097202', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-28', 'Katolik', 4, 'K1', 'Ya'),
@@ -93,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `tb_kriteria` (
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table cluster_dosen.tb_kriteria: ~5 rows (approximately)
+DELETE FROM `tb_kriteria`;
 INSERT INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VALUES
 	(4, 'K1', 'Komputer'),
 	(12, 'K2', 'Sistem Informasi'),
@@ -107,15 +111,21 @@ CREATE TABLE IF NOT EXISTS `tb_penelitian` (
   `judul_jurnal` varchar(100) NOT NULL DEFAULT '',
   `bidang_ilmu` int NOT NULL DEFAULT '0',
   `mata_kuliah` varchar(50) DEFAULT NULL,
+  `tahunJurnal` varchar(50) DEFAULT NULL,
+  `judulBimbingan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table cluster_dosen.tb_penelitian: ~4 rows (approximately)
-INSERT INTO `tb_penelitian` (`id`, `kode_dosen`, `judul_jurnal`, `bidang_ilmu`, `mata_kuliah`) VALUES
-	(51, '30', 'Jurnal Implementasi Design THinking', 16, 'Akuntansi'),
-	(52, '30', 'Jurnal Implementasi Design THinking111', 16, 'Akuntansi'),
-	(53, '30', 'Jurnal Implementasi Design THinking012132', 15, 'Akuntansi'),
-	(54, '30', 'Jurnal Implementasi Design THinking111555', 15, 'Akuntansi');
+DELETE FROM `tb_penelitian`;
+INSERT INTO `tb_penelitian` (`id`, `kode_dosen`, `judul_jurnal`, `bidang_ilmu`, `mata_kuliah`, `tahunJurnal`, `judulBimbingan`) VALUES
+	(51, '30', 'Jurnal Implementasi Design THinking', 16, 'Akuntansi', NULL, NULL),
+	(52, '30', 'Jurnal Implementasi Design THinking111', 16, 'Akuntansi', NULL, NULL),
+	(53, '30', 'Jurnal Implementasi Design THinking012132', 15, 'Akuntansi', NULL, NULL),
+	(54, '30', 'Jurnal Implementasi Design THinking111555', 15, 'Akuntansi', NULL, NULL),
+	(55, '30', 'Photn', 15, 'asd', '2021', 'asd'),
+	(56, '30', 'kjhkj', 13, 'web', '2022', 'lkjl'),
+	(57, '30', 'as', 4, 'as', '2022', 'ada');
 
 -- Dumping structure for table cluster_dosen.tb_prodi
 CREATE TABLE IF NOT EXISTS `tb_prodi` (
@@ -125,7 +135,8 @@ CREATE TABLE IF NOT EXISTS `tb_prodi` (
   PRIMARY KEY (`prodi_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_prodi: ~6 rows (approximately)
+-- Dumping data for table cluster_dosen.tb_prodi: ~0 rows (approximately)
+DELETE FROM `tb_prodi`;
 INSERT INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
 	(4, 'TI', 'aktif'),
 	(5, 'SI', 'aktif'),
@@ -151,7 +162,8 @@ CREATE TABLE IF NOT EXISTS `tb_rel_dosen` (
   KEY `tahun_id` (`prodi_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=491 DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_rel_dosen: ~141 rows (approximately)
+-- Dumping data for table cluster_dosen.tb_rel_dosen: ~0 rows (approximately)
+DELETE FROM `tb_rel_dosen`;
 INSERT INTO `tb_rel_dosen` (`ID`, `id_dosen`, `id_kriteria`, `nilai`, `prodi_id`, `nilai_kriteria`, `penelitian`, `pengajaran`, `bimbingan`) VALUES
 	(41, 0, 4, 6, 4, 0, 0, 0, 0),
 	(44, 0, 4, 6, 4, 0, 0, 0, 0),
@@ -264,10 +276,10 @@ INSERT INTO `tb_rel_dosen` (`ID`, `id_dosen`, `id_kriteria`, `nilai`, `prodi_id`
 	(433, 28, 13, 1, 4, 0, 0, 0, 0),
 	(434, 28, 15, 1, 4, 0, 0, 0, 0),
 	(435, 28, 16, 0, 4, 0, 0, 0, 0),
-	(455, 30, 4, 0, 11, 0, 0, 0, 1),
+	(455, 30, 4, 0, 11, 0, 0, 1, 3),
 	(456, 30, 12, 0, 11, 0, 0, 0, 0),
-	(457, 30, 13, 0, 11, 0, 0, 0, 0),
-	(458, 30, 15, 0, 11, 0, 3, 2, 2),
+	(457, 30, 13, 0, 11, 0, 2, 1, 1),
+	(458, 30, 15, 0, 11, 0, 4, 3, 2),
 	(459, 30, 16, 0, 11, 0, 1, 2, 1),
 	(460, 31, 4, 0, 11, 0, 0, 0, 0),
 	(461, 31, 12, 0, 11, 0, 0, 0, 0),
@@ -303,9 +315,10 @@ CREATE TABLE IF NOT EXISTS `tb_rules` (
   `bimbingan` varchar(50) NOT NULL DEFAULT '0',
   `hasil` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table cluster_dosen.tb_rules: ~37 rows (approximately)
+-- Dumping data for table cluster_dosen.tb_rules: ~0 rows (approximately)
+DELETE FROM `tb_rules`;
 INSERT INTO `tb_rules` (`id`, `penelitian`, `pengajaran`, `bimbingan`, `hasil`) VALUES
 	(3, 'Komputer', 'Komputer', 'Sistem Informasi', 'Komputer'),
 	(4, 'Komputer', 'Komputer', 'Manajemen Bisnis', 'Komputer'),
@@ -353,9 +366,10 @@ CREATE TABLE IF NOT EXISTS `tb_val_rules` (
   `pengajaran` int NOT NULL DEFAULT '0',
   `bimbingan` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table cluster_dosen.tb_val_rules: ~0 rows (approximately)
+DELETE FROM `tb_val_rules`;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

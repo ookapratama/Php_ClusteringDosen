@@ -29,7 +29,7 @@ foreach ($rows as $row) {
 $rows = $db->get_results("SELECT id_kriteria, kode_kriteria, nama_kriteria FROM tb_kriteria ORDER BY kode_kriteria");
 foreach ($rows as $row) {
     $KRITERIA[$row->id_kriteria] = array(
-        'kode' => $riw->kode_kriteria,
+        'kode' => $row->kode_kriteria,
         'nama' => $row->nama_kriteria,
     );
 }
