@@ -181,11 +181,26 @@ function bubbleSortAssociative($arr) {
                             // var_dump($sortNama); 
                             // var_dump(ksort($sortNama)); 
                             // $urutNama = bubbleSort($sortNama);
-
+                            $kelas = '';
+                            if (end($urutNama) == 'Komputer') {;
+                                $kelas = 'K1';
+                            }else if (end($urutNama) == 'Sistem Informasi') {
+                                
+                                $kelas = 'K2';
+                            }else if (end($urutNama) == 'Elektro') {
+                                
+                                $kelas = 'K3';
+                            }else if (end($urutNama) == 'Manajemen Bisnis') {
+                                
+                                $kelas = 'K4';
+                            }else if (end($urutNama) == 'Sains') {
+                                
+                                $kelas = 'K5';
+                            }
                             // var_dump($urutNama); 
                             // var_dump($tes[count($tes) - 1]);
                             // var_dump($getKriteriax);
-                            echo $tes[count($tes) - 1] != 0 ? end($urutNama) . ' ( Kelas : ' . $v['kode_kriteria'] . ' )' : 'TIdak ada'
+                            echo $tes[count($tes) - 1] != 0 ? end($urutNama) . ' (' .  $kelas . ')' : 'TIdak ada'
                             //  . ' ( ' . $tes[count($tes) - 1] . ' )'
                              ;
 

@@ -107,7 +107,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
             <td><?= $val->kode_dosen ?></td>
             <td><?= $val->nama_dosen ?></td>
             <td><?= $val->nama_prodi ?></td>
-            <td><?= $val->judul_jurnal ?></td>
+            <td><?= $val->judul_jurnal ?? '-' ?></td>
             <td><?= $val->mata_kuliah ?></td>
             <td><?= $val->tahunJurnal ?></td>
             <td><?= $val->judulBimbingan ?></td>

@@ -32,7 +32,7 @@ session_start();
                     <div class="form-group">
                         <label>Pilih Bidang Penelitian<span class="text-danger">*</span></label>
                         <select class="form-control" name="penelitian" id="penelitian" onchange="pilihProdi()">
-                            <option readonly="readonly">- Pilih Bidang Ilmu -</option>
+                            <option readonly="readonly" value="">- Pilih Bidang Ilmu -</option>
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
