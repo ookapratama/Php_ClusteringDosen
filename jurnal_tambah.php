@@ -55,7 +55,7 @@ session_start();
                     <div class="form-group">
                         <label>Pilih Bidang Pengajaran<span class="text-danger">*</span></label>
                         <select class="form-control" name="pengajaran" id="pengajaran" onchange="pilihProdi()">
-                            <option readonly="readonly">- Pilih Bidang Ilmu -</option>
+                            <option readonly="readonly" value="">- Pilih Bidang Ilmu -</option>
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
@@ -77,7 +77,7 @@ session_start();
                     <div class="form-group">
                         <label>Pilih Bidang Bimbingan<span class="text-danger">*</span></label>
                         <select class="form-control" name="bimbingan" id="bimbingan" onchange="pilihProdi()">
-                            <option readonly="readonly">- Pilih Bidang Ilmu -</option>
+                            <option readonly="readonly" value="">- Pilih Bidang Ilmu -</option>
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>

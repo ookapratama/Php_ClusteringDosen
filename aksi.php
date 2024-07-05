@@ -186,101 +186,90 @@ if ($act == 'jurnal_hapus') {
 }
 
 if ($mod == 'jurnal_tambah') {
-    // var_dump($_POST);
     $id_dosen = $_POST['kode_dosen'];
-    $penelitian = $_POST['penelitian'] ?? '-';
-    $judul_jurnal = $_POST['judul_jurnal'] == '' ? '-' :  $_POST['judul_jurnal'];
-    $pengajaran = $_POST['pengajaran'] ?? '-';
+    $penelitian =  $_POST['penelitian'] ?? '-';
+    $judul_jurnal = $_POST['judul_jurnal'] == '' ? '-' : $_POST['judul_jurnal'];
+    $pengajaran =  $_POST['pengajaran'] ?? '-';
     $mata_kuliah = $_POST['mata_kuliah'];
-    $bimbingan = $_POST['bimbingan'] ?? '-';
+    $bimbingan =  $_POST['bimbingan'] ?? '-';
     $judul_bimbingan = $_POST['judul_bimbingan'];
     $tahun = $_POST['tahunJurnal'];
     $prodi_id = $_POST['prodi_id'];
-    // die(var_dump($judul_jurnal ?? 'tidak ada'));
-    // die(var_dump($_POST));
-    // var_dump($_POST['bimbingan']);
 
-    if ($id_dosen == '') {
+    if (empty($id_dosen)) {
         print_msg("Field bertanda * tidak boleh kosong!");
         return;
     }
-    // elseif ($db->get_results("SELECT * FROM tb_penelitian WHERE judul_jurnal='$judul_jurnal'")) {
-    //     print_msg("Judul Jurnal sudah ada!");
-    //     return;
-    // } 
-    else {
-        // $db->query("UPDATE tb_rel_dosen SET nilai=nilai + 1 WHERE id_kriteria='$id_kriteria' AND prodi_id='$prodi_id' AND id_dosen ='$id_dosen' ");
 
-        // $db->query("INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah) VALUES ('$id_dosen', '$judul_jurnal', '$id_kriteria', '$mata_kuliah')");
-        include 'fuzzy_logic.php';
+    include 'fuzzy_logic.php';
 
-        // Terapkan logika fuzzy
-        $hasil = determineDominasi($penelitian, $pengajaran, $bimbingan, $db);
+    // Mengatasi kasus dimana tidak ada bidang yang diisi
+    if ($penelitian === '-' && $pengajaran === '-' && $bimbingan === '-') {
+        print_msg("Setidaknya satu dari bidang Penelitian, Pengajaran, atau Bimbingan harus diisi.");
+        return;
+    }
 
-        if ($hasil === null) {
+    // Terapkan logika fuzzy
+    $hasil = determineDominasi($penelitian, $pengajaran, $bimbingan, $db);
+    // Jika tidak ada hasil dari determineDominasi, gunakan nilai bidang yang diisi
+    // var_dump($hasil === '');
+    if ($hasil === null || $hasil == '') {
+        if ($penelitian !== '') {
+            $hasil = $penelitian;
+            // var_dump($penelitian);
+        } elseif ($pengajaran !== '') {
+            $hasil = $pengajaran;
+        } elseif ($bimbingan !== '') {
+            $hasil = $bimbingan;
+        } else {
             print_msg("Tidak dapat menentukan bidang dominan berdasarkan data yang diberikan.");
             return;
         }
-
-
-        $kriteria_penelitian = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$penelitian'");
-        $kriteria_pengajaran = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$pengajaran'");
-        $kriteria_bimbingan = $db->get_var("SELECT id_kriteria FROM tb_kriteria WHERE id_kriteria='$bimbingan'");
-
-        // die(var_dump($hasil));
-        $existing_entry = $db->get_row("SELECT * FROM tb_rel_dosen WHERE id_dosen='$id_dosen' AND id_kriteria='$hasil' AND prodi_id='$prodi_id'");
-
-        $data_kriteria = array(
-            $penelitian == '' ? '0' : $penelitian,
-            $pengajaran,
-            $bimbingan,
-        );
-
-        // var_dump($hasil);
-        // die(var_dump($prodi_id));
-        // die('stop');
-        // var_dump($id_dosen);
-        // var_dump($prodi_id);
-
-        // foreach ([$penelitian, $pengajaran, $bimbingan] as $data_id) {
-        $update_query = "
-        UPDATE tb_rel_dosen 
-        SET 
-        penelitian = CASE WHEN id_kriteria = $penelitian THEN penelitian + 1 ELSE penelitian END,
-        pengajaran = CASE WHEN id_kriteria = $pengajaran THEN pengajaran + 1 ELSE pengajaran END,
-        bimbingan = CASE WHEN id_kriteria = $bimbingan THEN bimbingan + 1 ELSE bimbingan END
-        WHERE id_dosen = '$id_dosen' 
-        AND prodi_id = '$prodi_id'
-        ";
-
-        // Jika $penelitian kosong, maka update untuk penelitian tidak dijalankan
-        if ($penelitian == '') {
-            $update_query = "
-        UPDATE tb_rel_dosen 
-        SET 
-            pengajaran = CASE WHEN id_kriteria = $pengajaran THEN pengajaran + 1 ELSE pengajaran END,
-            bimbingan = CASE WHEN id_kriteria  = $bimbingan THEN bimbingan + 1 ELSE bimbingan END
-        WHERE id_dosen = '$id_dosen' 
-        AND prodi_id = '$prodi_id'
-        ";
-        }
-
-        // die(var_dump($prodi_id));
-
-        // die(var_dump($update_query));
-        // die('true');
-        $db->query($update_query);
-        // }
-
-        $db->query("
-            INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah, tahunJurnal, judulBimbingan) 
-            VALUES ('$id_dosen', '$judul_jurnal', '$hasil', '$mata_kuliah', '$tahun', '$judul_bimbingan')
-        ");
-
-
-        sweet_alert_direct("Operasi Berhasil", "Jurnal Berhasil Ditambahkan.", "success", "3500", "true", "?m=jurnal&ID=$id_dosen");
     }
+
+    // Debug hasil untuk pengecekan
+    // var_dump($bimbingan);
+    // var_dump($penelitian);
+    // var_dump($pengajaran);
+    // var_dump($pengajaran);
+
+    // Persiapkan bagian SET untuk query update
+    $update_parts = [];
+    if ($penelitian !== '-') {
+        $update_parts[] = "penelitian = CASE WHEN id_kriteria = '$penelitian' THEN penelitian + 1 ELSE penelitian END";
+    }
+    if ($pengajaran !== '-') {
+        $update_parts[] = "pengajaran = CASE WHEN id_kriteria = '$pengajaran' THEN pengajaran + 1 ELSE pengajaran END";
+    }
+    if ($bimbingan !== '-') {
+        $update_parts[] = "bimbingan = CASE WHEN id_kriteria = '$bimbingan' THEN bimbingan + 1 ELSE bimbingan END";
+    }
+
+    // die(var_dump(implode(', ', $update_parts)));
+
+    if (!empty($update_parts)) {
+        $update_query = "
+            UPDATE tb_rel_dosen 
+            SET " . implode(', ', $update_parts) . "
+            WHERE id_dosen = '$id_dosen' 
+            AND prodi_id = '$prodi_id'
+        ";
+        error_log("Generated Update Query: $update_query");
+        $db->query($update_query);
+    }
+
+    // Masukkan entri baru ke tb_penelitian
+    $db->query("
+        INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah, tahunJurnal, judulBimbingan) 
+        VALUES ('$id_dosen', '$judul_jurnal', '$hasil', '$mata_kuliah', '$tahun', '$judul_bimbingan')
+    ");
+
+    sweet_alert_direct("Operasi Berhasil", "Jurnal Berhasil Ditambahkan.", "success", "3500", "true", "?m=jurnal&ID=$id_dosen");
 }
+
+
+
+
 
 /* CLUSTER MANUAL */
 if ($mod == 'cluster_ubah') {
