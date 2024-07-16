@@ -1,378 +1,876 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               8.0.30 - MySQL Community Server - GPL
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
--- --------------------------------------------------------
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jul 08, 2024 at 07:50 AM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.5.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
--- Dumping structure for table cluster_dosen.tb_admin
-CREATE TABLE IF NOT EXISTS `tb_admin` (
+--
+-- Database: `fuzzy_baru`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_admin`
+--
+
+CREATE TABLE `tb_admin` (
   `user` varchar(16) NOT NULL,
-  `pass` varchar(16) DEFAULT NULL,
-  PRIMARY KEY (`user`)
+  `pass` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_admin: ~0 rows (approximately)
-DELETE FROM `tb_admin`;
+--
+-- Dumping data for table `tb_admin`
+--
+
 INSERT INTO `tb_admin` (`user`, `pass`) VALUES
-	('admin', 'admin');
+('admin', 'admin');
 
--- Dumping structure for table cluster_dosen.tb_bidangilmu
-CREATE TABLE IF NOT EXISTS `tb_bidangilmu` (
-  `id_bidangilmu` int NOT NULL AUTO_INCREMENT,
-  `nama_bidangilmu` varchar(35) NOT NULL,
-  PRIMARY KEY (`nama_bidangilmu`),
-  KEY `kelas_id` (`id_bidangilmu`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
 
--- Dumping data for table cluster_dosen.tb_bidangilmu: ~5 rows (approximately)
-DELETE FROM `tb_bidangilmu`;
+--
+-- Table structure for table `tb_bidangilmu`
+--
+
+CREATE TABLE `tb_bidangilmu` (
+  `id_bidangilmu` int(11) NOT NULL,
+  `nama_bidangilmu` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_bidangilmu`
+--
+
 INSERT INTO `tb_bidangilmu` (`id_bidangilmu`, `nama_bidangilmu`) VALUES
-	(9, 'Sains'),
-	(10, 'Komputer'),
-	(11, 'Sistem Informasi'),
-	(12, 'Elektro'),
-	(13, 'Manajemen Bisnis');
+(9, 'Sains'),
+(10, 'Komputer'),
+(11, 'Sistem Informasi'),
+(12, 'Elektro'),
+(13, 'Manajemen Bisnis');
 
--- Dumping structure for table cluster_dosen.tb_dosen
-CREATE TABLE IF NOT EXISTS `tb_dosen` (
-  `id_dosen` int NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_dosen`
+--
+
+CREATE TABLE `tb_dosen` (
+  `id_dosen` int(11) NOT NULL,
   `kode_dosen` varchar(255) NOT NULL,
   `nama_dosen` varchar(30) NOT NULL,
   `nidn` varchar(25) NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
-  `pendidikan_s1` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `pendidikan_s1` varchar(50) DEFAULT NULL,
   `pendidikan_s2` varchar(50) DEFAULT NULL,
   `pendidikan_s3` varchar(50) DEFAULT NULL,
-  `tempat_lahir` varchar(25) NOT NULL,
-  `tanggal_lahir` date NOT NULL,
-  `agama` enum('Islam','Kristen Protestan','Katolik','Hindu','Buddha','Kong Hu Cu') NOT NULL,
-  `prodi_id` int NOT NULL,
+  `prodi_id` int(11) NOT NULL,
   `nama_bidangilmu` varchar(35) NOT NULL,
-  `hitung` enum('Ya','Tidak') DEFAULT NULL,
-  PRIMARY KEY (`id_dosen`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+  `hitung` enum('Ya','Tidak') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_dosen: ~21 rows (approximately)
-DELETE FROM `tb_dosen`;
-INSERT INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_kelamin`, `pendidikan_s1`, `pendidikan_s2`, `pendidikan_s3`, `tempat_lahir`, `tanggal_lahir`, `agama`, `prodi_id`, `nama_bidangilmu`, `hitung`) VALUES
-	(14, 'TIA0002', 'Abdul Kadir Jailani, S.Kom., M', '0025067501', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-21', 'Kristen Protestan', 4, 'K1', 'Ya'),
-	(15, 'TIA0003', 'Abdul Rauf, Dr., S.H., M.H.', '0924097202', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-28', 'Katolik', 4, 'K1', 'Ya'),
-	(16, 'TIA0004', 'Abdul Ibrahim, Dr., S.T., M.T.', '931127016', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-23', 'Kristen Protestan', 4, 'K1', 'Ya'),
-	(17, 'TIA0005', 'Ahyuna, S.Kom., M.I.Kom.', '0914118501', 'Perempuan', NULL, NULL, NULL, 'Maros', '2024-02-28', 'Islam', 4, 'K3', 'Ya'),
-	(18, 'SIA0001', 'Akbar Bahtiar, SE.,MM', '0906098001', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-14', 'Islam', 5, '0', 'Ya'),
-	(19, 'SIA0002', 'Andi Asvin Mahersatillah Surad', '0903069501', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-01-30', 'Islam', 5, '0', 'Ya'),
-	(20, 'SIA0003', 'Andi Irmayana, S.Kom., M.T.', '0918098501', 'Perempuan', NULL, NULL, NULL, 'Maros', '2024-02-21', 'Islam', 5, '0', 'Ya'),
-	(21, 'SIA0004', 'Angdy Erna, S.Kom., M.Si.', '0027077601', 'Perempuan', NULL, NULL, NULL, 'Maros', '2024-02-16', 'Islam', 5, '0', 'Ya'),
-	(22, 'MIA0001', 'Arham Arifin, S.Kom., M.T', '0905058904', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-21', 'Kristen Protestan', 6, '0', 'Ya'),
-	(23, 'MIA0002', 'Asrul Syam, S.Si.,M.Si.', '0930128405', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-22', 'Islam', 6, '0', 'Ya'),
-	(24, 'MIA0003', 'Baharuddin Rahman, Dr., Drs, M', '0911036101', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-20', 'Katolik', 6, '0', 'Ya'),
-	(25, 'MIA0004', 'Fadel Muslaini, S.Pd.,M.Pd.', '0912109201', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-15', 'Kristen Protestan', 6, '0', 'Ya'),
-	(26, 'RPLA0001', 'Andi Asvin Mahersatillah Surad', '0903069501', 'Laki-laki', NULL, NULL, NULL, 'Maros', '2024-02-28', 'Kristen Protestan', 7, 'K3', 'Ya'),
-	(27, 'RPLA0002', 'Annah, S.Kom., M.T.', '0907087903', 'Perempuan', NULL, NULL, NULL, 'Maros', '2024-02-07', 'Kristen Protestan', 7, '0', 'Ya'),
-	(28, 'TIA0006', 'Arham Arifin, S.Kom., M.T', '0905058904', 'Laki-laki', 'S.Kom', 'M.Kom', '-', 'Maros', '2024-02-23', 'Islam', 4, 'K2', 'Ya'),
-	(30, 'BD00069', 'Ooka Pratama', '202249', 'Laki-laki', 'S.Kom', 'M.Kom', '-', 'Makassar', '2024-04-25', 'Islam', 11, 'K1', 'Ya'),
-	(31, 'BD112233', 'OOka', '20224946456', 'Laki-laki', 'S.Kom', '-', '-', 'Makassar', '2024-05-22', 'Islam', 11, '0', 'Ya'),
-	(32, 'SIA00005', 'Abdul Kadir Jailani, S.Kom., M', '20224946456', 'Laki-laki', '-', '-', '-', 'Makassar', '2024-05-27', 'Islam', 5, '0', 'Ya'),
-	(33, 'TIA000061', 'Abdul Kadir Jailani, S.Kom., M', '20224946456', 'Laki-laki', '-', '-', '-', 'Makassar', '2024-05-27', 'Hindu', 4, '0', 'Ya'),
-	(34, 'TI001', 'Ardimansyah', '202249', 'Laki-laki', 'S.Kom', '-', '-', 'Makassar', '2024-05-29', 'Hindu', 4, '0', 'Ya'),
-	(35, 'TI002', 'Ardimansyah', '20224946456', 'Laki-laki', 'S.Kom', '-', '-', 'Makassar', '2024-05-29', 'Kristen Protestan', 4, '0', 'Ya');
+--
+-- Dumping data for table `tb_dosen`
+--
 
--- Dumping structure for table cluster_dosen.tb_kriteria
-CREATE TABLE IF NOT EXISTS `tb_kriteria` (
-  `id_kriteria` int NOT NULL AUTO_INCREMENT,
+INSERT INTO `tb_dosen` (`id_dosen`, `kode_dosen`, `nama_dosen`, `nidn`, `jenis_kelamin`, `pendidikan_s1`, `pendidikan_s2`, `pendidikan_s3`, `prodi_id`, `nama_bidangilmu`, `hitung`) VALUES
+(38, 'TI', 'Abdul Ibrahim, S.Kom., M.MSI.', '0923037002', 'Laki-laki', 'S.Kom', 'M.MSI', ' ', 4, '0', 'Ya'),
+(39, 'TI2', 'Abdul Kadir Jailani, S.Kom., M', '0025067501', 'Laki-laki', 'S.Kom', 'M.T', ' ', 4, '0', 'Ya'),
+(40, 'TI3', 'Abdul Rauf, Dr., S.H., M.H.', '0924097202', 'Laki-laki', 'S.H', 'M.H', 'D.r', 4, '0', 'Ya'),
+(41, 'TI4', 'Ahmad, Dr., S.T., M.T.', '0931127016', 'Laki-laki', 'S.T', 'M.T', 'D.r', 4, '0', 'Ya'),
+(42, 'TI5', 'Ahyuna, S.Kom., M.I.Kom.', '0914118501', 'Perempuan', 'S.Kom', 'M.I.Kom', ' ', 4, '0', 'Ya'),
+(43, 'TI6', 'Amirah, S.T., M.T.', '0920127901', 'Perempuan', 'S.T', 'M.T', ' ', 4, '0', 'Ya'),
+(46, 'TI7', 'Andi Asvin Mahersatillah Surad', '0903069501', 'Laki-laki', 'S.Kom', 'M.T', ' ', 4, '0', 'Ya'),
+(48, 'TI8', 'Andi Irmayana, S.Kom., M.T.', '0918098501', 'Perempuan', 'S.Kom', 'M.T', ' ', 4, '0', 'Ya'),
+(49, 'TI9', 'Andrew Ridow Johanis M, SE.,MM', '0928087503', 'Laki-laki', 'M, SE', 'MM', ' ', 4, '0', 'Ya'),
+(50, 'TI10', 'Angdy Erna, S.Kom., M.Si.', '0027077601', 'Perempuan', 'S.Kom', 'M.Si', ' ', 4, '0', 'Ya'),
+(51, 'TI11', 'Annah, S.Kom., M.T.', '0907087903', 'Perempuan', 'S.Kom', 'M.T', ' ', 4, '0', 'Ya'),
+(52, 'TI12', 'Ardimansya, S.Kom., M.T.', '0902048601', 'Laki-laki', 'S.Kom', 'M.T', ' ', 4, '0', 'Ya'),
+(53, 'TI13', 'Arham Arifin, S.Kom., M.T', '0905058904', 'Laki-laki', 'S.Kom', 'M.T', ' ', 4, '0', 'Ya'),
+(54, 'SI1', 'Akbar Bahtiar, SE.,MM', '0906098001', 'Laki-laki', 'SE', 'M.M', ' ', 5, '0', 'Ya'),
+(55, 'SI2', 'Aprizal, Dr., S.Kom., M.M.', '0905038601', 'Laki-laki', 'S.Kom', 'M.M', 'D.r', 5, '0', 'Ya'),
+(56, 'SI3', 'Asmah Akhriana, S.T., M.T.', '0904098604', 'Perempuan', 'S.T', 'M.T', ' ', 5, '0', 'Ya'),
+(57, 'SI4', 'Asri Kunda, Dr., S.E., M.M.', '0915046902', 'Laki-laki', 'S.E', 'M.M', 'D.r', 5, '0', 'Ya'),
+(58, 'SI5', 'Asrul Syam, S.Si.,M.Si.', '0930128405', 'Laki-laki', 'S.Si', 'M.Si', ' ', 5, '0', 'Ya'),
+(59, 'MI1', 'Baharuddin Rahman, Dr., Drs, M', '0911036101', 'Laki-laki', 'Drs', 'M.Hum', 'D.r', 6, '0', 'Ya'),
+(60, 'MI2', 'Fadel Muslaini, S.Pd.,M.Pd.', '0912109201', 'Laki-laki', 'S.Pd', 'M.Pd', ' ', 6, '0', 'Ya'),
+(61, 'MI3', 'Fatmasari, Dr., S.E., M.M., M.', '0917067501', 'Perempuan', 'M.M', 'M.Si', 'D.r., S.E', 6, '0', 'Ya'),
+(63, 'MI4', 'Hardi, S.E., M.M.', '0904066801', 'Laki-laki', 'S.E', 'M.M', ' ', 6, '0', 'Ya'),
+(64, 'MI5', 'Hasriani, S.E., M.Si.', '0931127701', 'Perempuan', 'S.E', 'M.Si', ' ', 6, '0', 'Ya'),
+(65, 'RPL1', 'Erfan Hasmin, S.Kom., M.T.', '0908048701', 'Laki-laki', 'S.Kom', 'M.T', ' ', 7, '0', 'Ya'),
+(66, 'RPL2', 'Indra Samsie, S.Kom., M.Kom.', '0902047701', 'Laki-laki', 'S.Kom', 'M.Kom', ' ', 7, '0', 'Ya'),
+(67, 'RPL3', 'Joseph Tumiwa, SS., M.Pd.', '0920037103', 'Laki-laki', 'S.S', 'M.Pd', ' ', 7, '0', 'Ya'),
+(68, 'RPL4', 'Jufri, S.Kom., M.T.', '0912127001', 'Laki-laki', 'S.Kom', 'M.T', ' ', 7, '0', 'Ya'),
+(69, 'RPL5', 'Kasmawaru, S.Sos., M.Kom.', '0920057302', 'Perempuan', 'S.Sos', 'M.Kom', ' ', 7, '0', 'Ya'),
+(70, 'KW1', 'Fachriyahtul Jannah, SM.,MM.', '0924049301', 'Laki-laki', 'SM', 'M.M', '  ', 10, '0', 'Ya'),
+(71, 'KW2', 'Herenal Daeng Toto,SE.,MM.', '0914099202', 'Laki-laki', 'S.E', 'M.M', ' ', 10, '0', 'Ya'),
+(72, 'KW3', 'Husnul Muamilah, SE.,M.M', '0924069201', 'Perempuan', 'SE', 'M.M', ' ', 10, '0', 'Ya'),
+(73, 'KW4', 'Marsha, SE., MM', '0927088601', 'Perempuan', 'S.E', 'M.M', ' ', 10, '0', 'Ya'),
+(74, 'KW5', 'Michael Oktavianus, S.Kom., M.', '0915108101', 'Laki-laki', 'S.Kom', 'M.M', ' ', 10, '0', 'Ya'),
+(75, 'BD1', 'Erni Marlina, S.Kom., M.I.Kom.', '0914037501', 'Perempuan', 'S.Kom', 'M.I.Kom', ' ', 11, '0', 'Ya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_kriteria`
+--
+
+CREATE TABLE `tb_kriteria` (
+  `id_kriteria` int(11) NOT NULL,
   `kode_kriteria` varchar(16) NOT NULL,
-  `nama_kriteria` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_kriteria`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+  `nama_kriteria` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_kriteria: ~5 rows (approximately)
-DELETE FROM `tb_kriteria`;
+--
+-- Dumping data for table `tb_kriteria`
+--
+
 INSERT INTO `tb_kriteria` (`id_kriteria`, `kode_kriteria`, `nama_kriteria`) VALUES
-	(4, 'K1', 'Komputer'),
-	(12, 'K2', 'Sistem Informasi'),
-	(13, 'K3', 'Elektro'),
-	(15, 'K4', 'Manajemen Bisnis'),
-	(16, 'K5', 'Sains');
+(4, 'K1', 'Komputer'),
+(12, 'K2', 'Sistem Informasi'),
+(13, 'K3', 'Elektro'),
+(15, 'K4', 'Manajemen Bisnis'),
+(16, 'K5', 'Sains');
 
--- Dumping structure for table cluster_dosen.tb_penelitian
-CREATE TABLE IF NOT EXISTS `tb_penelitian` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_penelitian`
+--
+
+CREATE TABLE `tb_penelitian` (
+  `id` int(10) UNSIGNED NOT NULL,
   `kode_dosen` varchar(50) NOT NULL DEFAULT '',
-  `judul_jurnal` varchar(100) NOT NULL DEFAULT '',
-  `bidang_ilmu` int NOT NULL DEFAULT '0',
-  `mata_kuliah` varchar(50) DEFAULT NULL,
+  `judul_jurnal` varchar(200) NOT NULL DEFAULT '',
+  `bidang_ilmu` int(11) NOT NULL DEFAULT '0',
+  `mata_kuliah` varchar(200) DEFAULT NULL,
   `tahunJurnal` varchar(50) DEFAULT NULL,
-  `judulBimbingan` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb3;
+  `judulBimbingan` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cluster_dosen.tb_penelitian: ~4 rows (approximately)
-DELETE FROM `tb_penelitian`;
+--
+-- Dumping data for table `tb_penelitian`
+--
+
 INSERT INTO `tb_penelitian` (`id`, `kode_dosen`, `judul_jurnal`, `bidang_ilmu`, `mata_kuliah`, `tahunJurnal`, `judulBimbingan`) VALUES
-	(51, '30', 'Jurnal Implementasi Design THinking', 16, 'Akuntansi', NULL, NULL),
-	(52, '30', 'Jurnal Implementasi Design THinking111', 16, 'Akuntansi', NULL, NULL),
-	(53, '30', 'Jurnal Implementasi Design THinking012132', 15, 'Akuntansi', NULL, NULL),
-	(54, '30', 'Jurnal Implementasi Design THinking111555', 15, 'Akuntansi', NULL, NULL),
-	(55, '30', 'Photn', 15, 'asd', '2021', 'asd'),
-	(56, '30', 'kjhkj', 13, 'web', '2022', 'lkjl'),
-	(57, '30', 'as', 4, 'as', '2022', 'ada');
+(76, '37', '-', 4, '', '2023', 'ANALISIS EFEKTIVITAS PENGGUNAAN TEXT-TO-IMAGE GENE'),
+(77, '38', '-', 4, '', '2023', 'ANALISIS EFEKTIVITAS PENGGUNAAN TEXT-TO-IMAGE GENE'),
+(78, '38', '-', 4, '', '2023', 'PENERAPAN QUALITY DEFECT DETECTION UNTUK PREDIKSI '),
+(79, '38', '-', 12, '', '2023', 'SISTEM INFORMASI PELAYANAN PERNIKAHAN BERBASIS WEB'),
+(80, '38', '-', 12, '', '2023', 'ANALISIS EFISIENSI PENGGUNAAN SISTEM INFORMASI TER'),
+(81, '38', '-', 4, 'Algoritma Dan Pemrograman', '2023', ''),
+(82, '38', 'Rancang Bangun Sistem Informasi Pengelolaan Masjid Berbasis Web ', 12, '', '2023', ''),
+(83, '38', '-', 4, 'Algoritma dan Pemrograman (C++)', '2023', ''),
+(84, '39', '-', 4, '', '2023', 'ANALISIS DAN REDESAIN UI/UX APLIKASI KKL UNIVERSIT'),
+(85, '39', '-', 4, '', '2023', 'PENERAPAN ALGORITMA KNN DAN ADABOOST UNTUK ANALISI'),
+(86, '39', '-', 4, '', '2023', 'ANALISIS DAN VISUALISASI DATA PENGGUNA GOOGLE DRIV'),
+(87, '39', '-', 4, '', '2023', 'PERANCANGAN DAN EVALUASI ANTARMUKA WEBSITE E-LIBRA'),
+(88, '39', '-', 12, '', '2023', 'PERANCANGAN PROTOTYPE UI/UX APLIKASI SISTEM INFORM'),
+(89, '39', '-', 4, '', '2023', 'ANALISIS DAN EVALUASI UI/UX APLIKASI KOPI CHUSEYO '),
+(90, '39', '-', 4, '', '2023', 'PENERAPAN ALGORITMA CONVOLUTIONAL NEURAL NETWORK D'),
+(91, '39', '-', 4, 'Analisis dan Desain Sistem (UML)', '2023', ''),
+(92, '39', '-', 4, 'Implementasi dan Pengujian Sistem', '2023', ''),
+(93, '39', '-', 4, 'Pemrograman ber Orientasi Objek', '2023', ''),
+(94, '39', 'Identifikasi Strategi Pengembangan Bisnis para Penggiat UMKM Menggunakan SWOT Analisis', 15, '', '2023', ''),
+(95, '39', 'Pelatihan Digital Marketing dalam Upaya Peningkatan Pengetahuan dan Keterampilan bagi UMKM Kabupaten', 15, '', '2023', ''),
+(96, '40', '-', 12, '', '2023', 'IMPLEMENTASI SISTEM ABSENSI PERKULIAHAN MAHASISWA '),
+(97, '40', '-', 4, '', '2023', 'PERANCANGAN APLIKASI REKOMENDASI OBJEK WISATA DI W'),
+(98, '40', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PENJUALAN BERBASIS WEBSITE PA'),
+(99, '40', '-', 4, '', '2023', 'ANALISIS KEPUASAN MASYARAKAT TERHADAP PELAYANAN KE'),
+(100, '40', '-', 4, '', '2023', 'SISTEM PAKAR UNTUK MENDIAGNOSIS GANGGUAN MENTAL BE'),
+(101, '40', '-', 15, 'Pancasila Dan Kewarganegaraan', '2023', ''),
+(102, '40', '-', 4, 'Hukum Telematika', '2023', ''),
+(103, '40', 'Literasi digital dalam pengembangan media pembelajaran Guru SMKN 1 Gowa', 4, '', '2023', ''),
+(104, '40', 'Izin Ekspor Impor Hasil Pertanian Berbasis Web Menggunakan Algoritma ID3', 4, '', '2023', ''),
+(105, '41', '-', 4, '', '2023', 'PERANCANGAN SISTEM MONITORING KELEMBAPAN MEDIA TANAM DAN PENYIRAMAN SECARA OTOMATIS PADA TANAMAN HIAS AGLONEMA'),
+(106, '41', '-', 4, '', '2023', 'PERANCANGAN SISTEM PENDETEKSI GOLONGAN DARAH MANUSIA DENGAN TAMPILAN WEB BERBASIS IOT'),
+(107, '41', '-', 4, '', '2023', 'IMPLEMENTASI SISTEM DETEKSI PENCURIAN MENGGUNAKAN SENSOR KAMERA DAN NOTIFIKASI BERBASIS IoT'),
+(108, '41', '-', 4, '', '2023', 'PROTOTYPE MONITROING BERAT MUATAN TRUK BERBASIS IOT MENGGUNAKAN SENSOR LOAD CELL DAN VISUALISASI DI WEBSITE'),
+(109, '41', '-', 4, '', '2023', 'ANALISIS PENERAPAN NAIVE BAYES DAN DECISION TREE UNTUK MEMPREDIKSI RESIKO KREDIT PADA KOPERASI SIMPAN PINJAM BERBASIS WEB'),
+(110, '41', '-', 16, 'Metode Penulisan Ilmiah', '2023', ''),
+(112, '41', '-', 13, 'Praktikum Sistem mikrokontroler', '2023', ''),
+(113, '41', '-', 13, 'Sistem Mikrokontroler', '2023', ''),
+(114, '42', '-', 4, '', '2023', 'ANALISIS DAN PERANCANGAN SISTEM PENDUKUNG KEPUTUSAN PENERIMA BEASISWA PENINGKATAN PRESTASI AKADEMIK (PPA) DENGAN METODE STEP-WISE WEIGHT'),
+(115, '42', '-', 4, '', '2023', 'MENENTUKAN FILM TERBAIK BERDASARKAN DATA STATISTIK DENGAN MENGGUNAKAN METODE WEIGHTED SUM MODEL (WSM).'),
+(116, '42', '-', 4, '', '2023', 'PROTOTYPE MONITROING BERAT MUATAN TRUK BERBASIS IOT MENGGUNAKAN SENSOR LOAD CELL DAN VISUALISASI DI WEBSITE'),
+(117, '42', '-', 4, '', '2023', 'IMPLEMENTASI METODE AHP GUNA MENDUKUNG KEPUTUSAN PENERIMAAN BEASISWA DI SMAN 16 MAKASSAR DENGAN BANTUAN APLIKASI EXPERT CHOICE'),
+(118, '42', '-', 15, '', '2023', 'SISTEM PREDIKSI KEUNTUNGAN PENJUALAN MENGGUNAKAN METODE MONTE CARLO (STUDI KASUS :EXCLUSIVE THRIFT STORE MAKASSAR)'),
+(119, '42', '-', 15, 'Desain E-Bisnis', '2023', ''),
+(120, '42', '-', 4, 'Pengenalan Teknologi Informasi', '2023', ''),
+(121, '42', 'Analisa Penerapan Metode MABAC dengan Pembobotan Entropy dalam Penilaian Kinerja Dosen di Era Society 5.0', 12, '', '2023', ''),
+(122, '43', '-', 4, '', '2023', 'IMPLEMENTASI MODEL BIOMETRIK SIDIK JARI PADA NODEMCU ESP8266 UNTUK SISTEM ABSENSI MAHASISWA BERBASIS WEBSITE.'),
+(123, '43', '-', 4, '', '2023', 'APLIKASI PRESENSI ONLINE PADA MEETING ROOM BERBASIS DETEKSI WAJAH DENGAN METODE FISHERFACE'),
+(124, '43', '-', 4, '', '2023', 'PROTOTYPE PENDETEKSI KELEMBAPAN TANAH DAN KONTROL PENYIRAMAN TANAMAN BERBASIS IOT MENGGUNAKAN METODE FUZZY LOGIC'),
+(125, '43', '-', 4, '', '2023', 'IMPLEMENTASI ALGORITMA APRIORI DALAM MENENTUKAN POLA PEMBELIAN KONSUMEN PADA TOKO TOP MODE'),
+(126, '43', '-', 4, '', '2023', 'ANALISIS KEPUASAN MASYARAKAT TERHADAP PELAYANAN KESEHATAN DI RUMAH SAKIT BAHAGIA DENGAN MENGGUNAKAN ALGORITMA DATA MINING C4.5'),
+(127, '43', '-', 13, 'Praktikum Elektronika Analog', '2023', ''),
+(128, '43', '-', 13, 'Praktikum Sistem mikrokontroler', '2023', ''),
+(129, '43', '-', 13, 'Sistem Mikrokontroler', '2023', ''),
+(130, '43', '-', 4, 'Pembelajaran Mesin', '2023', ''),
+(131, '43', 'Rancang Bangun Alat Monitoring Karbon Dioksida (CO2) Dalam Ruangan berbasis Android', 12, '', '2023', ''),
+(132, '45', '-', 12, '', '2023', 'PERANCANGAN DAN EVALUASI FRAMEWORK LARAVEL PADA SISTEM INFORMASI DESA BUNTU BARANA'),
+(133, '46', '-', 12, '', '2023', 'PERANCANGAN DAN EVALUASI FRAMEWORK LARAVEL PADA SISTEM INFORMASI DESA BUNTU BARANA'),
+(134, '46', '-', 4, '', '2023', 'ANALISIS SENTIMEN KEPUASAN MASYARAKAT BERDASARKAN ULASAN PENGGUNA APLIKASI PAKINTA'),
+(135, '46', '-', 4, '', '2023', 'IMPLEMENTASI DEEP LEARNING UNTUK DETEKSI PENYAKIT HAWAR DAUN PADA TANAMAN PADI'),
+(136, '46', '-', 4, '', '2023', 'PERANCANGAN PROTOTYPE UI/UX APLIKASI SISTEM INFORMASI MANAJEMEN PADA TOKO BERBASIS MOBILE'),
+(137, '46', '-', 4, 'Antar Muka dan Pengalaman Pengguna (UI/UX)', '2023', ''),
+(138, '46', '-', 4, 'Artificial Intelligence', '2023', ''),
+(139, '46', '-', 4, 'Augmented Reality', '2023', ''),
+(140, '46', '-', 4, 'Interaksi Manusia & Komputer', '2023', ''),
+(141, '46', '-', 4, 'Pemrograman Aplikasi Mobile', '2023', ''),
+(142, '46', '-', 4, 'Pemrograman ber Orientasi Objek', '2023', ''),
+(143, '46', 'Penerapan Teknologi QR Code Pada Sistem Informasi Parkir Berbasis Android', 12, '', '2023', ''),
+(144, '47', '-', 12, '', '2023', 'ANALISIS FORECASTING HARGA EMAS (XAUUD) MENGGUNAKAN METODE RELATIVE STRENGTH INDEX PADA METATRADER4'),
+(145, '47', '-', 4, '', '2023', 'ANALISIS DAMPAK PROGRAM MSIB PADA KEMAMPUAN HARDSKILL DAN SOFTSKILL MAHASISWA UNIVERSITAS DIPA MAKASSAR PENDEKATAN SERVQUAL'),
+(146, '47', '-', 12, '', '2023', 'ANALISIS EFEKTIFITAS PROMOSIS MAHASISWA BARU UNIVERSITAS DIPA MAKASSARR MELALUI INSTAGRAM MENGGUNAKAN METODE K-MEANS'),
+(147, '47', '-', 12, '', '2023', 'IMPLEMENTASI METODE ANOVA PADA KUALITAS LAYANAN DOSEN DAN FASILITAS PERKULIAHAN TERHADAP KEPUASAN MAHASISWA DI UNIVERSITAS DIPA MAKASSAR '),
+(148, '47', '-', 12, '', '2023', 'PENERAPAN METODE HYBRID RECOMENDER SYSTEM UNTUK MEMBERIKAN REKOMENDASI FILM PADA APLIKASI STREAMING "ZUNA MOVIE"'),
+(149, '48', '-', 12, '', '2023', 'ANALISIS FORECASTING HARGA EMAS (XAUUD) MENGGUNAKAN METODE RELATIVE STRENGTH INDEX PADA METATRADER4'),
+(150, '48', '-', 12, '', '2023', 'ANALISIS DAMPAK PROGRAM MSIB PADA KEMAMPUAN HARDSKILL DAN SOFTSKILL MAHASISWA UNIVERSITAS DIPA MAKASSAR PENDEKATAN SERVQUAL'),
+(151, '48', '-', 12, '', '2023', 'ANALISIS EFEKTIFITAS PROMOSIS MAHASISWA BARU UNIVERSITAS DIPA MAKASSARR MELALUI INSTAGRAM MENGGUNAKAN METODE K-MEANS'),
+(152, '48', '-', 4, '', '2023', 'IMPLEMENTASI METODE ANOVA PADA KUALITAS LAYANAN DOSEN DAN FASILITAS PERKULIAHAN TERHADAP KEPUASAN MAHASISWA DI UNIVERSITAS DIPA MAKASSAR '),
+(153, '48', '-', 4, '', '2023', 'PENERAPAN METODE HYBRID RECOMENDER SYSTEM UNTUK MEMBERIKAN REKOMENDASI FILM PADA APLIKASI STREAMING "ZUNA MOVIE"'),
+(154, '48', '-', 4, '', '2023', 'SISTEM CERDAS REKOMENDASI MATERI UNTUK READING BASIC PEMBELAJARAN BAHASA INGRIS DI UNIVERSITAS DIPA BERBASIS WEB'),
+(155, '48', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PEMESANAN BARANG BERBASIS WEB MENGGUNAKAN ALGORITMA BRUTE FORCE PADA PASAR KOPI MAKASSAR.'),
+(156, '48', '-', 12, '', '2023', 'ANALISIS KINERJA SISTEM PENDUKUNG KEPUTUSAN DALAM PROSES REKOMENDASI PROGRAM STUDI UNTUK CALON MAHASISWA BARU MENGGUNAKAN METODE SAW.'),
+(157, '48', '-', 12, '', '2023', 'ANALISIS PREDIKSI HASIL PERTANIAN DI KEPULAUAN SELAYAR MENGGUNAKAN METODE TIME SERIES : STUDI KASUS PADA PRODUKSI PADI.'),
+(158, '48', '-', 4, 'pemrograman Web Native', '2023', ''),
+(159, '48', '-', 15, 'Pengembangan Aplikasi Bisnis', '2023', ''),
+(160, '48', '-', 4, 'Sistem Pendukung Keputusan', '2023', ''),
+(161, '48', 'Izin Ekspor Impor Hasil Pertanian Berbasis Web Menggunakan Algoritma ID3', 4, '', '2023', ''),
+(162, '49', '-', 15, 'Pengembangan Diri', '2023', ''),
+(163, '49', '-', 15, 'Sistem dan Model Bisnis', '2023', ''),
+(164, '49', '-', 15, 'Analisa Perilaku Konsumen', '2023', ''),
+(165, '49', '-', 15, 'Manajemen Operasional', '2023', ''),
+(166, '49', 'PENGARUH KEPUASAN KERJA DAN BEBAN KERJA TERHADAP KINERJA KARYAWAN PADA PT. HALONI JANE', 12, '', '2023', ''),
+(167, '50', '-', 4, '', '2023', 'SEGMENTASI PREFERENSI PEKERJAAN BERDASARKAN KARAKTERISTIK KEPRIBADIAN, MINAT DAN KOMPETENSI MAHSISWA UNIVERSITAS DIPA MAKASSAR DENGAN METODE K-MEANS'),
+(168, '50', '-', 4, '', '2023', 'REKOMENDASI CALON PEMBIMBING TUGAS AKHIR BERDASARKAN KESAMAAN TOPIK PENELITIAN DENGAN METODE COSINE DISTANCE (STUDI KASUS : UNIVERSITAS DIPA MAKASSAR)'),
+(169, '50', '-', 12, '', '2023', 'ANALISIS DAN VISUALISASI DATA POLA PENDAFTARAN PADA SIKOLAKARATE MENGGUNAKAN METODE APRIORI'),
+(170, '50', '-', 12, '', '2023', 'REDESAIN UI SISTEM INFORMASI AKADEMIK UNIVERSITAS DIPA MAKASSAR UNTUK MENINGKATKAN USER EXPERIENCE PENGGUNA DENGAN METODE LEAN UX'),
+(171, '50', '-', 4, '', '2023', 'IMPLEMENTASI METODE AHP GUNA MENDUKUNG KEPUTUSAN PENERIMAAN BEASISWA DI SMAN 16 MAKASSAR DENGAN BANTUAN APLIKASI EXPERT CHOICE'),
+(172, '50', '-', 12, '', '2023', 'PENERAPAN METODE FIFO PADA APLIKASI SISTEM INFORMASI PERSEDIAAN STOCK BAJU TOKO SINAR BAHAGIA BERBASIS WEB'),
+(173, '50', '-', 12, '', '2023', 'ANALISIS PERBANDINGAN PERFORMA NORMALISASI DATA UNTUK KLASIFIKASI DATASET PENYAKIT MENGGUNAKAN METODE K-NEAREST NEIGHBOR DENGAN APLIKASI RAPIDMINER'),
+(174, '50', '-', 4, 'Metode penelitian dan Publikasi Ilmiah', '2023', ''),
+(175, '50', '-', 4, 'Sistem Pendukung Keputusan', '2023', ''),
+(176, '50', 'Identifikasi Strategi Pengembangan Bisnis para Penggiat UMKM Menggunakan SWOT Analisis', 15, '', '2023', ''),
+(177, '51', '-', 12, '', '2023', 'SISTEM DETEKSI KECANDUAN GAME ONLINE PADA MAHASISWA UNDIPA MENGGUNAKAN PENDEKATAN DATA MINING BERBASIS FUZZY LOGIC'),
+(178, '51', '-', 12, '', '2023', 'ANALISIS PERBANDINGAN TINGKAT PELAYANAN SISTEM RESERVASI HOTEL MENGGUNAKAN METODE SERVQUAL DAN FUZZY'),
+(179, '51', '-', 12, '', '2023', 'SISTEM REKOMENDASI DAN RESERVASI KAMAR HOMESTAY INTAN MENGGUNAKAN METODE SMARTER DI MALINO'),
+(180, '51', '-', 4, '', '2023', 'PENERAPAN ALGORITMA GENETIKA UNTUK PENGEMBANGAN DAN OPTIMALISASI MANAJEMEN APLIKASI E-PERPUS (STUDI KASUS:PERPUSATAKAAN UNHAS)'),
+(181, '51', '-', 4, '', '2023', 'PERANCANGAN SISTEM PENDAFTARAN KURSUS MUSIK BERBASIS WEB PADA ERWIN MUSIC SCHOOL DENGAN MENERAPKAN METODE PROFILE MATCHING'),
+(182, '51', '-', 12, '', '2023', 'SISTEM INFORMASI RANCANGAN PERENCANAAN PEMBELAJARAN UNTUK GURU PAUD BERBASIS WEB'),
+(183, '50', '-', 12, '', '2023', 'ANALISIS FAKTOR-FAKTOR YANG MEMPENGARUHI PELAYANAN PEMBAYARAN PAJAK BADAN PENDAPATAN DAERAH MAKASSAR DENGAN METODE SYSTEM USABILITY SCALE (SUS)'),
+(184, '51', '-', 12, '', '2023', 'PERANCANGAN DAN IMPLEMENTASI SISTEM INFORMASI E-KLINIK PADA KLINIK AREA MAKASSAR'),
+(185, '51', '-', 4, '', '2023', 'IMPLEMENTASI CONVOLUTION NEURAL NETWORK UNTUK MENGIDENTIFIKASI CITRA DAN KESEGARAN PADA SPESIES IKAN NILA, KAKAP DAN BARONANG'),
+(186, '51', '-', 12, '', '2023', 'ANALISIS SENTIMEN TERHADAP PENGGUNA MEDIA SOSIAL TERKAIT KONTEN FOR YOUR PAGE (FYP) MENGGUNAKAN ALGORITMA NAIVE BAYES.'),
+(187, '52', '-', 4, '', '2023', 'PERANCANGAN APLIKASI CITY TOUR PERJALANAN UMROH BERBASIS ANDROID PADA TRAVEL JABAL RAHMAH'),
+(188, '52', '-', 4, '', '2023', 'IMPLEMENTASI UI/UX WEBSITE SMP NEGERI 1 MAKALE DENGAN METODE DESIGN THINKING'),
+(189, '52', '-', 4, '', '2023', 'IMPLEMENTASI METODE USABILITY TESTING TERHADAP ANALISIS PERBANDINGAN TINGKAT KEPUASAN PELANGGAN PADA APLIKASI JWA + DAN KOPI KENANGAN '),
+(190, '52', '-', 12, '', '2023', 'ANALISIS SEGMENTASI AUDIENS BERDASARKAN PREFERENSI KONTEN TIKTOK DALAM KONTEKS PERILAKU BERBELANJA ONLINE MENGGUNAKAN ALGORITMA K-MEANS'),
+(191, '52', '-', 4, '', '2023', 'IMPLEMENTASI ALGORITMA HASH PADA APLIKASI MOBILE VOTING PEMILIHAN RAYA UNIVERSITAS DIPA MAKASSAR BERBASIS ANDROID'),
+(192, '52', '-', 4, '', '2023', 'PERANCANGAN APPLICATION SERVICE API TERINTEGRASI PAYMENT GATEWAY PADA APLIKASI PENJUALAN TIKET BERBASIS WEBSITE : STUDI KASUS GAVEME.ID'),
+(193, '52', '-', 4, 'Pembuatan Aplikasi Konsentrasi', '2023', ''),
+(194, '52', '-', 4, 'Pemrograman Web Berbasis FrameWork', '2023', ''),
+(195, '52', '-', 4, 'Program Profesional', '2023', ''),
+(196, '52', 'Perancangan Aplikasi Responsi Project Konsentrasi Pada Universitas Dipa Makassar ', 4, '', '2023', ''),
+(197, '53', '-', 4, '', '2023', 'IMPLEMENTASI MODEL BIOMETRIK SIDIK JARI PADA NODEMCU ESP8266 UNTUK SISTEM ABSENSI MAHASISWA BERBASIS WEBSITE.'),
+(198, '53', '-', 4, '', '2023', 'IMPLEMENTASI INTERNET OF THINGS (IOT) UNTUK MONITORING KUALITAS UDARA DI PERUMAHAN DENGAN ESP32'),
+(199, '53', '-', 4, '', '2023', 'SISTEM MONITORING KUALITAS AIR SUMUR BOR DI PERUMAHAN RACHITA GARDEN 2 BERBASIS INTERNER OF THINGS.'),
+(200, '53', '-', 4, '', '2023', 'PERANCANGAN PROTOTYPE UI/UX APLIKASI PEMESANAN MAKANAN PADA LAZUNA BERBASIS WEB MENGGUNAKAN METODE DESAIN THINGKING'),
+(201, '53', '-', 4, 'Pemrograman Aplikasi Mobile', '2023', ''),
+(202, '53', '-', 4, 'Pemrograman Komputer 2 : Pemrograman Mobile', '2023', ''),
+(203, '53', '-', 4, 'Pemrograman Web Berbasis Framework', '2023', ''),
+(204, '53', '-', 4, 'Prak. Algoritma dan Pemrograman', '2023', ''),
+(205, '53', '-', 4, 'Prak. Aplikasi Mobile', '2023', ''),
+(206, '53', '-', 4, 'Teknologi Jaringan Komputer', '2023', ''),
+(207, '53', '-', 4, 'Jaringan Komputer', '2023', ''),
+(208, '53', 'Implementasi Sistem Otomatisasi Perawatan Tanaman indoor berbasis Internet of Things (IoT) sebagai Ketua (penulis beranggota) ', 4, '', '2023', ''),
+(209, '54', '-', 15, 'Etika Profesi', '2023', ''),
+(210, '54', '-', 15, 'Management Human Capital', '2023', ''),
+(211, '55', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PENCATATAN STOK DAN PENJUALAN PADA KONTER AJ CELL BERBASIS WEB '),
+(212, '55', '-', 12, '', '2023', 'ANALISIS EFEKTIVITAS PENDIDIKAN MENGGUNAKAN METODE NAIVE BAYES MELALUI DATA TRACER STUDY UNIVERSITAS DIPA MAKASSAR'),
+(213, '55', '-', 12, '', '2023', 'ANALISIS PENGGUNAAN MEDIA SOSIAL DALAM PEMASARAN DESTINASI PARAWISATA PADA KABUPATEN BULUKUMBA MENGGUNAKAN METODE NON PROBABILITY SAMPLING'),
+(214, '55', '-', 4, '', '2023', 'IMPLEMENTASI ALGORITMA HASH PADA APLIKASI MOBILE VOTING PEMILIHAN RAYA UNIVERSITAS DIPA MAKASSAR BERBASIS ANDROID'),
+(215, '55', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PEMBAYARAN SPP BERBASIS WEB PADA SMA ADVENT TIMIKA'),
+(216, '55', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PELAYANAN KESEHATAN BERBASIS ANDROID'),
+(217, '55', '-', 12, '', '2023', 'ANALISIS KINERJA AKUN INSTAGRAN UNDIPA SEBAGAI SARANA PROMOSI MENGGUNAKAN ALGORITMA FUZZY'),
+(218, '55', '-', 4, '', '2023', 'PERANCANGAN CHATBOT INTERAKTIF UNTUK PELAYANAN INFORMASI DAN AKADEMIK KAMPUS BERBASIS BERBASIS ARTIFICIAL INTELLEGENCE MARKUP LANGUAGE (AIML).'),
+(219, '55', '-', 12, 'Audit Sistem Informasi', '2023', ''),
+(220, '55', '-', 12, 'Enteprise Resource Planning', '2023', ''),
+(221, '55', '-', 15, 'Entrepreneurship 3 (Start Up Bisnis)', '2023', ''),
+(222, '55', 'PENGARUH PERKEMBANGAN UMKM TERHADAP PERTUMBUHAN EKONOMI DI KAB. JENEPONTO', 15, '', '2023', ''),
+(223, '56', '-', 4, '', '2023', 'EVALUASI KEAMANAN WEBSITE MENGGUNAKAN METODE PENETRATION TESTING DAN VULNERABILITY ASSESSMENT PADA WEBSITE KAMPUS DIPA MAKASSAR'),
+(224, '56', '-', 12, '', '2023', 'ANALISIS KEASLIAN BUKTI DIGITA LPADA REKAMAN CCTV MELALUI SIMULASI BERBASIS GENERIC COMPUTER FORENSICS INVESTIGATION MODEL'),
+(225, '56', '-', 4, '', '2023', 'PERANCANGAN APLIKASI DESA WISATA TORAJA BERBASIS ANDROID (FLUTTER) MENGGUNAKAN METODE PROTOTYPE'),
+(226, '56', '-', 12, '', '2023', 'ANALISIS POTENSI PEMINJAMAN ONLINE OLEH MAHASISWA UNIVERSITAS DIPA MAKASSAR MENGGUNAKAN ALGORITMA DECISION TREE'),
+(227, '56', '-', 12, '', '2023', 'ANALISIS SENTIMEN WARGANET TERHADAP CALON PRESIDEN PADA PEMILIHAN PRESIDEN REPUBLIK INDONESIA 2024 MENGGUNAKAN METODE NAIVE BAYES'),
+(228, '56', '-', 4, '', '2023', 'PERANCANGAN APLIKASI INVENTORY TOKO ASHFAH TECHNO COMPUTER DENGAN IMPLEMENTASI CORS DAN JWT PADA API'),
+(229, '56', '-', 4, 'Cloud Computing', '2023', ''),
+(230, '56', '-', 4, 'Platform Komputasi Awan', '2023', ''),
+(231, '56', '-', 4, 'Teknologi Jaringan Komputer', '2023', ''),
+(232, '56', 'Izin Ekspor Impor Hasil Pertanian Berbasis Web Menggunakan Algoritma ID3Izin Ekspor Impor Hasil Pertanian Berbasis Web Menggunakan Algoritma ID3', 4, '', '2023', ''),
+(233, '57', '-', 12, '', '2023', 'ANALISIS TINGKAT KEPUASAN PASIEN PADA SKALA PELAYANAN KESEHATAN TERHADAP KUALITAS LAYANAN PUSKESMAS TAMALANREA JAYA'),
+(234, '57', '-', 12, '', '2023', 'ANALISIS TINGKAT KEPUASAN PENGUNJUNG WISATA GALUNG DOLLI BUNGAEJA MENGGUNAKAN METODE IMPORTANCE PERFORMANCE ANALYSIS (IPA)'),
+(235, '57', '-', 12, '', '2023', 'IMPLEMENTASI METODE USABILITY TESTING TERHADAP ANALISIS PERBANDINGAN TINGKAT KEPUASAN PELANGGAN PADA APLIKASI JWA + DAN KOPI KENANGAN '),
+(236, '57', '-', 15, '', '2023', 'EVALUASI PENGGUNAAN SISTEM CRM (COSTOMER RELATIONSHIP MANAGEMENT) DALAM MENINGKATKAN KEPUASAN PELANNGAN STUDI KASUS PADA PERUSAHAAN PIALANG'),
+(237, '57', '-', 15, 'Pengantar Ekonomi', '2023', ''),
+(238, '57', '-', 15, 'Akuntansi', '2023', ''),
+(239, '57', '-', 12, 'Audit Sistem Informasi', '2023', ''),
+(240, '57', 'Audit Sistem InformasiExamining the impact managerial ownership and financial performance on devidend policy', 15, '', '2023', ''),
+(241, '58', '-', 4, '', '2023', 'IMPLEMENTASI WEB-SERVICE PADA ATP (ALUR TUJUAN PEMBELAJARAN DENGAN PEREKAMAN DATA WAJAH MENGGUNAKAN METODE HAAR CASCADE'),
+(242, '58', '-', 12, '', '2023', 'OPTIMISASI ANALISIS ASOSIASI PENJUALAN KOPI ARABIKA DAN ROBUSTA KAJIAN ALGORITMA APRIORI FP GROWTH DAN ECLAT'),
+(243, '58', '-', 12, '', '2023', 'ANALISIS PENGARUH LOKASI PETERNAKAN HEWAN TERHADAP TINGKAT KESEHATAN HEWAN MENGGUNAKAN METODE GAUSSIAN MIXTURE MODELS (GMM)'),
+(244, '58', '-', 4, '', '2023', 'ANALISIS SISTEM PENJUALAN MENGGUNAAN ALGORITMA EQUIVALENCE CLASS TRANSFORMATION (ECLAT) UNTUK MENENTUKAN STRATEGI PEMASARAN PRODUK BERBASIS WEBSITE'),
+(245, '58', '-', 12, '', '2023', 'IMPLEMENTASI ALGORITMA FISHER YATES PADA SOAL UJIAN ONLINE SMA BUNDA KASIH MAKASSAR'),
+(246, '58', '-', 12, '', '2023', 'IDENTIFIKASI STRATEGI PROMOSI KAMPUS UNDIPA MENGGUNAKAN ANALISA SWOT'),
+(247, '58', '-', 4, 'Desain Grafis dan Multimedia', '2023', ''),
+(248, '58', '-', 4, 'Matematika Diskrit', '2023', ''),
+(249, '58', '-', 4, 'Multimedia', '2023', ''),
+(250, '58', '-', 4, 'Multimedia Interaktif', '2023', ''),
+(251, '58', 'Analisis Sentimen Menggunakan Algoritma NaÃ¯ve Bayes Classifier Studi Kasus: Aplikasi Teman Bus Di Play Store', 4, '', '2023', ''),
+(252, '59', '-', 15, '', '2023', 'ANALISIS EFEKTIFITAS TEKNIK DIGITAL MARKETING PADA PLATFORM MEDIA SOSIAL TIKTOK UNIVERSITAS DIPA MAKASSAR DENGAN METODE REGRESI '),
+(253, '59', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PENDAFTARAN PASIEN PADA KLINIK GIGI DAENG TISIA DENGAN METODE FIRST COME FIRST SERVED'),
+(254, '59', '-', 4, '', '2023', 'DESAIN DAN EVALUASI UI/UX PADA APLIKASI PENCARIAN KOST MENGGUNAKAN METODE DESIGN THINKING'),
+(255, '59', '-', 12, '', '2023', 'ANALISIS QUALITY OF SERVICE (QOS) JARINGAN WIFI MENGGUNAKAN WIRESHARK (STUDI KASUS : UNIVERSITAS DIPA MAKASSAR)'),
+(256, '59', '-', 12, '', '2023', 'MENENTUKAN FILM TERBAIK BERDASARKAN DATA STATISTIK DENGAN MENGGUNAKAN METODE WEIGHTED SUM MODEL (WSM).'),
+(257, '59', '-', 12, 'English Coversation I', '2023', ''),
+(258, '59', '-', 12, 'Bahasa Inggris', '2023', ''),
+(259, '59', '-', 12, 'Bahasa Inggris I', '2023', ''),
+(260, '59', '-', 12, 'Bahasa Inggris I (Grammer & expresi dasar)', '2023', ''),
+(261, '60', '-', 12, 'English 1 (English for Business Presentation)', '2023', ''),
+(262, '60', '-', 12, 'English For Academic Purpose', '2023', ''),
+(263, '60', '-', 12, 'Bahasa Inggris', '2023', ''),
+(264, '60', '-', 12, 'Bahasa Inggris 1', '2023', ''),
+(265, '60', 'Analisis Kemampuan Mahasiswa Program Studi Kewirausahaan Menerjemahkan Surat Bisnis', 15, '', '2023', ''),
+(266, '61', '-', 4, '', '2023', 'IDENDIFIKASI GEJALA GANGGUAN KESEHATAN MENTAL PADA MAHASISWA DIPA MAKASSAR MENGGUNAKAN MODEL NEIVE BAYES'),
+(267, '61', '-', 12, '', '2023', 'ANALISIS PELUANG SEBUAH KONTEN DILIHAT OLEH PENGGUNA INSTAGRAM MENGGUNAKAN'),
+(268, '61', '-', 15, '', '2023', 'ANALISIS SENTIMEN OPINI PENGGIAT UMKM TERHADAP E-COMMERCE TIKTOK SHOP DENGAN MENGGUNAKAN METODE SUPPORT VECTOR MACHINES (SVM)'),
+(269, '61', '-', 12, '', '2023', 'ANALISIS BRAND SAKA DALAM MELIHAT TINGKAT KEPUASAN PELANGGAN PADA MARKET PLACE SHOPEE MENGGUNAKAN METODE IPA'),
+(270, '61', '-', 13, '', '2023', 'PENERAPAN METODE APRIORI UNTUK ANALISIS POLA PEMBELIAN PELANGGAN PADA PRODUK KECANTIKAN '),
+(271, '61', '-', 12, '', '2023', 'ANALISIS TINGKAT KEPUASAN PELANGGAN MENGGUNAKAN FUZZY MAMDANI PADA R.M ULU JUKU'),
+(272, '61', '-', 15, '', '2023', 'SISTEM PREDIKSI KEUNTUNGAN PENJUALAN MENGGUNAKAN METODE MONTE CARLO (STUDI KASUS :EXCLUSIVE THRIFT STORE MAKASSAR)'),
+(273, '61', '-', 15, 'Kewirausahaan', '2023', ''),
+(274, '61', '-', 15, 'Kewirausahaan/Entrepreneur', '2023', ''),
+(275, '61', '-', 15, 'Pengantar Bisnis', '2023', ''),
+(276, '61', 'The Effect of Corporate Governance on Financial Performance Mediated by Capital Structure', 15, '', '2023', ''),
+(277, '62', '-', 12, '', '2023', 'ANALISIS SEGMENTASI PELANGGAN PADA TOKO RETAIL STUDI KASUS CVRL STORE MENGGUNAKAN ALGORITMA K-MEANS'),
+(278, '62', '-', 4, '', '2023', 'IMPLEMENTASI PLATFORM DIGITAL BERBASIS WEB UNTUK MENINGKATKAN PROSES MANAJEMEN CONTROLING DI PX_BARBERSHOP MENGGUNAKAN METODE UCD'),
+(279, '62', '-', 4, '', '2023', 'IMPLEMENTASI ALGORITMA BUBBLE SORT DALAM PENYEDIAAN BUKU ONLINE BERBASIS WEB'),
+(280, '62', '-', 4, '', '2023', 'IMPLEMENTASI METODE AHP DAN TOPSIS UNTUK MENENTUKAN KELAYAKAN PENERIMA BANTUAN LANGSUNG TUNAI (BLT) BERBASIS WEBSITE (STUDI KASUS : KANTOR DESA WAWESA)'),
+(281, '62', '-', 4, '', '2023', 'PERANCANGAN DAN EVALUASI ANTARMUKA WEBSITE E-LIBRARY SMK NEGERI 1 TANA TORAJA DENGAN METODE USER CENTERED DESIGN (UCD)'),
+(282, '62', '-', 12, '', '2023', 'ANALISIS TINGKAT KEPUASAN PENGGUNA PADA APLIKASI RRI DIGITAL DENGAN METODE KLASIFIKASI DECISION TREE'),
+(283, '62', '-', 15, 'Manajemen Keuangan', '2023', ''),
+(285, '63', '-', 4, '', '2023', 'IMPLEMENTASI PLATFORM DIGITAL BERBASIS WEB UNTUK MENINGKATKAN PROSES MANAJEMEN CONTROLING DI PX_BARBERSHOP MENGGUNAKAN METODE UCD'),
+(286, '63', '-', 12, '', '2023', 'ANALISIS SEGMENTASI PELANGGAN PADA TOKO RETAIL STUDI KASUS CVRL STORE MENGGUNAKAN ALGORITMA K-MEANS'),
+(287, '63', '-', 4, '', '2023', 'IMPLEMENTASI ALGORITMA BUBBLE SORT DALAM PENYEDIAAN BUKU ONLINE BERBASIS WEB'),
+(288, '63', '-', 4, '', '2023', 'IMPLEMENTASI METODE AHP DAN TOPSIS UNTUK MENENTUKAN KELAYAKAN PENERIMA BANTUAN LANGSUNG TUNAI (BLT) BERBASIS WEBSITE (STUDI KASUS : KANTOR DESA WAWESA)'),
+(289, '63', '-', 4, '', '2023', 'PERANCANGAN DAN EVALUASI ANTARMUKA WEBSITE E-LIBRARY SMK NEGERI 1 TANA TORAJA DENGAN METODE USER CENTERED DESIGN (UCD)'),
+(290, '63', '-', 12, '', '2023', 'ANALISIS TINGKAT KEPUASAN PENGGUNA PADA APLIKASI RRI DIGITAL DENGAN METODE KLASIFIKASI DECISION TREE'),
+(291, '63', '-', 15, 'Manajemen Keuangan', '2023', ''),
+(292, '63', '-', 15, 'Akuntansi', '2023', ''),
+(293, '63', '-', 15, 'Akuntansi bisnis', '2023', ''),
+(294, '63', '-', 15, 'Etika Profesi', '2023', ''),
+(295, '63', 'Aplikasi Manajemen Service Kendaraan Bermotor Menggunakan Teknologi QR Code', 15, '', '2023', ''),
+(296, '64', '-', 12, '', '2023', 'ANALISIS KUALITAS LAYANAN YAYY SHOP KOSMETIK MENGGUNAKAN METODE SERVQUAL DAN IMPORTANCE PERFORMANCE'),
+(297, '64', '-', 4, '', '2023', 'PENERAPAN ALGORITMA NAÃVE BAYES DALAM MEMPREDIKSI PEMINATAN PAKET HAJI DAN UMROH PADA PT. ASTRI DUTA MANDIRI (ADAM INDONESIA) MAKASSAR'),
+(298, '64', '-', 4, '', '2023', 'PERANCANGAN APLIKASI FOOD WASTE BERBASIS ANDROID UNTUK MENGURANGI DOOD WASTE DENGAN MENGGUNAKAN METODE DESIGN THINKING'),
+(299, '64', '-', 12, '', '2023', 'PENERAPAN METODE COSTOMER SATISFACTION INDEX (CSI) DALAM MENGANALISIS KINERJA PEGAWAI DALAM PELAYANAN MASYARAKAT DI KELURAHAN MANGGAU'),
+(300, '64', '-', 15, 'Supply Chain Management', '2023', ''),
+(301, '64', '-', 15, 'Analisa Investasi dan Permodalan', '2023', ''),
+(302, '64', '-', 15, 'Enteprise Resource Planning', '2023', ''),
+(303, '64', '-', 15, 'Etika Profesi', '2023', ''),
+(304, '64', '-', 15, 'Kecakapan Antar Personal', '2023', ''),
+(305, '64', 'Aplikasi Manajemen Service Kendaraan Bermotor Menggunakan Teknologi QR Code', 15, '', '2023', ''),
+(306, '65', '-', 12, '', '2023', 'ANALISIS TINGKAT KEPUASAN MAHASISWA TERHADAP PELAYANAN APLIKASI KKL UNDIPA MAKASSAR'),
+(307, '65', '-', 12, '', '2023', 'REDESAIN UI SISTEM INFORMASI AKADEMIK UNIVERSITAS DIPA MAKASSAR UNTUK MENINGKATKAN USER EXPERIENCE PENGGUNA DENGAN METODE LEAN UX'),
+(308, '65', '-', 4, '', '2023', 'IMPLEMENTASI PLATFORM PERCETAKAN DIGITAL PRINTING BERBASIS WEB UNTUK MENINGKATKAN AKSEBILITAS DAN PELAYANAN TERHADAP CUSTOMER'),
+(309, '65', '-', 4, '', '2023', 'EVALUASI KEAMANAN WEBSITE MENGGUNAKAN METODE PENETRATION TESTING DAN VULNERABILITY ASSESSMENT PADA WEBSITE KAMPUS DIPA MAKASSAR'),
+(310, '65', '-', 12, '', '2023', 'ANALISIS PELUANG SEBUAH KONTEN DILIHAT OLEH PENGGUNA INSTAGRAM MENGGUNAKAN'),
+(311, '65', '-', 12, '', '2023', 'PROTOTYPE MONITORING KEAMANAN DOORLOCK BERBASIS IoT'),
+(312, '65', '-', 4, '', '2023', 'ANALISIS SENTIMEN ULASAN APLIKASI CEK BANSOS PADA PLAY STORE MENGGUNAKAN ALGORITMA NAÃVE BAYES CALSSIFIER'),
+(313, '65', '-', 4, 'Pembuatan Aplikasi Konsentrasi', '2023', ''),
+(314, '65', '-', 4, 'Pemrograman Aplikasi Mobile', '2023', ''),
+(315, '66', '-', 12, '', '2023', 'ANALISIS SENTIMEN ULASAN PADA APLIKASI PINJAMAN ONLINE MENGGUNAKAN MODEL SUPER VECTOR MACHINE (SVM)'),
+(316, '66', '-', 4, '', '2023', 'ANALISIS SENTIMEN ULASAN APLIKASI CEK BANSOS PADA PLAY STORE MENGGUNAKAN ALGORITMA NAÃVE BAYES CALSSIFIER'),
+(317, '66', '-', 16, '', '2023', 'IMPLEMENTASI ALGORITMA YOU ONLY LIVE ONCE (YOLO) DAN CONCOLUTION NEURAL NETWORK (CNN) PADA DETEKSI ALAT PELINDUNG DIRI'),
+(318, '66', '-', 12, '', '2023', 'PERBANDINGAN METODE NAÃVE BAYES DAN SVM DALAM MENGANALISIS SENTIMEN KOMENTAR VIDEO YOUTUBE GAGASAN CAPRES 2024'),
+(319, '66', '-', 4, '', '2023', 'PERANCANGAN SISTEM PENDUKUNG KEPUTUSAN SELEKSI KENAIKAN SABUK DENGAN METODE SIMPLE ADDITIVE WEIGHTING (SAW) DAN WEIGH SCORING SISTEM PADA DIPANEGARA KARATE CLUB'),
+(320, '66', '-', 4, '', '2023', 'PREDIKSI PREDIKAT KELULUSAN SISWA SMPN 9 MAKASSAR MENGGUNAKAN METODE NAIVE BAYES'),
+(321, '66', '-', 12, '', '2023', 'ANALISIS PENYEBAB KETIDAKSESUAIAN PESANAN BARANG DI MARKETPLACE SHOPEE MENGGUNAKAN METODE REGRESI '),
+(322, '66', '-', 12, '', '2023', 'IDENTIFIKASI STRATEGI PROMOSI KAMPUS UNDIPA MENGGUNAKAN ANALISA SWOT'),
+(323, '66', '-', 12, '', '2023', 'PERANCANGAN SISTEM INFORMASI REPOSITORI SKRIPSI MENGGUNAKAN K-MEANS BERBASIS WEB PADA UNIVERSITAS DIPA MAKASSAR'),
+(324, '66', '-', 12, '', '2023', 'SISTEM INFORMASI RESERVASI BIMBINGAN KONSELING CAREER DEVELOPMENT INSTITUT TEKNOLOGI DAN BISNIS KALLA MENGGUNAKAN METODE SEQUANTIAL SEARCH.'),
+(325, '66', '-', 15, 'Manajemen Proyek', '2023', ''),
+(326, '66', '-', 15, 'Manajemen Proyek Perangkat Lunak', '2023', ''),
+(327, '67', '-', 12, '', '2023', 'ANALISIS KEPUASAN PELANGGAN TERHADAP LAYANAN TOKO PIPI MENGGUNAKAN METODE COSTOMER SATISFACTION INDEKS'),
+(328, '67', '-', 4, '', '2023', 'PENERAPAN METODE SUPPORT VECTOR MACHINE DALAM MENGKLARIFIKASIKAN ULASAN BERBELANJA ONLINE DI APLIKASI X'),
+(329, '67', '-', 12, '', '2023', 'ANALISIS ALGORITMA K-MEANS DAN SVM DALAM MENGELOMPOKKAN KUNJUNGAN WISATAWAN MANCANEGARA DI PROV. BALI'),
+(330, '67', '-', 12, 'Bahasa Inggris', '2023', ''),
+(331, '67', '-', 12, 'Bahasa Inggris 3', '2023', ''),
+(332, '67', '-', 12, 'Bahasa Inggris I', '2023', ''),
+(333, '67', 'Implementasi Metode Frequent Pattern Growth Untuk Analisis Pola Penjualan Buku Pada Toko Graha Media', 12, '', '2023', ''),
+(334, '68', '-', 4, '', '2023', 'PERANCANGAN APLIKASI E-LEARNING DI SMPN SANUR MAKASSAR'),
+(335, '68', '-', 12, '', '2023', 'PENERAPAN ALGORIRMA K-MEANS UNTUK CLUSTERING DALAM ANALISA DATA PEMAKAIAN OBAT DI PUSKESMAS.'),
+(336, '68', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PEMESANAN BARANG BERBASIS WEB MENGGUNAKAN ALGORITMA BRUTE FORCE PADA PASAR KOPI MAKASSAR.'),
+(337, '68', '-', 4, '', '2023', 'PENERAPAN ALGORITMA NAÃVE BAYES CLASSIFIER DALAM ANALISIS SENTIMEN KOMENTAR PADA X (TWITTER) PT. PLN (PERSERO) MENGGUNAKAN TEXT MINING'),
+(338, '68', '-', 12, '', '2023', 'ANALISIS KUALITAS LAYANAN LANDSIDE PADA BANDAR UDARA SULTAN HASANUDDIN MAKASSAR MENGGUNAKAN METODE SERVICE QUALITY'),
+(339, '68', '-', 4, '', '2023', 'PERANCANGAN APLIKASI SISTEM PENDUKUNG KEPUTUSAN PENERIMA BEASISWA MAHASISWA UNDIPA DENGAN METODE SAW'),
+(340, '68', '-', 4, '', '2023', 'PERANCANGAN ANTARMUKA PENGGUNA APLIKASI MOBILE PADA BISNIS WILONA FASHION'),
+(341, '68', '-', 4, '', '2023', 'PERANCANGAN APLIKASI PEMILIHAN KEPALA DESA GASING TANAH TORAJA BERBASIS WEB'),
+(342, '68', '-', 4, 'Jaringan Komputer', '2023', ''),
+(343, '68', '-', 4, 'Teknologi Jaringan Komputer', '2023', ''),
+(344, '69', '-', 12, '', '2023', 'PERANCANGAN SISTEM INFORMASI REPOSITORI SKRIPSI MENGGUNAKAN K-MEANS BERBASIS WEB PADA UNIVERSITAS DIPA MAKASSAR'),
+(345, '69', '-', 4, '', '2023', 'PERANCANGAN CHATBOT INTERAKTIF UNTUK PELAYANAN INFORMASI DAN AKADEMIK KAMPUS BERBASIS BERBASIS ARTIFICIAL INTELLEGENCE MARKUP LANGUAGE (AIML).'),
+(346, '69', '-', 12, '', '2023', 'ANALISIS POLA BELANJA MAHASISWA PADA APLIKASI E-COMMERCE MENGGUNAKAN MODEL K-NN DAN DECISION TREE '),
+(347, '69', '-', 4, '', '2023', 'PERANCANGAN APLIKASI SISTEM PENDUKUNG KEPUTUSAN PENERIMA BEASISWA MAHASISWA UNDIPA DENGAN METODE SAW'),
+(348, '69', '-', 12, '', '2023', 'ANALISIS SENTIMEN TERHADAP PERILAKU BERBELANJA MASYARAKAT ANTARA ONLINE DAN OFFLINE DENGAN HADIRNYA E-COMMERCE DI TWITTER'),
+(349, '69', '-', 4, 'Konsep Teknologi Digital', '2023', ''),
+(350, '69', '-', 4, 'Pengantar Teknologi Informasi', '2023', ''),
+(351, '69', '-', 4, 'Pengenalan Teknologi Informasi', '2023', ''),
+(352, '69', 'Sales Application Ayam Pedaging Berbasis Web dan Location Based Service (LBS) pada UD. Syam Broiler', 4, '', '2023', ''),
+(353, '70', '-', 15, 'Enteprise Resource Planning', '2023', ''),
+(354, '70', '-', 15, 'Entrepreneurship 1', '2023', ''),
+(355, '70', '-', 15, 'Inovasi dan Perubahan Organisasi', '2023', ''),
+(356, '70', '-', 15, 'Kewirausahaan/Entrepreneur', '2023', ''),
+(357, '70', 'Pengaruh faktor religiusitas terhadap keputusan nasabah memilih produk tabungan pada PT. Bank BNI syariah cabang Makassar', 15, '', '2023', ''),
+(358, '71', '-', 15, 'Manajemen Keuangan', '2023', ''),
+(359, '71', '-', 15, 'Merek dan Kemasan', '2023', ''),
+(360, '71', '-', 15, 'Studi Kelayakan Bisnis', '2023', ''),
+(361, '71', '-', 4, 'Desain dan Sistem Pemikiran', '2023', ''),
+(362, '71', '-', 15, 'Inovasi dan Perubahan Organisasi', '2023', ''),
+(363, '71', 'Jurnal Mirai Management  Pengaruh Disiplin Kerja Dan Lingkungan Kerja Terhadap Produktivitas Kerja Pegawai Pada Dinas Pekerjaan Umum (PU) Kabupaten Sinjai Vol. 8 No. 2 (2023)', 15, '', '2023', ''),
+(364, '72', '-', 12, 'Bahasa Indonesia', '2023', ''),
+(365, '72', '-', 15, 'Entrepreneurship Mindset', '2023', ''),
+(366, '72', '-', 15, 'Kreativitas dan Inovasi Bisnis', '2023', ''),
+(367, '72', '-', 4, 'Pengambilan Keputusan dan Pemecahan Masalah', '2023', ''),
+(368, '72', 'ANALISIS PENGARUH MODAL INTELEKTUAL, EFESIENSI OPERASIONAL, STRUKTUR MODAL DAN PERTUMBUHAN PERUSAHAAN TERHADAP KINERJA KEUANGAN', 15, '', '2023', ''),
+(369, '73', '-', 15, 'Pengantar Manajemen', '2023', ''),
+(370, '73', 'Aplikasi Pendukung Keputusan Dalam Optimisasi Penjualan Barang, Menggunakan Logika Fuzzy ', 15, '', '2023', ''),
+(371, '74', '-', 12, '', '2024', 'IMPLEMENTASI METODE SMART PADA SISTEM REKOMENDASI PEMILIHAN APLIKASI PEMBELAJARAN ONLINE (STUDI KASUS : UNDIPA)'),
+(372, '74', '-', 4, '', '2023', 'MPLEMENTASI ALGORITMA APRIORI DALAM MENENTUKAN POLA PEMBELIAN KONSUMEN PADA TOKO TOP MODE'),
+(373, '74', '-', 4, '', '2023', 'PERANCANGAN DAN PENERAPAN METODE PROMETHEE PADA SISTEM SELEKSI SUPPLIER UNTUK LAYANAN JASA GENERAL KONTRAKTOR KABEL JARINGAN LISTRIK BERBASIS WEB DI PT TRI LINTAS NUSANTARA.'),
+(374, '74', '-', 12, '', '2023', 'PERANCANGAN DAN EVALUASI FRAMEWORK LARAVEL PADA SISTEM INFORMASI DESA BUNTU BARANA'),
+(375, '74', '-', 4, 'Praktikum Aplikasi Komputer', '2023', ''),
+(376, '74', '-', 4, 'Praktikum Pemrograman Objek', '2023', ''),
+(377, '74', '-', 4, 'Rekayasa Perangkat Lunak', '2023', ''),
+(378, '74', '-', 4, 'Algoritma Dan Pemrograman', '2023', ''),
+(379, '74', '-', 4, 'Pemrograman ber Orientasi Objek', '2023', ''),
+(380, '74', 'Desain Sistem Pendukung Keputusan Kelayakan Penertiban Izin Operasional Rumah Makan Pada Dinas Kesehatan Kabupaten Toraja Utara ', 4, '', '2023', ''),
+(381, '75', '-', 12, '', '2023', 'IMPLEMENTASI MACHNE LEARNING DALAM SISTEM REKOMENDASI PEMESANAN SAYUR MENGGUNAKAN METODE CINTENT-BASED FILTERING'),
+(382, '75', '-', 4, '', '2023', 'SISTEM PAKAR UNTUK MENDIAGNOSIS GANGGUAN MENTAL BERBASIS WEB'),
+(383, '75', '-', 4, '', '2023', 'PENERAPAN SISTEM MONITORING DETEKSI KEBAKARAN BERBASIS IoT PADA HUJIAN MAHASISWA MENGGUNAKAN SENSOR FLAME DAN KAMERA'),
+(384, '75', '-', 4, '', '2023', 'PENERAPAN DATA MINING UNTUK PREDIKSI PENYAKIT DEMAM BERDARAH MENGGUNAKAN ALGORITMA DECISION TREE C45 DI PUSKESMAS TAMALANREA'),
+(385, '75', '-', 4, '', '2023', 'SISTEM PENENTUAN HARGA SEWA DINAMIS DENGAN METODE COST PLUS PRICING PADA PENYEWAAN MOBIL DAN MOTOR BERBASIS MOBILE'),
+(386, '75', '-', 4, 'Cloud Computing', '2023', ''),
+(387, '75', '-', 4, 'Data Engineering', '2023', ''),
+(388, '75', '-', 4, 'Ilmu Komputer dan Algoritma Pemrograman', '2023', ''),
+(389, '75', '-', 4, 'Internet of Things', '2023', ''),
+(390, '75', '-', 4, 'Platform Komputasi Awan', '2023', ''),
+(391, '75', 'The Design of Smart Prototype Pet Feeder Using Passive InfaRed (PIR) Sensors ', 4, '', '2023', ''),
+(392, '57', '-', 15, 'Pengantar Bisnis', '2023', ''),
+(393, '50', '-', 4, 'Sistem Pendukung Keputusan', '2023', '');
 
--- Dumping structure for table cluster_dosen.tb_prodi
-CREATE TABLE IF NOT EXISTS `tb_prodi` (
-  `prodi_id` int NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_prodi`
+--
+
+CREATE TABLE `tb_prodi` (
+  `prodi_id` int(11) NOT NULL,
   `nama_prodi` varchar(20) DEFAULT NULL,
-  `status` enum('aktif','tidak aktif') DEFAULT NULL,
-  PRIMARY KEY (`prodi_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  `status` enum('aktif','tidak aktif') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_prodi: ~0 rows (approximately)
-DELETE FROM `tb_prodi`;
+--
+-- Dumping data for table `tb_prodi`
+--
+
 INSERT INTO `tb_prodi` (`prodi_id`, `nama_prodi`, `status`) VALUES
-	(4, 'TI', 'aktif'),
-	(5, 'SI', 'aktif'),
-	(6, 'MI', 'aktif'),
-	(7, 'RPL', 'aktif'),
-	(10, 'Kewirausahaan', 'aktif'),
-	(11, 'Bisnis Digital', 'aktif');
+(4, 'TI', 'aktif'),
+(5, 'SI', 'aktif'),
+(6, 'MI', 'aktif'),
+(7, 'RPL', 'aktif'),
+(10, 'Kewirausahaan', 'aktif'),
+(11, 'Bisnis Digital', 'aktif');
 
--- Dumping structure for table cluster_dosen.tb_rel_dosen
-CREATE TABLE IF NOT EXISTS `tb_rel_dosen` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `id_dosen` int NOT NULL,
-  `id_kriteria` int NOT NULL,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_rel_dosen`
+--
+
+CREATE TABLE `tb_rel_dosen` (
+  `ID` int(11) NOT NULL,
+  `id_dosen` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
   `nilai` double NOT NULL,
-  `prodi_id` int NOT NULL,
-  `nilai_kriteria` int DEFAULT '0',
-  `penelitian` int DEFAULT '0',
-  `pengajaran` int DEFAULT '0',
-  `bimbingan` int DEFAULT '0',
-  PRIMARY KEY (`ID`),
-  KEY `id_siswa` (`id_dosen`),
-  KEY `id_kriteria` (`id_kriteria`),
-  KEY `tahun_id` (`prodi_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=491 DEFAULT CHARSET=latin1;
+  `prodi_id` int(11) NOT NULL,
+  `nilai_kriteria` int(11) DEFAULT '0',
+  `penelitian` int(11) DEFAULT '0',
+  `pengajaran` int(11) DEFAULT '0',
+  `bimbingan` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table cluster_dosen.tb_rel_dosen: ~0 rows (approximately)
-DELETE FROM `tb_rel_dosen`;
+--
+-- Dumping data for table `tb_rel_dosen`
+--
+
 INSERT INTO `tb_rel_dosen` (`ID`, `id_dosen`, `id_kriteria`, `nilai`, `prodi_id`, `nilai_kriteria`, `penelitian`, `pengajaran`, `bimbingan`) VALUES
-	(41, 0, 4, 6, 4, 0, 0, 0, 0),
-	(44, 0, 4, 6, 4, 0, 0, 0, 0),
-	(47, 0, 4, 6, 4, 0, 0, 0, 0),
-	(50, 0, 4, 6, 4, 0, 0, 0, 0),
-	(53, 0, 4, 6, 4, 0, 0, 0, 0),
-	(56, 0, 4, 6, 4, 0, 0, 0, 0),
-	(62, 14, 4, 9, 4, 0, 0, 0, 0),
-	(65, 15, 4, 9, 4, 0, 0, 0, 0),
-	(68, 16, 4, 9, 4, 0, 0, 0, 0),
-	(71, 17, 4, 8, 4, 0, 0, 0, 0),
-	(74, 18, 4, 6, 5, 0, 0, 0, 0),
-	(77, 19, 4, 6, 5, 0, 0, 0, 0),
-	(80, 20, 4, 6, 5, 0, 0, 0, 0),
-	(83, 21, 4, 6, 5, 0, 0, 0, 0),
-	(86, 22, 4, 5, 6, 0, 0, 0, 0),
-	(89, 23, 4, 5, 6, 0, 0, 0, 0),
-	(92, 24, 4, 5, 6, 0, 0, 0, 0),
-	(95, 25, 4, 5, 6, 0, 0, 0, 0),
-	(98, 26, 4, 6, 7, 0, 0, 0, 0),
-	(101, 27, 4, 6, 7, 0, 0, 0, 0),
-	(198, 14, 12, 3, 0, 0, 0, 0, 0),
-	(199, 15, 12, 2, 0, 0, 0, 0, 0),
-	(200, 16, 12, 3, 0, 0, 0, 0, 0),
-	(201, 17, 12, 2, 0, 0, 0, 0, 0),
-	(202, 18, 12, -1, 0, 0, 0, 0, 0),
-	(203, 19, 12, -1, 0, 0, 0, 0, 0),
-	(204, 20, 12, -1, 0, 0, 0, 0, 0),
-	(205, 21, 12, -1, 0, 0, 0, 0, 0),
-	(206, 22, 12, -1, 0, 0, 0, 0, 0),
-	(207, 23, 12, -1, 0, 0, 0, 0, 0),
-	(208, 24, 12, -1, 0, 0, 0, 0, 0),
-	(209, 25, 12, -1, 0, 0, 0, 0, 0),
-	(210, 26, 12, -1, 0, 0, 0, 0, 0),
-	(211, 27, 12, -1, 0, 0, 0, 0, 0),
-	(213, 14, 13, 3, 0, 0, 0, 0, 0),
-	(214, 15, 13, 3, 0, 0, 0, 0, 0),
-	(215, 16, 13, 3, 0, 0, 0, 0, 0),
-	(216, 17, 13, 3, 0, 0, 0, 0, 0),
-	(217, 18, 13, 0, 0, 0, 0, 0, 0),
-	(218, 19, 13, 0, 0, 0, 0, 0, 0),
-	(219, 20, 13, 0, 0, 0, 0, 0, 0),
-	(220, 21, 13, 0, 0, 0, 0, 0, 0),
-	(221, 22, 13, 6, 0, 0, 0, 0, 0),
-	(222, 23, 13, 0, 0, 0, 0, 0, 0),
-	(223, 24, 13, 0, 0, 0, 0, 0, 0),
-	(224, 25, 13, 0, 0, 0, 0, 0, 0),
-	(225, 26, 13, 0, 0, 0, 0, 0, 0),
-	(226, 27, 13, 0, 0, 0, 0, 0, 0),
-	(243, 14, 15, 3, 0, 0, 0, 0, 0),
-	(244, 15, 15, 4, 0, 0, 0, 0, 0),
-	(245, 16, 15, 4, 0, 0, 0, 0, 0),
-	(246, 17, 15, 2, 0, 0, 0, 0, 0),
-	(247, 18, 15, 0, 0, 0, 0, 0, 0),
-	(248, 19, 15, 0, 0, 0, 0, 0, 0),
-	(249, 20, 15, 0, 0, 0, 0, 0, 0),
-	(250, 21, 15, 0, 0, 0, 0, 0, 0),
-	(251, 22, 15, 0, 0, 0, 0, 0, 0),
-	(252, 23, 15, 0, 0, 0, 0, 0, 0),
-	(253, 24, 15, 0, 0, 0, 0, 0, 0),
-	(254, 25, 15, 0, 0, 0, 0, 0, 0),
-	(255, 26, 15, 0, 0, 0, 0, 0, 0),
-	(256, 27, 15, 0, 0, 0, 0, 0, 0),
-	(258, 14, 16, 2, 0, 0, 0, 0, 0),
-	(259, 15, 16, 3, 0, 0, 0, 0, 0),
-	(260, 16, 16, 2, 0, 0, 0, 0, 0),
-	(261, 17, 16, 1, 0, 0, 0, 0, 0),
-	(262, 18, 16, -1, 0, 0, 0, 0, 0),
-	(263, 19, 16, 4, 0, 0, 0, 0, 0),
-	(264, 20, 16, -1, 0, 0, 0, 0, 0),
-	(265, 21, 16, -1, 0, 0, 0, 0, 0),
-	(266, 22, 16, -1, 0, 0, 0, 0, 0),
-	(267, 23, 16, -1, 0, 0, 0, 0, 0),
-	(268, 24, 16, -1, 0, 0, 0, 0, 0),
-	(269, 25, 16, -1, 0, 0, 0, 0, 0),
-	(270, 26, 16, -1, 0, 0, 0, 0, 0),
-	(271, 27, 16, -1, 0, 0, 0, 0, 0),
-	(332, 0, 4, 6, 4, 0, 0, 0, 0),
-	(333, 0, 12, 0, 4, 0, 0, 0, 0),
-	(334, 0, 13, 1, 4, 0, 0, 0, 0),
-	(335, 0, 15, 1, 4, 0, 0, 0, 0),
-	(336, 0, 16, 0, 4, 0, 0, 0, 0),
-	(347, 0, 4, 6, 4, 0, 0, 0, 0),
-	(348, 0, 12, 0, 4, 0, 0, 0, 0),
-	(349, 0, 13, 1, 4, 0, 0, 0, 0),
-	(350, 0, 15, 1, 4, 0, 0, 0, 0),
-	(351, 0, 16, 0, 4, 0, 0, 0, 0),
-	(362, 0, 4, 6, 4, 0, 0, 0, 0),
-	(363, 0, 12, 0, 4, 0, 0, 0, 0),
-	(364, 0, 13, 1, 4, 0, 0, 0, 0),
-	(365, 0, 15, 1, 4, 0, 0, 0, 0),
-	(366, 0, 16, 0, 4, 0, 0, 0, 0),
-	(377, 0, 4, 6, 4, 0, 0, 0, 0),
-	(378, 0, 12, 0, 4, 0, 0, 0, 0),
-	(379, 0, 13, 1, 4, 0, 0, 0, 0),
-	(380, 0, 15, 1, 4, 0, 0, 0, 0),
-	(381, 0, 16, 0, 4, 0, 0, 0, 0),
-	(392, 0, 4, 6, 4, 0, 0, 0, 0),
-	(393, 0, 12, 0, 4, 0, 0, 0, 0),
-	(394, 0, 13, 1, 4, 0, 0, 0, 0),
-	(395, 0, 15, 1, 4, 0, 0, 0, 0),
-	(396, 0, 16, 0, 4, 0, 0, 0, 0),
-	(407, 0, 4, 6, 4, 0, 0, 0, 0),
-	(408, 0, 12, 0, 4, 0, 0, 0, 0),
-	(409, 0, 13, 1, 4, 0, 0, 0, 0),
-	(410, 0, 15, 1, 4, 0, 0, 0, 0),
-	(411, 0, 16, 0, 4, 0, 0, 0, 0),
-	(431, 28, 4, 6, 4, 0, 0, 0, 0),
-	(432, 28, 12, 0, 4, 0, 0, 0, 0),
-	(433, 28, 13, 1, 4, 0, 0, 0, 0),
-	(434, 28, 15, 1, 4, 0, 0, 0, 0),
-	(435, 28, 16, 0, 4, 0, 0, 0, 0),
-	(455, 30, 4, 0, 11, 0, 0, 1, 3),
-	(456, 30, 12, 0, 11, 0, 0, 0, 0),
-	(457, 30, 13, 0, 11, 0, 2, 1, 1),
-	(458, 30, 15, 0, 11, 0, 4, 3, 2),
-	(459, 30, 16, 0, 11, 0, 1, 2, 1),
-	(460, 31, 4, 0, 11, 0, 0, 0, 0),
-	(461, 31, 12, 0, 11, 0, 0, 0, 0),
-	(462, 31, 13, 0, 11, 0, 0, 0, 0),
-	(463, 31, 15, 0, 11, 0, 0, 0, 0),
-	(464, 31, 16, 1, 11, 0, 0, 0, 0),
-	(465, 32, 4, 1, 5, 0, 0, 0, 0),
-	(466, 32, 12, 0, 5, 0, 0, 0, 0),
-	(467, 32, 13, 0, 5, 0, 0, 0, 0),
-	(468, 32, 15, 0, 5, 0, 0, 0, 0),
-	(469, 32, 16, 0, 5, 0, 0, 0, 0),
-	(472, 33, 4, 2, 4, 0, 0, 0, 0),
-	(473, 33, 12, 0, 4, 0, 0, 0, 0),
-	(474, 33, 13, 0, 4, 0, 0, 0, 0),
-	(475, 33, 15, 0, 4, 0, 0, 0, 0),
-	(476, 33, 16, 0, 4, 0, 0, 0, 0),
-	(479, 34, 4, 0, 4, 0, 0, 0, 0),
-	(480, 34, 12, 0, 4, 0, 0, 0, 0),
-	(481, 34, 13, 0, 4, 0, 0, 0, 0),
-	(482, 34, 15, 1, 4, 0, 0, 0, 0),
-	(483, 34, 16, 1, 4, 0, 0, 0, 0),
-	(486, 35, 4, 0, 4, 0, 0, 0, 0),
-	(487, 35, 12, 0, 4, 0, 0, 0, 0),
-	(488, 35, 13, 0, 4, 0, 0, 0, 0),
-	(489, 35, 15, 0, 4, 0, 0, 0, 0),
-	(490, 35, 16, 0, 4, 0, 0, 0, 0);
+(512, 38, 4, 0, 4, 0, 0, 2, 2),
+(513, 38, 12, 0, 4, 0, 1, 0, 2),
+(514, 38, 13, 0, 4, 0, 0, 0, 0),
+(515, 38, 15, 0, 4, 0, 0, 0, 0),
+(516, 38, 16, 0, 4, 0, 0, 0, 0),
+(517, 39, 4, 0, 4, 0, 0, 3, 6),
+(518, 39, 12, 0, 4, 0, 0, 0, 1),
+(519, 39, 13, 0, 4, 0, 0, 0, 0),
+(520, 39, 15, 0, 4, 0, 2, 0, 0),
+(521, 39, 16, 0, 4, 0, 0, 0, 0),
+(524, 40, 4, 0, 4, 0, 2, 1, 4),
+(525, 40, 12, 0, 4, 0, 0, 0, 1),
+(526, 40, 13, 0, 4, 0, 0, 0, 0),
+(527, 40, 15, 0, 4, 0, 0, 1, 0),
+(528, 40, 16, 0, 4, 0, 0, 0, 0),
+(531, 41, 4, 0, 4, 0, 0, 0, 5),
+(532, 41, 12, 0, 4, 0, 0, 0, 0),
+(533, 41, 13, 0, 4, 0, 0, 2, 0),
+(534, 41, 15, 0, 4, 0, 0, 0, 0),
+(535, 41, 16, 0, 4, 0, 0, 1, 0),
+(538, 42, 4, 0, 4, 0, 0, 1, 4),
+(539, 42, 12, 0, 4, 0, 1, 0, 0),
+(540, 42, 13, 0, 4, 0, 0, 0, 0),
+(541, 42, 15, 0, 4, 0, 0, 1, 1),
+(542, 42, 16, 0, 4, 0, 0, 0, 0),
+(545, 43, 4, 0, 4, 0, 0, 1, 4),
+(546, 43, 12, 0, 4, 0, 0, 0, 0),
+(547, 43, 13, 0, 4, 0, 0, 3, 0),
+(548, 43, 15, 0, 4, 0, 0, 0, 0),
+(549, 43, 16, 0, 4, 0, 0, 0, 0),
+(566, 46, 4, 0, 4, 0, 0, 6, 3),
+(567, 46, 12, 0, 4, 0, 1, 0, 1),
+(568, 46, 13, 0, 4, 0, 0, 0, 0),
+(569, 46, 15, 0, 4, 0, 0, 0, 0),
+(570, 46, 16, 0, 4, 0, 0, 0, 0),
+(578, 48, 4, 0, 4, 0, 1, 2, 4),
+(579, 48, 12, 0, 4, 0, 0, 0, 5),
+(580, 48, 13, 0, 4, 0, 0, 0, 0),
+(581, 48, 15, 0, 4, 0, 0, 1, 0),
+(582, 48, 16, 0, 4, 0, 0, 0, 0),
+(585, 49, 4, 0, 4, 0, 0, 0, 0),
+(586, 49, 12, 0, 4, 0, 1, 0, 0),
+(587, 49, 13, 0, 4, 0, 0, 0, 0),
+(588, 49, 15, 0, 4, 0, 0, 4, 0),
+(589, 49, 16, 0, 4, 0, 0, 0, 0),
+(592, 50, 4, 0, 4, 0, 0, 3, 3),
+(593, 50, 12, 0, 4, 0, 0, 0, 5),
+(594, 50, 13, 0, 4, 0, 0, 0, 0),
+(595, 50, 15, 0, 4, 0, 1, 0, 0),
+(596, 50, 16, 0, 4, 0, 0, 0, 0),
+(599, 51, 4, 0, 4, 0, 0, 0, 3),
+(600, 51, 12, 0, 4, 0, 0, 0, 6),
+(601, 51, 13, 0, 4, 0, 0, 0, 0),
+(602, 51, 15, 0, 4, 0, 0, 0, 0),
+(603, 51, 16, 0, 4, 0, 0, 0, 0),
+(606, 52, 4, 0, 4, 0, 1, 3, 5),
+(607, 52, 12, 0, 4, 0, 0, 0, 1),
+(608, 52, 13, 0, 4, 0, 0, 0, 0),
+(609, 52, 15, 0, 4, 0, 0, 0, 0),
+(610, 52, 16, 0, 4, 0, 0, 0, 0),
+(613, 53, 4, 0, 4, 0, 1, 7, 4),
+(614, 53, 12, 0, 4, 0, 0, 0, 0),
+(615, 53, 13, 0, 4, 0, 0, 0, 0),
+(616, 53, 15, 0, 4, 0, 0, 0, 0),
+(617, 53, 16, 0, 4, 0, 0, 0, 0),
+(620, 54, 4, 0, 5, 0, 0, 0, 0),
+(621, 54, 12, 0, 5, 0, 0, 0, 0),
+(622, 54, 13, 0, 5, 0, 0, 0, 0),
+(623, 54, 15, 0, 5, 0, 0, 2, 0),
+(624, 54, 16, 0, 5, 0, 0, 0, 0),
+(627, 55, 4, 0, 5, 0, 0, 0, 5),
+(628, 55, 12, 0, 5, 0, 0, 1, 3),
+(629, 55, 13, 0, 5, 0, 0, 0, 0),
+(630, 55, 15, 0, 5, 0, 1, 1, 0),
+(631, 55, 16, 0, 5, 0, 0, 0, 0),
+(634, 56, 4, 0, 5, 0, 1, 3, 3),
+(635, 56, 12, 0, 5, 0, 0, 0, 3),
+(636, 56, 13, 0, 5, 0, 0, 0, 0),
+(637, 56, 15, 0, 5, 0, 0, 0, 0),
+(638, 56, 16, 0, 5, 0, 0, 0, 0),
+(641, 57, 4, 0, 5, 0, 0, 0, 0),
+(642, 57, 12, 0, 5, 0, 0, 1, 3),
+(643, 57, 13, 0, 5, 0, 0, 0, 0),
+(644, 57, 15, 0, 5, 0, 1, 3, 1),
+(645, 57, 16, 0, 5, 0, 0, 0, 0),
+(648, 58, 4, 0, 5, 0, 1, 4, 2),
+(649, 58, 12, 0, 5, 0, 0, 0, 4),
+(650, 58, 13, 0, 5, 0, 0, 0, 0),
+(651, 58, 15, 0, 5, 0, 0, 0, 0),
+(652, 58, 16, 0, 5, 0, 0, 0, 0),
+(655, 59, 4, 0, 6, 0, 0, 0, 2),
+(656, 59, 12, 0, 6, 0, 0, 4, 2),
+(657, 59, 13, 0, 6, 0, 0, 0, 0),
+(658, 59, 15, 0, 6, 0, 0, 0, 1),
+(659, 59, 16, 0, 6, 0, 0, 0, 0),
+(662, 60, 4, 0, 6, 0, 0, 0, 0),
+(663, 60, 12, 0, 6, 0, 0, 4, 0),
+(664, 60, 13, 0, 6, 0, 0, 0, 0),
+(665, 60, 15, 0, 6, 0, 1, 0, 0),
+(666, 60, 16, 0, 6, 0, 0, 0, 0),
+(669, 61, 4, 0, 6, 0, 0, 0, 1),
+(670, 61, 12, 0, 6, 0, 0, 0, 3),
+(671, 61, 13, 0, 6, 0, 0, 0, 1),
+(672, 61, 15, 0, 6, 0, 1, 3, 2),
+(673, 61, 16, 0, 6, 0, 0, 0, 0),
+(683, 63, 4, 0, 6, 0, 0, 0, 4),
+(684, 63, 12, 0, 6, 0, 0, 0, 2),
+(685, 63, 13, 0, 6, 0, 0, 0, 0),
+(686, 63, 15, 0, 6, 0, 1, 4, 0),
+(687, 63, 16, 0, 6, 0, 0, 0, 0),
+(690, 64, 4, 0, 6, 0, 0, 0, 2),
+(691, 64, 12, 0, 6, 0, 0, 0, 2),
+(692, 64, 13, 0, 6, 0, 0, 0, 0),
+(693, 64, 15, 0, 6, 0, 1, 5, 0),
+(694, 64, 16, 0, 6, 0, 0, 0, 0),
+(697, 65, 4, 0, 7, 0, 0, 2, 3),
+(698, 65, 12, 0, 7, 0, 0, 0, 4),
+(699, 65, 13, 0, 7, 0, 0, 0, 0),
+(700, 65, 15, 0, 7, 0, 0, 0, 0),
+(701, 65, 16, 0, 7, 0, 0, 0, 0),
+(704, 66, 4, 0, 7, 0, 0, 0, 3),
+(705, 66, 12, 0, 7, 0, 0, 0, 6),
+(706, 66, 13, 0, 7, 0, 0, 0, 0),
+(707, 66, 15, 0, 7, 0, 0, 2, 0),
+(708, 66, 16, 0, 7, 0, 0, 0, 1),
+(711, 67, 4, 0, 7, 0, 0, 0, 1),
+(712, 67, 12, 0, 7, 0, 1, 2, 2),
+(713, 67, 13, 0, 7, 0, 0, 0, 0),
+(714, 67, 15, 0, 7, 0, 0, 0, 0),
+(715, 67, 16, 0, 7, 0, 0, 0, 0),
+(718, 68, 4, 0, 7, 0, 0, 2, 6),
+(719, 68, 12, 0, 7, 0, 0, 0, 2),
+(720, 68, 13, 0, 7, 0, 0, 0, 0),
+(721, 68, 15, 0, 7, 0, 0, 0, 0),
+(722, 68, 16, 0, 7, 0, 0, 0, 0),
+(725, 69, 4, 0, 7, 0, 1, 3, 2),
+(726, 69, 12, 0, 7, 0, 0, 0, 3),
+(727, 69, 13, 0, 7, 0, 0, 0, 0),
+(728, 69, 15, 0, 7, 0, 0, 0, 0),
+(729, 69, 16, 0, 7, 0, 0, 0, 0),
+(732, 70, 4, 0, 10, 0, 0, 0, 0),
+(733, 70, 12, 0, 10, 0, 0, 0, 0),
+(734, 70, 13, 0, 10, 0, 0, 0, 0),
+(735, 70, 15, 0, 10, 0, 1, 4, 0),
+(736, 70, 16, 0, 10, 0, 0, 0, 0),
+(739, 71, 4, 0, 10, 0, 0, 1, 0),
+(740, 71, 12, 0, 10, 0, 0, 0, 0),
+(741, 71, 13, 0, 10, 0, 0, 0, 0),
+(742, 71, 15, 0, 10, 0, 0, 4, 0),
+(743, 71, 16, 0, 10, 0, 0, 0, 0),
+(746, 72, 4, 0, 10, 0, 0, 1, 0),
+(747, 72, 12, 0, 10, 0, 0, 1, 0),
+(748, 72, 13, 0, 10, 0, 0, 0, 0),
+(749, 72, 15, 0, 10, 0, 1, 2, 0),
+(750, 72, 16, 0, 10, 0, 0, 0, 0),
+(753, 73, 4, 0, 10, 0, 0, 0, 0),
+(754, 73, 12, 0, 10, 0, 0, 0, 0),
+(755, 73, 13, 0, 10, 0, 0, 0, 0),
+(756, 73, 15, 0, 10, 0, 1, 1, 0),
+(757, 73, 16, 0, 10, 0, 0, 0, 0),
+(760, 74, 4, 0, 10, 0, 1, 5, 2),
+(761, 74, 12, 0, 10, 0, 0, 0, 2),
+(762, 74, 13, 0, 10, 0, 0, 0, 0),
+(763, 74, 15, 0, 10, 0, 0, 0, 0),
+(764, 74, 16, 0, 10, 0, 0, 0, 0),
+(767, 75, 4, 0, 11, 0, 1, 5, 4),
+(768, 75, 12, 0, 11, 0, 0, 0, 1),
+(769, 75, 13, 0, 11, 0, 0, 0, 0),
+(770, 75, 15, 0, 11, 0, 0, 0, 0),
+(771, 75, 16, 0, 11, 0, 0, 0, 0);
 
--- Dumping structure for table cluster_dosen.tb_rules
-CREATE TABLE IF NOT EXISTS `tb_rules` (
-  `id` int NOT NULL AUTO_INCREMENT,
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_rules`
+--
+
+CREATE TABLE `tb_rules` (
+  `id` int(11) NOT NULL,
   `penelitian` varchar(50) NOT NULL DEFAULT '0',
   `pengajaran` varchar(50) NOT NULL DEFAULT '0',
   `bimbingan` varchar(50) NOT NULL DEFAULT '0',
-  `hasil` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
+  `hasil` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cluster_dosen.tb_rules: ~0 rows (approximately)
-DELETE FROM `tb_rules`;
+--
+-- Dumping data for table `tb_rules`
+--
+
 INSERT INTO `tb_rules` (`id`, `penelitian`, `pengajaran`, `bimbingan`, `hasil`) VALUES
-	(3, 'Komputer', 'Komputer', 'Sistem Informasi', 'Komputer'),
-	(4, 'Komputer', 'Komputer', 'Manajemen Bisnis', 'Komputer'),
-	(5, 'Sains', 'Sains', 'Sains', 'Sains'),
-	(6, 'Sains', 'Sains', 'Manajemen Bisnis', 'Sains'),
-	(7, 'Sains', 'Sains', 'Elektro', 'Sains'),
-	(8, 'Sains', 'Sains', 'Sistem Informasi', 'Sains'),
-	(9, 'Sains', 'Sains', 'Komputer', 'Sains'),
-	(10, 'Sains', 'Manajemen Bisnis', 'Manajemen Bisnis', 'Manajemen Bisnis'),
-	(11, 'Sains', 'Manajemen Bisnis', 'Elektro', 'Dominan'),
-	(12, 'Sains', 'Manajemen Bisnis', 'Sistem Informasi', 'Dominan'),
-	(13, 'Sains', 'Manajemen Bisnis', 'Komputer', 'Dominan'),
-	(14, 'Sains', 'Elektro', 'Elektro', 'Elektro'),
-	(15, 'Sains', 'Elektro', 'Sistem Informasi', 'Dominan'),
-	(16, 'Sains', 'Elektro', 'Komputer', 'Dominan'),
-	(17, 'Sains', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
-	(18, 'Sains', 'Sistem Informasi', 'Komputer', 'Dominan'),
-	(19, 'Sains', 'Komputer', 'Komputer', 'Komputer'),
-	(20, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Manajemen Bisnis', 'Manajemen Bisnis'),
-	(21, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Elektro', 'Manajemen Bisnis'),
-	(22, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Sistem Informasi', 'Manajemen Bisnis'),
-	(23, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Komputer', 'Manajemen Bisnis'),
-	(24, 'Manajemen Bisnis', 'Elektro', 'Elektro', 'Elektro'),
-	(25, 'Manajemen Bisnis', 'Elektro', 'Sistem Informasi', 'Dominan'),
-	(26, 'Manajemen Bisnis', 'Elektro', 'Komputer', 'Dominan'),
-	(27, 'Manajemen Bisnis', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
-	(28, 'Manajemen Bisnis', 'Sistem Informasi', 'Komputer', 'Dominan'),
-	(29, 'Manajemen Bisnis', 'Komputer', 'Komputer', 'Komputer'),
-	(30, 'Elektro', 'Elektro', 'Elektro', 'Elektro'),
-	(31, 'Elektro', 'Elektro', 'Sistem Informasi', 'Elektro'),
-	(32, 'Elektro', 'Elektro', 'Komputer', 'Elektro'),
-	(33, 'Elektro', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
-	(34, 'Elektro', 'Sistem Informasi', 'Komputer', 'Dominan'),
-	(35, 'Elektro', 'Komputer', 'Komputer', 'Komputer'),
-	(36, 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
-	(37, 'Sistem Informasi', 'Sistem Informasi', 'Komputer', 'Sistem Informasi'),
-	(38, 'Sistem Informasi', 'Komputer', 'Komputer', 'Komputer'),
-	(39, 'Komputer', 'Komputer', 'Komputer', 'Komputer');
+(3, 'Komputer', 'Komputer', 'Sistem Informasi', 'Komputer'),
+(4, 'Komputer', 'Komputer', 'Manajemen Bisnis', 'Komputer'),
+(5, 'Sains', 'Sains', 'Sains', 'Sains'),
+(6, 'Sains', 'Sains', 'Manajemen Bisnis', 'Sains'),
+(7, 'Sains', 'Sains', 'Elektro', 'Sains'),
+(8, 'Sains', 'Sains', 'Sistem Informasi', 'Sains'),
+(9, 'Sains', 'Sains', 'Komputer', 'Sains'),
+(10, 'Sains', 'Manajemen Bisnis', 'Manajemen Bisnis', 'Manajemen Bisnis'),
+(11, 'Sains', 'Manajemen Bisnis', 'Elektro', 'Dominan'),
+(12, 'Sains', 'Manajemen Bisnis', 'Sistem Informasi', 'Dominan'),
+(13, 'Sains', 'Manajemen Bisnis', 'Komputer', 'Dominan'),
+(14, 'Sains', 'Elektro', 'Elektro', 'Elektro'),
+(15, 'Sains', 'Elektro', 'Sistem Informasi', 'Dominan'),
+(16, 'Sains', 'Elektro', 'Komputer', 'Dominan'),
+(17, 'Sains', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
+(18, 'Sains', 'Sistem Informasi', 'Komputer', 'Dominan'),
+(19, 'Sains', 'Komputer', 'Komputer', 'Komputer'),
+(20, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Manajemen Bisnis', 'Manajemen Bisnis'),
+(21, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Elektro', 'Manajemen Bisnis'),
+(22, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Sistem Informasi', 'Manajemen Bisnis'),
+(23, 'Manajemen Bisnis', 'Manajemen Bisnis', 'Komputer', 'Manajemen Bisnis'),
+(24, 'Manajemen Bisnis', 'Elektro', 'Elektro', 'Elektro'),
+(25, 'Manajemen Bisnis', 'Elektro', 'Sistem Informasi', 'Dominan'),
+(26, 'Manajemen Bisnis', 'Elektro', 'Komputer', 'Dominan'),
+(27, 'Manajemen Bisnis', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
+(28, 'Manajemen Bisnis', 'Sistem Informasi', 'Komputer', 'Dominan'),
+(29, 'Manajemen Bisnis', 'Komputer', 'Komputer', 'Komputer'),
+(30, 'Elektro', 'Elektro', 'Elektro', 'Elektro'),
+(31, 'Elektro', 'Elektro', 'Sistem Informasi', 'Elektro'),
+(32, 'Elektro', 'Elektro', 'Komputer', 'Elektro'),
+(33, 'Elektro', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
+(34, 'Elektro', 'Sistem Informasi', 'Komputer', 'Dominan'),
+(35, 'Elektro', 'Komputer', 'Komputer', 'Komputer'),
+(36, 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi', 'Sistem Informasi'),
+(37, 'Sistem Informasi', 'Sistem Informasi', 'Komputer', 'Sistem Informasi'),
+(38, 'Sistem Informasi', 'Komputer', 'Komputer', 'Komputer'),
+(39, 'Komputer', 'Komputer', 'Komputer', 'Komputer');
 
--- Dumping structure for table cluster_dosen.tb_val_rules
-CREATE TABLE IF NOT EXISTS `tb_val_rules` (
-  `id` int NOT NULL,
-  `id_kriteria` int NOT NULL,
-  `penelitian` int NOT NULL DEFAULT '0',
-  `pengajaran` int NOT NULL DEFAULT '0',
-  `bimbingan` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+-- --------------------------------------------------------
 
--- Dumping data for table cluster_dosen.tb_val_rules: ~0 rows (approximately)
-DELETE FROM `tb_val_rules`;
+--
+-- Table structure for table `tb_val_rules`
+--
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+CREATE TABLE `tb_val_rules` (
+  `id` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `penelitian` int(11) NOT NULL DEFAULT '0',
+  `pengajaran` int(11) NOT NULL DEFAULT '0',
+  `bimbingan` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`user`);
+
+--
+-- Indexes for table `tb_bidangilmu`
+--
+ALTER TABLE `tb_bidangilmu`
+  ADD PRIMARY KEY (`nama_bidangilmu`),
+  ADD KEY `kelas_id` (`id_bidangilmu`);
+
+--
+-- Indexes for table `tb_dosen`
+--
+ALTER TABLE `tb_dosen`
+  ADD PRIMARY KEY (`id_dosen`);
+
+--
+-- Indexes for table `tb_kriteria`
+--
+ALTER TABLE `tb_kriteria`
+  ADD PRIMARY KEY (`id_kriteria`);
+
+--
+-- Indexes for table `tb_penelitian`
+--
+ALTER TABLE `tb_penelitian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_prodi`
+--
+ALTER TABLE `tb_prodi`
+  ADD PRIMARY KEY (`prodi_id`);
+
+--
+-- Indexes for table `tb_rel_dosen`
+--
+ALTER TABLE `tb_rel_dosen`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `id_siswa` (`id_dosen`),
+  ADD KEY `id_kriteria` (`id_kriteria`),
+  ADD KEY `tahun_id` (`prodi_id`);
+
+--
+-- Indexes for table `tb_rules`
+--
+ALTER TABLE `tb_rules`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_val_rules`
+--
+ALTER TABLE `tb_val_rules`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tb_bidangilmu`
+--
+ALTER TABLE `tb_bidangilmu`
+  MODIFY `id_bidangilmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `tb_dosen`
+--
+ALTER TABLE `tb_dosen`
+  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+--
+-- AUTO_INCREMENT for table `tb_kriteria`
+--
+ALTER TABLE `tb_kriteria`
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `tb_penelitian`
+--
+ALTER TABLE `tb_penelitian`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=394;
+--
+-- AUTO_INCREMENT for table `tb_prodi`
+--
+ALTER TABLE `tb_prodi`
+  MODIFY `prodi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `tb_rel_dosen`
+--
+ALTER TABLE `tb_rel_dosen`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=772;
+--
+-- AUTO_INCREMENT for table `tb_rules`
+--
+ALTER TABLE `tb_rules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -52,10 +52,7 @@ foreach ($rows as $row) {
                 <tr>
                     <th>Kode</th>
                     <th>Nama Dosen</th>
-                    <?php foreach ($criteria as $id => $name) : ?>
-                        <th><?= $name ?></th>
-                    <?php endforeach ?>
-                    <th>Cluster / Kelas</th>
+                    <th>Bidang Ilmu / Cluster</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,21 +60,6 @@ foreach ($rows as $row) {
                     <tr>
                         <td><?= $ALTERNATIF[$key]->kode_dosen ?></td>
                         <td><?= $ALTERNATIF[$key]->nama_dosen ?></td>
-                        <?php foreach ($criteria as $id => $name) : ?>
-                            <td>
-                                <?php if (isset($val[$id])) : ?>
-                                    <h5><?= $val[$id]['nilai'] ?></h5>
-                                    <br>
-                                    Penelitian : <?= $val[$id]['penelitian'] ?>
-                                    <br>
-                                    Pengajaran : <?= $val[$id]['pengajaran'] ?>
-                                    <br>
-                                    Bimbingan : <?= $val[$id]['bimbingan'] ?>
-                                <?php else : ?>
-                                    -
-                                <?php endif; ?>
-                            </td>
-                        <?php endforeach; ?>
                         <td>
                             <?php
                             // Determine the cluster/class based on the dominant criterion
@@ -125,4 +107,3 @@ foreach ($rows as $row) {
         </table>
     </div>
 </div>
-<?php

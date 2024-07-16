@@ -37,7 +37,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
 // }
 ?>
 <div class="page-header">
-  <h1>Jurnal Penelitian Dosen &raquo; <small><?= $get_dosen->nama_dosen ?></h1>
+  <h1>Bidang  Dosen &raquo; <small><?= $get_dosen->nama_dosen ?></h1>
 </div>
 <div class="panel panel-default">
   <div class="panel">
@@ -51,14 +51,6 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
                 $status = get_prodi_status();
                 if ($status) :
                   echo '<a class="btn btn-success" href="?m=jurnal_tambah"><span class="glyphicon glyphicon-pencil"></span> Tambah Data</a>';
-                endif
-                ?>
-              </div>
-              <div class="form-group pull-right col-md-2">
-                <?php
-                $status = get_prodi_status();
-                if ($status) :
-                  echo '<a class="btn btn-danger" href="?m=rel_dosen"><span class="glyphicon glyphicon-pencil"></span> Kembali</a>';
                 endif
                 ?>
               </div>
@@ -83,35 +75,35 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
     </div>
   </div>
   <div class="table-responsive">
-    <table id="tabel1" class="table table-bordered table-hover table-striped dt-responsive nowrap" width="100%" cellspacing="0">
+    <table id="tabel1" class="table table-bordered " width="100%" cellspacing="0">
       <thead>
         <tr>
           <th>Kode</th>
           <th>Nama Dosen</th>
           <th>Prodi Dosen</th>
-          <th>Judul Jurnal</th>
-          <th>Mata Kuliah</th>
-          <th>Tahun Jurnal</th>
-          <th>Judul Bimbingan</th>
+          <th>Jurnal yang diterbitkan</th>
+          <th>Mata Kuliah yang diajarkan</th>
+          <th>Judul Bimbingan Mahasiswa</th>
           <!-- <th>Pengajaran</th>
           <th>Penelitian</th>
           <th>Bimbingan</th>
           <th>Pengajaran</th> -->
           <th>Bidang Ilmu</th>
+          <th>Tahun</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($rows as $key => $val) : ?>
+      <?php foreach ($rows as $key => $val) : ?>
           <tr>
-            <td><?= $val->kode_dosen ?></td>
-            <td><?= $val->nama_dosen ?></td>
-            <td><?= $val->nama_prodi ?></td>
-            <td><?= $val->judul_jurnal ?? '-' ?></td>
-            <td><?= $val->mata_kuliah ?></td>
-            <td><?= $val->tahunJurnal ?></td>
-            <td><?= $val->judulBimbingan ?></td>
-            <td><?= $val->nama_kriteria ?></td>
+            <td><?= isset($val->kode_dosen) ? $val->kode_dosen : '-' ?></td>
+            <td><?= isset($val->nama_dosen) ? $val->nama_dosen : '-' ?></td>
+            <td><?= isset($val->nama_prodi) ? $val->nama_prodi : '-' ?></td>
+            <td><?= isset($val->judul_jurnal) ? $val->judul_jurnal : '-' ?></td>
+            <td><?= isset($val->mata_kuliah) ? $val->mata_kuliah : '-' ?></td>
+            <td><?= isset($val->judulBimbingan) ? $val->judulBimbingan : '-' ?></td>
+            <td><?= isset($val->nama_kriteria) ? $val->nama_kriteria : '-' ?></td>
+            <td><?= isset($val->tahunJurnal) ? $val->tahunJurnal : '-' ?></td>
 
             <td class="text-center">
               <!-- <a class="btn btn-xs btn-warning" href="?m=jurnal_ubah.php&ID=<?= $val->id ?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a> -->

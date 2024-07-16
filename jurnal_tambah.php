@@ -37,11 +37,11 @@ session_start();
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Tahunn Jurnal<span class="text-danger">*</span></label>
+                        <label>Tahun<span class="text-danger">*</span></label>
                         <select class="form-control" name="tahunJurnal" id="penelitian">
-                            <option readonly="readonly">- Pilih Tahun Jurnal -</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
+                            <option readonly="readonly">-  Tahun  -</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
                         </select>
                     </div>
                 </div>

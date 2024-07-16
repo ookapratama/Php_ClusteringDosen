@@ -53,22 +53,6 @@ if ($status) :
                 </div>
 
                 <div class="form-group">
-                    <label>Tempat Lahir <span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" name="tempat_lahir" value="<?= set_value('tempat_lahir') ?>" placeholder="Isi Tempat Lahir Anda" />
-                </div>
-                <div class="form-group">
-                    <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                    <input class="form-control" type="date" name="tanggal_lahir" value="<?= set_value('tanggal_lahir') ?>" placeholder="Isi Tanggal Lahir Anda" />
-                </div>
-                <div class="form-group">
-                    <label>Agama <span class="text-danger">*</span></label>
-                    <select class="form-control" name="agama">
-                        <option readonly="readonly">- Pilih Agama -</option>
-                        <?= get_agama_option(set_value('agama')) ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label>Jenjang Pendidikan S1<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" name="pendidikan_s1" value="<?= set_value('pendidikan_s1') ?>" placeholder="Isi Data" />
                 </div>

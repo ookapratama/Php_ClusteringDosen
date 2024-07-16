@@ -2,5 +2,5 @@
 $config["server"]		='localhost';
 $config["username"]		='root';
 $config["password"]		='';
-$config["database_name"]='cluster_dosen';
+$config["database_name"]='cluster';
 ?>

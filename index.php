@@ -73,6 +73,11 @@
               </a>
             </li>    
             <li>
+              <a href="?m=hitung">
+                <span class="glyphicon glyphicon-hourglass"></span> Perhitungan
+              </a>
+            </li> 
+            <li>
               <a href="?m=password">
                 <span class="glyphicon glyphicon-lock"></span> Password
               </a>
