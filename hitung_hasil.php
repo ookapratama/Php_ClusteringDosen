@@ -41,20 +41,22 @@
                             <th rowspan="2">Dosen</th>
                             <th class="text-center" colspan="<?= count($KRITERIA) ?>">Kriteria</th>
                         </tr>
-                        <tr>
-                            <?php foreach ($KRITERIA as $key => $val) : ?>
-                                <td><?= $val['nama'] ?></td>
-                            <?php endforeach ?>
+
+                        <?php foreach ($KRITERIA as $key => $val) : ?>
+                            <td><?= $val['nama'] ?></td>
+                        <?php endforeach ?>
                         </tr>
                     </thead>
                     <?php foreach ($data as $key => $val) : ?>
                         <tr>
-                            <td><?= $ALTERNATIF[$key]->kode_dosen ?></td>
+                            <td><?= $ALTERNATIF[$key]->kode_dosen . ' - ' . $ALTERNATIF[$key]->nama_dosen ?></td>
                             <?php foreach ($val as $k => $v) : ?>
+                                <?= ''// var_dump($v[0]); ?>
                                 <td><?= $v ?></td>
                             <?php endforeach ?>
                         </tr>
                     <?php endforeach ?>
+                    <?= ''//die(var_dump(true)) ?>
                 </table>
             </div>
         </div>

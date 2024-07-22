@@ -220,21 +220,24 @@ if ($mod == 'jurnal_tambah') {
     }
 
     // Debug hasil untuk pengecekan
-    // var_dump($bimbingan);
-    // var_dump($penelitian);
+    var_dump($bimbingan);
+    var_dump($penelitian);
+    var_dump($pengajaran);
     // var_dump($pengajaran);
-    // var_dump($pengajaran);
-
+    // die('true');
     // Persiapkan bagian SET untuk query update
     $update_parts = [];
     if ($penelitian !== '-') {
         $update_parts[] = "penelitian = CASE WHEN id_kriteria = '$penelitian' THEN penelitian + 1 ELSE penelitian END";
+        $update_parts[] = "nilai = CASE WHEN id_kriteria = '$penelitian' THEN nilai + 1 ELSE nilai END";
     }
     if ($pengajaran !== '-') {
         $update_parts[] = "pengajaran = CASE WHEN id_kriteria = '$pengajaran' THEN pengajaran + 1 ELSE pengajaran END";
+        $update_parts[] = "nilai = CASE WHEN id_kriteria = '$pengajaran' THEN nilai + 1 ELSE nilai END";
     }
     if ($bimbingan !== '-') {
         $update_parts[] = "bimbingan = CASE WHEN id_kriteria = '$bimbingan' THEN bimbingan + 1 ELSE bimbingan END";
+        $update_parts[] = "nilai = CASE WHEN id_kriteria = '$bimbingan' THEN nilai + 1 ELSE nilai END";
     }
 
     // die(var_dump(implode(', ', $update_parts)));
@@ -245,8 +248,11 @@ if ($mod == 'jurnal_tambah') {
             SET " . implode(', ', $update_parts) . "
             WHERE id_dosen = '$id_dosen' 
             AND prodi_id = '$prodi_id'
-        ";
+            ";
         error_log("Generated Update Query: $update_query");
+        // var_dump($update_query);
+
+        // die('true');
         $db->query($update_query);
     }
 

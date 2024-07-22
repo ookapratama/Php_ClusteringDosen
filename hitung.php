@@ -46,7 +46,7 @@
                     <div class="col-xs-6 col-sm-3">
                         <div class="form-group">
                             <label>Jumlah Cluster Dicari <span class="text-danger">*</span></label>
-                            <input class="form-control" type="number" name="cluster" value="<?=set_value('cluster', 3)?>" />
+                            <input class="form-control" type="number" name="cluster" value="<?=set_value('cluster', 5)?>" />
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-2">
