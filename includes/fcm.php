@@ -1,5 +1,5 @@
-<?php
 
+<?php
 /**
  * 
  */
@@ -41,6 +41,7 @@ class fcm
 		$this->random_cluster();
 		$this->hitung();
 	}
+
 	function hitung()
 	{
 		$success = false;
@@ -157,6 +158,8 @@ class fcm
 			$maxs = array_keys($val, max($val));
 			$this->hasil[$key] = $maxs[0];
 		}
+
+		ksort($this->hasil);
 	}
 	function anggota_baru()
 	{
@@ -166,6 +169,7 @@ class fcm
 				$this->keanggotaan[$key][$k] = $v / $total;
 			}
 		}
+		ksort($this->keanggotaan);
 	}
 	function fungsi_objektif()
 	{
@@ -236,6 +240,7 @@ class fcm
 		foreach ($this->cluster as $key) {
 			foreach ($this->data as $k => $v) {
 				foreach ($v as $a => $b) {
+					// die(var_dump($b . ' dan ' . $this->miu_kuadat[$k][$key]));
 					$this->miu_kuadat_x[$key][$k][$a] = $b * $this->miu_kuadat[$k][$key];
 				}
 			}
@@ -243,24 +248,9 @@ class fcm
 	}
 	function miu_kuadat()
 	{
-		// foreach($this->keanggotaan as $key => $val){
-		// 	foreach ($val as $k => $v) {
-		// 		$this->miu_kuadat[$key][$k] = pow($v, $this->pembobot);
-		// 	}
-		// }
-		$this->miu_kuadat = array();  // Pastikan diinisialisasi ulang setiap iterasi
 		foreach ($this->keanggotaan as $key => $val) {
 			foreach ($val as $k => $v) {
 				$this->miu_kuadat[$key][$k] = pow($v, $this->pembobot);
-			}
-		}
-		// Debug output
-		$this->dd("\n<b>Miu Kuadrat Setelah Pembaruan</b>");
-		$no = 0;
-		foreach ($this->miu_kuadat as $key => $val) {
-			$this->dd("\n" . ++$no . ": ");
-			foreach ($val as $k => $v) {
-				$this->dd("\t" . round($v, 3));
 			}
 		}
 	}

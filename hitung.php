@@ -12,7 +12,9 @@
     elseif ($c):
         echo "Tampaknya anda belum mengatur nilai alternatif. Silahkan atur pada menu <strong>Nilai Alternatif</strong>.";
     else:
-    $data = get_data();?>   
+    $data = get_data();
+    // die(var_dump($data));
+    ?>   
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Pengaturan</h3>
