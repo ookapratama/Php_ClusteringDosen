@@ -33,7 +33,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode</th>
+                    <th>Nidn</th>
                     <th>Nama Dosen</th>
                     <th>Jenis Kelamin</th>
                     <th>Pendidikan S1</th>
@@ -51,7 +51,7 @@
             ?>
                 <tr>
                     <td><?= ++$no ?></td>
-                    <td><?= $row->kode_dosen ?></td>
+                    <td><?= $row->nidn ?></td>
                     <td><?= $row->nama_dosen ?></td>
                     <td><?= $row->jenis_kelamin ?></td>
                     <td><?= $row->pendidikan_s1 ?></td>

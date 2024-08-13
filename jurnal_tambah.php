@@ -18,7 +18,7 @@ session_start();
             <div class="row">
                 <div class="form-group">
                     <label>Pilih Dosen<span class="text-danger">*</span></label>
-                    <select class="form-control" name="kode_dosen" id="kode_dosen">
+                    <select class="form-control" name="nidn" id="nidn">
                         <option readonly="readonly">- Pilih Dosen -</option>
                         <?= get_dosen_option() ?>
                     </select>
@@ -32,7 +32,7 @@ session_start();
                     <div class="form-group">
                         <label>Pilih Bidang Penelitian<span class="text-danger">*</span></label>
                         <select class="form-control" name="penelitian" id="penelitian" onchange="pilihProdi()">
-                            <option readonly="readonly" value="">- Pilih Bidang Ilmu -</option>
+                            <option readonly="readonly" value="">- Kriteria -</option>
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
@@ -55,7 +55,7 @@ session_start();
                     <div class="form-group">
                         <label>Pilih Bidang Pengajaran<span class="text-danger">*</span></label>
                         <select class="form-control" name="pengajaran" id="pengajaran" onchange="pilihProdi()">
-                            <option readonly="readonly" value="">- Pilih Bidang Ilmu -</option>
+                            <option readonly="readonly" value="">- Kriteria -</option>
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>
@@ -77,7 +77,7 @@ session_start();
                     <div class="form-group">
                         <label>Pilih Bidang Bimbingan<span class="text-danger">*</span></label>
                         <select class="form-control" name="bimbingan" id="bimbingan" onchange="pilihProdi()">
-                            <option readonly="readonly" value="">- Pilih Bidang Ilmu -</option>
+                            <option readonly="readonly" value="">- Kriteria -</option>
                             <?= get_kriteria_option() ?>
                         </select>
                     </div>

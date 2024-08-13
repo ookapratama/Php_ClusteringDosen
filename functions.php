@@ -14,31 +14,16 @@ $mod = $_GET['m'];
 $act = $_GET['act'];
 
 $rows = $db->get_results("
-    SELECT d.id_dosen, d.kode_dosen, d.nama_dosen, d.hitung, d.prodi_id, k.nama_kriteria AS hasil
+    SELECT d.id_dosen, d.nidn, d.nama_dosen, d.hitung, d.prodi_id, k.nama_kriteria AS hasil
     FROM tb_dosen d
-    LEFT JOIN tb_penelitian p ON d.id_dosen = p.kode_dosen
+    LEFT JOIN tb_penelitian p ON d.id_dosen = p.nidn
     LEFT JOIN tb_kriteria k ON p.bidang_ilmu = k.id_kriteria
-    ORDER BY d.id_dosen ASC;
-   ;
+    ORDER BY d.id_dosen;
 ");
 foreach ($rows as $row) {
     // var_dump($row);
 
     $ALTERNATIF[$row->id_dosen] = $row;
-}
-
-
-$rows_fcm = $db->get_results("
-   SELECT d.id_dosen, d.kode_dosen, d.nama_dosen, d.hitung, d.prodi_id, k.nama_kriteria AS hasil
-    FROM tb_dosen d
-    LEFT JOIN tb_penelitian p ON d.id_dosen = p.kode_dosen
-    LEFT JOIN tb_kriteria k ON p.bidang_ilmu = k.id_kriteria
-    ORDER BY d.id_dosen ASC;
-");
-
-$ALTERNATIF_FCM = [];
-foreach ($rows_fcm as $i => $row) {
-    $ALTERNATIF_FCM[$row->id_dosen] = $row;
 }
 
 $rows = $db->get_results("SELECT id_kriteria, kode_kriteria, nama_kriteria FROM tb_kriteria ORDER BY kode_kriteria");
@@ -78,31 +63,18 @@ function get_data()
 {
     global $db;
     $prodi = $_REQUEST['prodi_id'];
-    $rows = $db->get_results("
-        SELECT a.id_dosen, k.id_kriteria, k.nama_kriteria, ra.nilai, ra.id, a.kode_dosen, a.nama_dosen
+    $rows = $db->get_results("SELECT a.id_dosen, k.id_kriteria, ra.nilai
         FROM tb_dosen a 
-        INNER JOIN tb_rel_dosen ra ON ra.id_dosen = a.id_dosen
-        INNER JOIN tb_kriteria k ON k.id_kriteria = ra.id_kriteria
-        WHERE a.hitung = 'Ya'
-        ORDER BY a.id_dosen ASC;
-    ");
-
-    $data = [];
+        	INNER JOIN tb_rel_dosen ra ON ra.id_dosen=a.id_dosen
+        	INNER JOIN tb_kriteria k ON k.id_kriteria=ra.id_kriteria
+            WHERE  a.hitung='Ya'
+        ORDER BY a.id_dosen, k.id_kriteria");
+    $data = array();
     foreach ($rows as $row) {
-        // Simpan kode_dosen dan nama_dosen di dalam setiap array dosen
-        if (!isset($data[$row->id_dosen])) {
-            $data[$row->id_dosen] = [
-                'kode_dosen' => $row->kode_dosen,
-                'nama_dosen' => $row->nama_dosen,
-                'kriteria' => []
-            ];
-        }
-        $data[$row->id_dosen]['kriteria'][$row->id_kriteria] = $row->nilai;
         $data[$row->id_dosen][$row->id_kriteria] = $row->nilai;
     }
     return $data;
 }
-
 
 function get_status_prodi_option($selected = '')
 {

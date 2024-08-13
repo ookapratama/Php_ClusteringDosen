@@ -62,3 +62,40 @@ body {
 .panel .oxa .table thead tr:first-child th {
     border-bottom: 0;
 }
+
+.table-responsive {
+  margin: 20px 0; /* Jarak vertikal antara tabel */
+}
+
+.table {
+  margin-bottom: 20px; /* Jarak bawah antara tabel */
+  border-collapse: separate; /* Membuat garis border terpisah */
+  border-spacing: 0; /* Menghapus jarak antara border tabel */
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6; /* Garis border tabel */
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #dee2e6; /* Garis border sel */
+}
+
+.table thead th {
+  background-color: #f8f9fa; /* Warna latar belakang header tabel */
+  font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Warna latar belakang baris genap */
+}
+
+.table tbody tr:hover {
+  background-color: #e9ecef; /* Warna latar belakang baris saat hover */
+}
+
+.table-divider {
+  border-top: 2px solid #333; /* Garis pemisah antara tabel */
+  margin-top: 20px; /* Jarak atas untuk pemisah */
+  margin-bottom: 20px; /* Jarak bawah untuk pemisah */
+}

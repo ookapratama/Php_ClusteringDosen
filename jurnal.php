@@ -18,12 +18,12 @@ $_SESSION['prodi_dosen_global'] = $_GET['prodi_id'];
 //         	INNER JOIN tb_dosen a ON a.id_dosen = ra.id_dosen
 //         ORDER BY ra.id_dosen, ra.id_kriteria");
 
-$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.mata_kuliah, a.kode_dosen, a.tahunJurnal, a.judulBimbingan, b.nama_dosen, b.kode_dosen, b.id_dosen, b.prodi_id, c.nama_kriteria, c.id_kriteria, d.nama_prodi
+$rows = $db->get_results("SELECT a.id, a.judul_jurnal, a.mata_kuliah, a.nidn, a.tahunJurnal, a.judulBimbingan, b.nama_dosen, b.nidn, b.id_dosen, b.prodi_id, c.nama_kriteria, c.id_kriteria, d.nama_prodi
         FROM tb_penelitian a 
-        INNER JOIN tb_dosen b ON a.kode_dosen = b.id_dosen
+        INNER JOIN tb_dosen b ON a.nidn = b.id_dosen
         INNER JOIN tb_kriteria c ON a.bidang_ilmu = c.id_kriteria
         INNER JOIN tb_prodi d ON b.prodi_id = d.prodi_id
-        WHERE a.kode_dosen = $id_dosen
+        WHERE a.nidn = $id_dosen
         ");
 
 
@@ -54,6 +54,14 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
                 endif
                 ?>
               </div>
+              <div class="form-group pull-left col-md-2">
+                <?php
+                $status = get_prodi_status();
+                if ($status) :
+                  echo '<a class="btn btn-danger" href="?m=rel_dosen"> Kembali </a>';
+                endif
+                ?>
+              </div>
               <!-- <div class="form-group pull-right col-md-3 col-md-offset-1">
                             <select class="form-control" name="prodi_id" onchange="form.submit()">
                                 <option readonly="readonly">-- Pilih Prodi --</option>
@@ -78,16 +86,9 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
     <table id="tabel1" class="table table-bordered " width="100%" cellspacing="0">
       <thead>
         <tr>
-          <th>Kode</th>
-          <th>Nama Dosen</th>
-          <th>Prodi Dosen</th>
           <th>Jurnal yang diterbitkan</th>
           <th>Mata Kuliah yang diajarkan</th>
           <th>Judul Bimbingan Mahasiswa</th>
-          <!-- <th>Pengajaran</th>
-          <th>Penelitian</th>
-          <th>Bimbingan</th>
-          <th>Pengajaran</th> -->
           <th>Bidang Ilmu</th>
           <th>Tahun</th>
           <th>Aksi</th>
@@ -96,9 +97,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
       <tbody>
       <?php foreach ($rows as $key => $val) : ?>
           <tr>
-            <td><?= isset($val->kode_dosen) ? $val->kode_dosen : '-' ?></td>
-            <td><?= isset($val->nama_dosen) ? $val->nama_dosen : '-' ?></td>
-            <td><?= isset($val->nama_prodi) ? $val->nama_prodi : '-' ?></td>
+
             <td><?= isset($val->judul_jurnal) ? $val->judul_jurnal : '-' ?></td>
             <td><?= isset($val->mata_kuliah) ? $val->mata_kuliah : '-' ?></td>
             <td><?= isset($val->judulBimbingan) ? $val->judulBimbingan : '-' ?></td>
@@ -107,7 +106,7 @@ $get_dosen = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
 
             <td class="text-center">
               <!-- <a class="btn btn-xs btn-warning" href="?m=jurnal_ubah.php&ID=<?= $val->id ?>"><span class="glyphicon glyphicon-edit"></span> Ubah</a> -->
-              <a class="btn btn-xs btn-danger notif-hapus" href="aksi.php?act=jurnal_hapus&ID=<?= $val->id ?>&kode_dosen=<?= $val->id_dosen ?>&id_kriteria=<?= $val->id_kriteria ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+              <a class="btn btn-xs btn-danger notif-hapus" href="aksi.php?act=jurnal_hapus&ID=<?= $val->id ?>&nidn=<?= $val->id_dosen ?>&id_kriteria=<?= $val->id_kriteria ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
             </td>
           </tr>
         <?php endforeach; ?>

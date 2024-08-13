@@ -36,7 +36,7 @@ class fcm
 		$this->epsilon = $epsilon;
 
 		for ($a = 1; $a <= $this->cluster_count; $a++) {
-			$this->cluster['K' . $a] = 'K' . $a;
+			$this->cluster['C' . $a] = 'C' . $a;
 		}
 		$this->random_cluster();
 		$this->hitung();
@@ -54,7 +54,7 @@ class fcm
 			foreach ($this->keanggotaan as $key => $val) {
 				$this->dd("\n" . ++$no . ": ");
 				foreach ($val as $k => $v) {
-					$this->dd("\t" . round($v, 3));
+					$this->dd("\t" . round($v, 2));
 				}
 			}
 
@@ -65,7 +65,7 @@ class fcm
 				foreach ($this->miu_kuadat as $key => $val) {
 					$this->dd("\n" . ++$no . ": ");
 					foreach ($val as $k => $v) {
-						$this->dd("\t" . round($v, 3));
+						$this->dd("\t" . round($v, 2));
 					}
 				}
 			}
@@ -78,7 +78,7 @@ class fcm
 					foreach ($val as $k => $v) {
 						$this->dd("\n" . ++$no . ": ");
 						foreach ($v as $a => $b) {
-							$this->dd("\t" . round($b, 3));
+							$this->dd("\t" . round($b, 2));
 						}
 					}
 				}
@@ -91,7 +91,7 @@ class fcm
 				foreach ($this->pusat_cluster as $key => $val) {
 					$this->dd("\n" . ++$no . ": ");
 					foreach ($val as $k => $v) {
-						$this->dd("\t" . round($v, 3));
+						$this->dd("\t" . round($v, 2));
 					}
 				}
 			}
@@ -102,7 +102,7 @@ class fcm
 			foreach ($this->xv as $key => $val) {
 				$this->dd("\n" . ++$no . ": ");
 				foreach ($val as $k => $v) {
-					$this->dd("\t" . round($v, 3));
+					$this->dd("\t" . round($v, 2));
 				}
 			}
 
@@ -113,9 +113,9 @@ class fcm
 				foreach ($this->nilai_l as $key => $val) {
 					$this->dd("\n" . ++$no . ": ");
 					foreach ($val as $k => $v) {
-						$this->dd("\t" . round($v, 3));
+						$this->dd("\t" . round($v, 2));
 					}
-					$this->dd("\t:" . round(array_sum($val), 3));
+					$this->dd("\t:" . round(array_sum($val), 2));
 				}
 			}
 
@@ -126,9 +126,9 @@ class fcm
 				foreach ($this->lt as $key => $val) {
 					$this->dd("\n" . ++$no . ": ");
 					foreach ($val as $k => $v) {
-						$this->dd("\t" . round($v, 3));
+						$this->dd("\t" . round($v, 2));
 					}
-					$this->dd("\t:" . round(array_sum($val), 3));
+					$this->dd("\t:" . round(array_sum($val), 2));
 				}
 			}
 
@@ -207,7 +207,7 @@ class fcm
 				}
 			}
 		}
-		//print_r($arr);
+		//print_r($array);
 	}
 	function pusat_cluster()
 	{
@@ -257,13 +257,13 @@ class fcm
 	function random_cluster()
 	{
 		$arr = array();
-		$this->dd("\n<b>Nilai uik (1-5)</b>");
+		$this->dd("\n<b>Nilai uik (1-11)</b>");
 		$no = 0;
 		foreach ($this->data as $key => $val) {
 			$this->dd("\n" . ++$no . ": ");
 			foreach ($this->cluster as $k) {
-				$arr[$key][$k] = rand(1, 5);
-				$this->dd("\t" . round(($arr[$key][$k] = rand(1, 5)), 3));
+				$arr[$key][$k] = rand(1, 11);
+				$this->dd("\t" . round(($arr[$key][$k] = rand(1, 11)), 3));
 			}
 		}
 		foreach ($arr as $key => $val) {

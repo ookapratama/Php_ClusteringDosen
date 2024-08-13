@@ -17,33 +17,15 @@ if ($status) :
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Kode Prodi<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" name="kode_dosen" id="kode_dosen" value="" />
+                    <label>NIDN<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" name="nidn" id="nidn" value="" />
                 </div>
-                <script>
-                    let kode = document.getElementById('kode_dosen');
-                    const pilihProdi = () => {
-                        let prodi = document.getElementById('jurusan');
-                        let pv = prodi.value
-                        console.log(pv)
-                        kode.value = pv == 4 ? 'TI' :
-                            pv == 5 ? 'SI' :
-                            pv == 6 ? 'MI' :
-                            pv == 10 ? 'KW' :
-                            pv == 11 ? 'BD' :
-                            pv == 7 ? 'RPL' :
-                            '';
-                        return;
-                    }
-                </script>
+
                 <div class="form-group">
                     <label>Nama Dosen <span class="text-danger">*</span></label>
                     <input class="form-control" type="text" name="nama_dosen" value="<?= set_value('nama_dosen') ?>" placeholder="Isi Nama Lengkap " />
                 </div>
-                <div class="form-group">
-                    <label>NIDN <span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" name="nidn" value="<?= set_value('nidn') ?>" placeholder="Isi NIDN" />
-                </div>
+            
                 <div class="form-group">
                     <label>Jenis Kelamin <span class="text-danger">*</span></label>
                     <select class="form-control" name="jenis_kelamin">

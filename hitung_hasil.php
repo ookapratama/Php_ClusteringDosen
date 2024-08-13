@@ -27,7 +27,6 @@
     </li>
 </ul>
 
-
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade" id="analisis">
         <div class="panel panel-primary">
@@ -38,28 +37,22 @@
                 <table id="tabel2" class="table table-bordered table-hover table-striped dt-responsive nowrap" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th rowspan="2">Dosen</th>
-                            <th class="text-center" colspan="<?= count($KRITERIA) ?>">Kriteria</th>
+                            <th>Id</th>
+                            <th rowspan="2">Nama Dosen</th>
+                            <th class="text-center" colspan="<?= count($KRITERIA) ?>">Matriks Data</th>
                         </tr>
-                        <tr>
-                            <?php foreach ($KRITERIA as $key => $val) : ?>
-                                <td><?= $val['nama'] ?></td>
-                            <?php endforeach; ?>
-                        </tr>
+                        
                     </thead>
-                    <tbody>
-
-                        <?php foreach ($data as $key => $val) : ?>
-                            <tr>
-                                <td><?= $val['kode_dosen'] . ' - ' . $val['nama_dosen'] ?></td>
-                                <?php foreach ($val['kriteria'] as $k => $v) : ?>
-                                    <td><?= $v ?></td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+                    <?php foreach ($data as $key => $val) : ?>
+                        <tr>
+                            <td><?= $ALTERNATIF[$key]->id_dosen ?></td>
+                            <td><?= $ALTERNATIF[$key]->nama_dosen ?></td>
+                            <?php foreach ($val as $k => $v) : ?>
+                                <td><?= $v ?></td>
+                            <?php endforeach ?>
+                        </tr>
+                    <?php endforeach ?>
                 </table>
-
             </div>
         </div>
     </div>
@@ -68,20 +61,10 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Perhitungan</h3>
             </div>
-            <?php //echo die(var_dump($data)) 
-            ?>
             <div class="panel-body" id="tab_2">
                 <pre>
                 <?php
-
-                $fcmData = [];
-
-                foreach ($data as $idDosen => $infoDosen) {
-                    $nilaiKriteria = $infoDosen['kriteria']; // Ambil hanya bagian kriteria
-                    $fcmData[] = array_values($nilaiKriteria); // Tambahkan sebagai array ke $fcmData
-                }
-                // die(var_dump($fcmData));
-                $fcm = new fcm($fcmData, $maksimum, $cluster, $pembobot, $epsilon);
+                $fcm = new fcm($data, $maksimum, $cluster, $pembobot, $epsilon);
                 ?>
                 </pre>
             </div>
@@ -95,8 +78,6 @@
             <div class="table-responsive" id="tab_3"><br>
                 <table id="tabel1" class="table table-bordered table-hover table-striped dt-responsive nowrap" width="100%" cellspacing="0">
                     <thead>
-                        <?= '' //var_dump($ALTERNATIF_FCM[0]) 
-                        ?>
                         <tr>
                             <th>ID</th>
                             <th>Nama</th>
@@ -106,42 +87,28 @@
                             <th>Cluster</th>
                         </tr>
                     </thead>
-                    <?php
-                    $d = [];
-                    foreach ($data as $val) {
-                        $d[] = $val;
-                    }
-
-
-                    ?>
                     <?php foreach ($fcm->keanggotaan as $key => $val) : ?>
-                        <!-- <?php echo var_dump($d[$key]['kode_dosen']); ?> -->
-                        <!-- <?php echo var_dump($key); ?> -->
                         <tr>
-                            <td><?= $d[$key]['kode_dosen'] ?></td>
-                            <td><?= $d[$key]['nama_dosen'] ?></td>
-                            <?php ksort($val);
-                            foreach ($val as $k => $v) : ?>
-                                <td><?= round($v, 3) ?></td>
+                            <td><?= $ALTERNATIF[$key]->nidn ?></td>
+                            <td><?= $ALTERNATIF[$key]->nama_dosen ?></td>
+                            <?php foreach ($val as $k => $v) : ?>
+                                <td><?= round($v, 2) ?></td>
                             <?php endforeach ?>
                             <td><?= $fcm->hasil[$key] ?></td>
                         </tr>
-
                         <?php
-                        $db->query("UPDATE tb_dosen SET nama_bidangilmu='" . $fcm->hasil[$key] . "' WHERE id_dosen='$key' AND hitung='Ya' AND prodi_id='$prodi'");
-                        $db->query("UPDATE tb_dosen SET nama_bidangilmu=0 WHERE hitung='Tidak' AND prodi_id='$prodi'");
+                        // Update query without prodi filter
+                        $db->query("UPDATE tb_dosen SET nama_bidangilmu='" . $fcm->hasil[$key] . "' WHERE id_dosen='$key' AND hitung='Ya'");
+                        $db->query("UPDATE tb_dosen SET nama_bidangilmu=0 WHERE hitung='Tidak'");
                         ?>
-                    <?php endforeach;
-                    ?>
+                    <?php endforeach; ?>
 
                     <?php
-                    $fcm_hasil = $fcm->hasil;
-                    if (is_array($fcm_hasil)) {
+                    if (is_array($fcm->hasil)) {
                         foreach ($fcm->hasil as $key => $val) {
                             $arr[$val]++;
                         }
                     }
-                    // die(var_dump($arr));
                     $chart = array();
                     if (is_array($arr)) {
                         foreach ($arr as $key => $val) {
@@ -235,8 +202,6 @@
                     });
                 });
             </script>
-
         </div>
     </div>
-    <?= die('') ?>
 </div>

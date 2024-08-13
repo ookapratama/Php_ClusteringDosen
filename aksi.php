@@ -97,9 +97,8 @@ if ($mod == 'prodi_tambah') {
 }
 
 /* DOSEN */ elseif ($mod == 'dosen_tambah') {
-    $kode_dosen         = $_POST['kode_dosen'];
-    $nama_dosen         = $_POST['nama_dosen'];
     $nidn               = $_POST['nidn'];
+    $nama_dosen         = $_POST['nama_dosen'];
     // $nodos                = $_POST['nodos'];
     $jenis_kelamin      = $_POST['jenis_kelamin'];
     // $gambar             = $_FILES['gambar'];
@@ -108,12 +107,12 @@ if ($mod == 'prodi_tambah') {
     $pendidikan_s3       = $_POST['pendidikan_s3'];
     $prodi_id           = $_POST['jurusan'];
     $nama_bidangilmu         = 0;
-    if (!$kode_dosen || !$nama_dosen || !$nidn || !$jenis_kelamin || !$pendidikan_s1 || !$pendidikan_s2 || !$pendidikan_s3 || !$prodi_id) {
+    if (!$nama_dosen || !$nidn || !$jenis_kelamin || !$pendidikan_s1 || !$pendidikan_s2 || !$pendidikan_s3 || !$prodi_id) {
         print_msg("Field post dosen");
         print_msg("Field bertanda * tidak boleh kosong!");
     } elseif (is_numeric($nidn) == false)
         sweet_alert_direct("Pendaftaran Gagal", "Inputan nidn/nodos harus menggunakan angka!", "error", "3500", "true", "index.php");
-    elseif ($db->get_results("SELECT * FROM tb_dosen WHERE kode_dosen='$kode_dosen'"))
+    elseif ($db->get_results("SELECT * FROM tb_dosen WHERE nidn='$nidn'"))
         print_msg("Kode sudah ada!");
     else {
         // $filename = rand(1000, 999) . str_replace(' ', '-', $gambar['name']);
@@ -122,40 +121,25 @@ if ($mod == 'prodi_tambah') {
         // $img->save('assets/images/dosen/' . $filename, 100);
 
         // $db->query("INSERT INTO tb_dosen (kode_dosen, nama_dosen, nidn, nodos, jenis_kelamin, gambar, pendidikan_terakhir, tempat_lahir, tanggal_lahir, agama, alamat, prodi_id, nama_bidangilmu, hitung) VALUES ('$kode_dosen', '$nama_dosen', '$nidn', '$nodos', '$jenis_kelamin', '$filename', '$pendidikan_terakhir', '$tempat_lahir', '$tanggal_lahir', '$agama', '$alamat', '$prodi_id', '$nama_bidangilmu', 'Tidak')");
-        $db->query("INSERT INTO tb_dosen (kode_dosen, nama_dosen, nidn, jenis_kelamin, pendidikan_s1, pendidikan_s2, pendidikan_s3, prodi_id, nama_bidangilmu, hitung) VALUES ('$kode_dosen', '$nama_dosen', '$nidn', '$jenis_kelamin', '$pendidikan_s1', '$pendidikan_s2', '$pendidikan_s3', '$prodi_id', '$nama_bidangilmu', 'Ya')");
+        $db->query("INSERT INTO tb_dosen (nidn, nama_dosen, jenis_kelamin, pendidikan_s1, pendidikan_s2, pendidikan_s3, prodi_id, nama_bidangilmu, hitung) VALUES ('$nidn', '$nama_dosen', '$jenis_kelamin', '$pendidikan_s1', '$pendidikan_s2', '$pendidikan_s3', '$prodi_id', '$nama_bidangilmu', 'Ya')");
         $ID = $db->insert_id;
         $db->query("INSERT INTO tb_rel_dosen(id_dosen, id_kriteria, nilai, prodi_id) SELECT '$ID', id_kriteria, 0, '$prodi_id' FROM tb_kriteria");
         sweet_alert_direct("Operasi Berhasil", "dosen Berhasil Ditambahkan.", "success", "3500", "true", "?m=dosen");
     }
 } else if ($mod == 'dosen_ubah') {
-    $kode_dosen         = $_POST['kode_dosen'];
+    $nidn         = $_POST['nidn'];
     $nama_dosen         = $_POST['nama_dosen'];
-    $nidn               = $_POST['nidn'];
-    // $nodos                = $_POST['nodos'];
     $jenis_kelamin      = $_POST['jenis_kelamin'];
-    // $gambar             = $_FILES['gambar'];
     $pendidikan_s1       = $_POST['pendidikan_s1'];
     $pendidikan_s2       = $_POST['pendidikan_s2'];
     $pendidikan_s3       = $_POST['pendidikan_s3'];
 
-    if ($kode_dosen == '' || $nama_dosen == '' || $nidn == '' || $jenis_kelamin == '' || $pendidikan_s1 == '' || $pendidikan_s2 == '' || $pendidikan_s3 == '')
+    if ($nidn == '' || $nama_dosen == '' || $jenis_kelamin == '' || $pendidikan_s1 == '' || $pendidikan_s2 == '' || $pendidikan_s3 == '')
         print_msg("Field bertanda * tidak boleh kosong!");
     elseif (is_numeric($nidn) == false)
-        sweet_alert_direct("Operasi Gagal", "Inputan nidn/nodos harus menggunakan angka!", "error", "3500", "true", "index.php");
+        sweet_alert_direct("Operasi Gagal", "Inputan nidn harus menggunakan angka!", "error", "3500", "true", "index.php");
     else {
-        // if ($gambar['tmp_name']) {
-        //     hapus_gambar($_GET['ID']);
-        //     // $filename = rand(1000, 9999) . str_replace(' ', '-', $gambar['name']);
-        //     // $img = new SimpleImage($gambar['tmp_name']);
-        //     // $img->thumbnail(723, 960);
-        //     // $img->save('assets/images/dosen/' . $filename, 100);
-        //     // $sql_gambar = ", gambar='$filename'";
-        // }
-        // if (!$gambar['tmp_name']) {
-        //     $db->query("UPDATE tb_dosen SET kode_dosen='$kode_dosen', nama_dosen='$nama_dosen', nidn='$nidn', nodos='$nodos', jenis_kelamin='$jenis_kelamin', pendidikan_terakhir='$pendidikan_terakhir', tempat_lahir='$tempat_lahir', tanggal_lahir='$tanggal_lahir', agama='$agama', alamat='$alamat' WHERE id_dosen='$_GET[ID]'");
-        // } else {
-        // }
-        $db->query("UPDATE tb_dosen SET kode_dosen='$kode_dosen', nama_dosen='$nama_dosen', nidn='$nidn', jenis_kelamin='$jenis_kelamin', pendidikan_s1='$pendidikan_s1', pendidikan_s2='$pendidikan_s2' , pendidikan_s3='$pendidikan_s3' WHERE id_dosen='$_GET[ID]'");
+        $db->query("UPDATE tb_dosen SET nidn='$nidn', nama_dosen='$nama_dosen', jenis_kelamin='$jenis_kelamin', pendidikan_s1='$pendidikan_s1', pendidikan_s2='$pendidikan_s2' , pendidikan_s3='$pendidikan_s3' WHERE id_dosen='$_GET[ID]'");
         sweet_alert_direct("Operasi Berhasil", "Data Dosen Berhasil Diubah.", "success", "3500", "true", "?m=dosen");
     }
 } else if ($act == 'dosen_hapus') {
@@ -167,18 +151,54 @@ if ($mod == 'prodi_tambah') {
 // JURNAL PENELITIAN
 if ($act == 'jurnal_hapus') {
     $id_jurnal = $_GET['ID'];
-    $kode_dosen = $_GET['kode_dosen'];
+    $nidn = $_GET['nidn'];
     $id_kriteria = $_GET['id_kriteria'];
+    // $db->query("UPDATE tb_rel_dosen SET nilai_kriteria = 0, penelitian = 0, pengajaran = 0, bimbingan = 0 WHERE id_kriteria= '$id_kriteria' AND id_dosen = '$nidn'  ");
 
-    $db->query("UPDATE tb_rel_dosen SET nilai_kriteria = 0, penelitian = 0, pengajaran = 0, bimbingan = 0 WHERE id_kriteria= '$id_kriteria' AND id_dosen = '$kode_dosen'  ");
+    $result = $db->get_row("SELECT judul_jurnal, mata_kuliah, judulBimbingan FROM tb_penelitian WHERE id='$id_jurnal'");
+    // die(var_dump($result));
+    $penelitian = $result;
+
+    // Initialize variables to track decrement values
+    $penelitian_decrement = 0;
+    $pengajaran_decrement = 0;
+    $bimbingan_decrement = 0;
+
+    // Check the conditions and set the decrement values accordingly
+    if ($penelitian->judul_jurnal != '-') {
+        $penelitian_decrement = 1;
+    }
+    if (!empty($penelitian->mata_kuliah)) {
+        $pengajaran_decrement = 1;
+    }
+    if (!empty($penelitian->judulBimbingan)) {
+        $bimbingan_decrement = 1;
+    }
+
+    // var_dump($penelitian_decrement);
+    // var_dump($pengajaran_decrement);
+    // var_dump($bimbingan_decrement);
+
+    // die(1);
+
+    // Decrement the corresponding fields in tb_rel_dosen
+    if ($penelitian_decrement > 0 || $pengajaran_decrement > 0 || $bimbingan_decrement > 0) {
+        $db->query("UPDATE tb_rel_dosen 
+                    SET nilai = nilai - $penelitian_decrement, 
+                        penelitian = penelitian - $penelitian_decrement, 
+                        pengajaran = pengajaran - $pengajaran_decrement, 
+                        bimbingan = bimbingan - $bimbingan_decrement 
+                    WHERE id_kriteria= '$id_kriteria' AND id_dosen = '$nidn'");
+    }
+
 
     $db->query("DELETE FROM tb_penelitian WHERE id='$id_jurnal'");
 
-    header("location:index.php?m=jurnal&ID=$kode_dosen");
+    header("location:index.php?m=jurnal&ID=$nidn");
 }
 
 if ($mod == 'jurnal_tambah') {
-    $id_dosen = $_POST['kode_dosen'];
+    $id_dosen = $_POST['nidn'];
     $penelitian =  isset($_POST['penelitian']) ? $_POST['penelitian'] : '-';
     $judul_jurnal = $_POST['judul_jurnal'] == '' ? '-' : $_POST['judul_jurnal'];
     $pengajaran =  isset($_POST['pengajaran']) ? $_POST['pengajaran'] : '-';
@@ -240,6 +260,7 @@ if ($mod == 'jurnal_tambah') {
         $update_parts[] = "nilai = CASE WHEN id_kriteria = '$bimbingan' THEN nilai + 1 ELSE nilai END";
     }
 
+    // var_dump('testsetse',$prodi_id);
     // die(var_dump(implode(', ', $update_parts)));
 
     if (!empty($update_parts)) {
@@ -247,7 +268,6 @@ if ($mod == 'jurnal_tambah') {
             UPDATE tb_rel_dosen 
             SET " . implode(', ', $update_parts) . "
             WHERE id_dosen = '$id_dosen' 
-            AND prodi_id = '$prodi_id'
             ";
         error_log("Generated Update Query: $update_query");
         // var_dump($update_query);
@@ -258,7 +278,7 @@ if ($mod == 'jurnal_tambah') {
 
     // Masukkan entri baru ke tb_penelitian
     $db->query("
-        INSERT INTO tb_penelitian (kode_dosen, judul_jurnal, bidang_ilmu, mata_kuliah, tahunJurnal, judulBimbingan) 
+        INSERT INTO tb_penelitian (nidn, judul_jurnal, bidang_ilmu, mata_kuliah, tahunJurnal, judulBimbingan) 
         VALUES ('$id_dosen', '$judul_jurnal', '$hasil', '$mata_kuliah', '$tahun', '$judul_bimbingan')
     ");
 
@@ -323,32 +343,42 @@ if ($mod == 'kriteria_tambah') {
     $kode_kriteria = $_POST['kode_kriteria'];
     $nama_kriteria = $_POST['nama_kriteria'];
 
-    if ($kode_kriteria == '' || $nama_kriteria == '')
+    if ($kode_kriteria == '' || $nama_kriteria == '') {
         print_msg("Field bertanda * tidak boleh kosong!");
-    elseif ($db->get_results("SELECT * FROM tb_kriteria WHERE kode_kriteria='$kode_kriteria'"))
+    } elseif ($db->get_results("SELECT * FROM tb_kriteria WHERE kode_kriteria='$kode_kriteria'")) {
         print_msg("Kode sudah ada!");
-    else {
-        $db->query("INSERT INTO tb_kriteria (kode_kriteria, nama_kriteria) 
-            VALUES ('$kode_kriteria', '$nama_kriteria')");
+    } else {
+        // Insert into tb_kriteria
+        $db->query("INSERT INTO tb_kriteria (kode_kriteria, nama_kriteria) VALUES ('$kode_kriteria', '$nama_kriteria')");
         $ID = $db->insert_id;
-        $db->query("INSERT INTO tb_rel_dosen(id_dosen, id_kriteria, nilai) SELECT id_dosen, '$ID', -1  FROM tb_dosen");
+
+        // Insert into tb_rel_dosen only if id_kriteria exists
+        if ($ID) {
+            $db->query("INSERT INTO tb_rel_dosen (id_dosen, id_kriteria, nilai) SELECT id_dosen, '$ID', -1 FROM tb_dosen");
+        }
+
         sweet_alert_direct("Operasi Berhasil", "Kriteria Berhasil Ditambahkan.", "success", "3500", "true", "?m=kriteria");
     }
 } else if ($mod == 'kriteria_ubah') {
     $kode_kriteria = $_POST['kode_kriteria'];
     $nama_kriteria = $_POST['nama_kriteria'];
 
-    if ($kode_kriteria == '' || $nama_kriteria == '')
+    if ($kode_kriteria == '' || $nama_kriteria == '') {
         print_msg("Field bertanda * tidak boleh kosong!");
-    elseif ($db->get_results("SELECT * FROM tb_kriteria WHERE kode_kriteria='$kode_kriteria' AND id_kriteria<>'$_GET[ID]'"))
+    } elseif ($db->get_results("SELECT * FROM tb_kriteria WHERE kode_kriteria='$kode_kriteria' AND id_kriteria<>'$_GET[ID]'")) {
         print_msg("Kode sudah ada!");
-    else {
+    } else {
+        // Update tb_kriteria
         $db->query("UPDATE tb_kriteria SET kode_kriteria='$kode_kriteria', nama_kriteria='$nama_kriteria' WHERE id_kriteria='$_GET[ID]'");
         sweet_alert_direct("Operasi Berhasil", "Kriteria Berhasil Diubah.", "success", "3500", "true", "?m=kriteria");
     }
 } else if ($act == 'kriteria_hapus') {
-    $db->query("DELETE FROM tb_kriteria WHERE id_kriteria='$_GET[ID]'");
+    // First delete related entries in tb_rel_dosen
     $db->query("DELETE FROM tb_rel_dosen WHERE id_kriteria='$_GET[ID]'");
+
+    // Then delete from tb_kriteria
+    $db->query("DELETE FROM tb_kriteria WHERE id_kriteria='$_GET[ID]'");
+
     header("location:index.php?m=kriteria");
 }
 

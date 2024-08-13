@@ -104,7 +104,7 @@ function bubbleSortAssociative($arr) {
         <table id="tabel1" class="table table-bordered table-hover table-striped dt-responsive nowrap" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Kode</th>
+                    <th>No</th>
                     <th>Nama Dosen</th>
                     <?php foreach ($KRITERIA as $key => $val) : ?>
                         <th><?= $val['nama'] ?></th>
@@ -116,11 +116,11 @@ function bubbleSortAssociative($arr) {
             <tbody>
                 <?php foreach ($data as $key => $val) : ?>
                     <tr>
-                        <td><?= $ALTERNATIF[$key]->kode_dosen ?></td>
+                        <td><?= ++$no ?></td>
                         <td><?= $ALTERNATIF[$key]->nama_dosen ?></td>
                         <?php
                         $nama = [
-                            4 => 'Komputer',
+                            4 => 'Ilmu Komputer',
                             12 => 'Sistem Informasi',
                             13 => 'Elektro',
                             15 => 'Manajemen Bisnis',
@@ -174,7 +174,7 @@ function bubbleSortAssociative($arr) {
                             // var_dump($getKriteriax);
                             echo $tes[count($tes) - 1] != 0 ? end($urutNama) : 'TIdak ada'
                             //  . ' ( ' . $tes[count($tes) - 1] . ' )'
-                             ;
+                            ;
 
                             ?></td>
 

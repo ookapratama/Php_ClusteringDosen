@@ -9,16 +9,12 @@ $row = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
         <?php if ($_POST) include 'aksi.php'; ?>
         <form method="post" action="?m=dosen_ubah&ID=<?= $row->id_dosen ?>" enctype="multipart/form-data">
             <div class="form-group">
-                <label>Kode <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="kode_dosen" value="<?= $row->kode_dosen ?>" readonly="" />
+                <label>Nidn <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" name="nidn" value="<?= $row->nidn ?>" readonly="" />
             </div>
             <div class="form-group">
                 <label>Nama Dosen <span class="text-danger">*</span></label>
                 <input class="form-control" type="text" name="nama_dosen" value="<?= $row->nama_dosen ?>" placeholder="Isi Nama Lengkap Anda" />
-            </div>
-            <div class="form-group">
-                <label>NIDN <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="nidn" value="<?= $row->nidn ?>" placeholder="Isi NIDN" />
             </div>
             <div class="form-group">
                 <label>Jenis Kelamin <span class="text-danger">*</span></label>
@@ -28,22 +24,6 @@ $row = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'");
                 </select>
             </div>
 
-
-            <div class="form-group">
-                <label>Tempat Lahir <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="tempat_lahir" value="<?= $row->tempat_lahir ?>" placeholder="Isi Tempat Lahir Anda" />
-            </div>
-            <div class="form-group">
-                <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                <input class="form-control" type="date" name="tanggal_lahir" value="<?= $row->tanggal_lahir ?>" placeholder="Isi Tanggal Lahir Anda" />
-            </div>
-            <div class="form-group">
-                <label>Agama <span class="text-danger">*</span></label>
-                <select class="form-control" name="agama">
-                    <option readonly="readonly">- Pilih Agama -</option>
-                    <?= get_agama_option($row->agama) ?>
-                </select>
-            </div>
 
             <div class="form-group">
                 <label>Jenjang Pendidikan S1<span class="text-danger">*</span></label>

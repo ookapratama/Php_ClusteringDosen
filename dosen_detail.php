@@ -1,6 +1,15 @@
 <?php
-    if($_SESSION['login']) {
-    $row = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$_GET[ID]'"); 
+if ($_SESSION['login']) {
+    // Ambil data dosen berdasarkan ID yang diterima dari parameter
+    $dosen_id = $_GET['ID'];
+    $dosen_row = $db->get_row("SELECT * FROM tb_dosen WHERE id_dosen='$dosen_id'");
+
+    // Ambil data prodi berdasarkan prodi_id dari data dosen
+    $prodi_id = $dosen_row->prodi_id; // Asumsi ada kolom 'prodi_id' di tabel 'tb_dosen'
+    $prodi_row = $db->get_row("SELECT * FROM tb_prodi WHERE prodi_id='$prodi_id'");
+
+    // Jika prodi tidak ditemukan, berikan nilai default
+    $prodi_nama = $prodi_row ? $prodi_row->nama_prodi : 'Tidak Diketahui';
 ?>
 <div class="panel panel-primary">
     <div class="panel-header">
@@ -12,71 +21,43 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td class="col-xs-4">Kode</td>
-                            <td class="col-xs-8 text-bold"><?=$row->kode_dosen?></td>
+                            <td class="col-xs-4">Nidn</td>
+                            <td class="col-xs-8 text-bold"><?= $dosen_row->nidn ?></td>
                         </tr>
                         <tr>
                             <td>Nama Dosen</td>
-                            <td><?=$row->nama_dosen?></td>
+                            <td><?= $dosen_row->nama_dosen ?></td>
                         </tr>
                         <tr>
-                            <td>NIDN</td>
-                            <td><?=$row->nidn?></td>
-                        </tr>
-                        <!-- <tr>
-                            <td>NODOS</td>
-                            <td><?=$row->nodos?></td>
-                        </tr> -->
-                        <tr>
-                            <td>Jenis Kelamin</td>
-                            <td><?=$row->jenis_kelamin?></td>
-                        </tr>
-                        <!-- <tr>
-                            <td>Foto</td>
+                            <td>Prodi</td>
                             <td>
-                            <?php if (($row->gambar)==null) { echo "Foto tidak tersedia"; } else { ?>
-                            <p class="helper-block">
-                                <img class="thumbnail" src="assets/images/dosen/<?=$row->gambar?>" height="200">
-                            </p>
-                            <?php } ?>
+                                <?= $prodi_nama ?>
                             </td>
-                        </tr> -->
+                        </tr>
                         <tr>
                             <td>Pendidikan S1</td>
-                            <td><?=$row->pendidikan_s1?></td>
+                            <td><?= $dosen_row->pendidikan_s1 ?></td>
                         </tr>
                         <tr>
                             <td>Pendidikan S2</td>
-                            <td><?=$row->pendidikan_s2?></td>
+                            <td><?= $dosen_row->pendidikan_s2 ?></td>
                         </tr>
                         <tr>
                             <td>Pendidikan S3</td>
-                            <td><?=$row->pendidikan_s3?></td>
+                            <td><?= $dosen_row->pendidikan_s3 ?></td>
                         </tr>
                         <tr>
-                            <td>Tempat Lahir</td>
-                            <td><?=$row->tempat_lahir?></td>
+                            <td>Cluster</td>
+                            <td><?= $dosen_row->nama_bidangilmu ?></td>
                         </tr>
-                        <tr>
-                            <td>Tanggal Lahir</td>
-                            <td><?=tgl_indo($row->tanggal_lahir)?></td>
-                        </tr>
-                        <tr>
-                            <td>Agama</td>
-                            <td><?=$row->agama?></td>
-                        </tr>
-                        <!-- <tr>
-                            <td>Alamat</td>
-                            <td><?=$row->alamat?></td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>
             <div class="col-md-12 text-center">
-                <a class="btn btn-success btn-xs" href="dosen_formulir_cetak.php?m=dosen_detail&ID=<?=$row->id_dosen?>"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                <a class="btn btn-success btn-xs" href="dosen_formulir_cetak.php?m=dosen_detail&ID=<?= $dosen_row->id_dosen ?>"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
                 <a class="btn btn-danger btn-xs" href="?m=dosen"><span class="glyphicon glyphicon-arrow-left"></span> Kembali</a>
             </div>
         </div>
     </div>
 </div>
-<?php } ?> 
+<?php } ?>

@@ -29,7 +29,7 @@ $sheet->setCellValueByColumnAndRow(count($KRITERIA) + 2, 1, 'Cluster');
 // Isi data dari hasil analisis
 $row = 2;
 foreach ($data as $key => $val) {
-   $sheet->setCellValue('A'.$row, $ALTERNATIF[$key]->kode_dosen);
+   $sheet->setCellValue('A'.$row, $ALTERNATIF[$key]->nidn);
    $sheet->setCellValue('B'.$row, $ALTERNATIF[$key]->nama_dosen);
    foreach ($val as $k => $v) {
        $sheet->setCellValueByColumnAndRow($k + 2, $row, round($v, 3));

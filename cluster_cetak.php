@@ -1,72 +1,98 @@
 <?php
-    include 'functions.php'; 
-    require('assets/plugins/pdf/html2fpdf.php');
-    $rows   = $db->get_row("SELECT * FROM tb_prodi WHERE prodi_id='$_GET[prodi]'");
-    ob_start(); 
+include 'functions.php'; 
+require('assets/plugins/pdf/html2fpdf.php');
+
+// Start output buffering
+ob_start(); 
 ?>
 <!doctype html>
 <html>
 <head>
-<title>Data Hasil Clustering Dosen</title>
-<span style="font-size:17px">
-    <center><strong>DATA CLUSTERING BIDANG ILMU DOSEN <?=$rows->nama_prodi?></strong></center>
-</span>
-<span style="font-size:17px">
-    <center><strong>UNIVERSITAS DIPA MAKASSAR</strong></center>
-</span>
-<hr><br>
+    <title>Data Hasil Clustering Dosen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd; /* Light grey border for cells */
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2; /* Light grey background for header */
+            font-weight: bold;
+        }
+        thead tr {
+            border-bottom: 2px solid #000; /* Darker line under header */
+        }
+        tbody tr {
+            border-bottom: 1px solid #ddd; /* Light grey lines between rows */
+        }
+        tbody tr:last-child {
+            border-bottom: none; /* Remove border for last row */
+        }
+        h2, h3 {
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-<table border="1">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Cluster/Kelas</th>
-            <th>Kode</th>
-            <th>Nama Dosen</th>
-            <th>Jenis Kelamin</th>
-            <th>Pendidikan Terakhir</th>
-            <th>Tempat/Tanggal Lahir</th>
-            <th>Agama</th>
-        </tr>
-    </thead>
-    <?php
-    $prodi  = $_REQUEST['prodi_id'];
-    $rows   = $db->get_results("SELECT * FROM tb_dosen WHERE prodi_id='$_GET[prodi]' AND nama_bidangilmu!='0' ORDER BY nama_bidangilmu ASC");
-    $no     = 0;
-    foreach($rows as $row): 
-    ?>
-    <tbody>
-        <tr>
-            <td><?=++$no ?></td>
-            <td><?=$row->nama_bidangilmu?></td>
-            <td><?=$row->kode_dosen?></td>
-            <td><?=$row->nama_dosen?></td>
-            <td><?=$row->jenis_kelamin?></td>
-            <td><?=$row->pendidikan_terakhir?></td>
-            <td><?=$row->tempat_lahir.", ".tgl_indo($row->tanggal_lahir)?></td>
-            <td><?=$row->agama?></td>
-        </tr>
-    </tbody>
-    <?php endforeach; ?>
-</table>
+    <h2>DATA CLUSTERING BIDANG ILMU DOSEN</h2>
+    <h3>UNIVERSITAS DIPA MAKASSAR</h3>
+    <hr>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nidn</th>
+                <th>Nama Dosen</th>
+                <th>Cluster</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Fetch data without filtering by prodi_id
+            $rows = $db->get_results("SELECT * FROM tb_dosen WHERE nama_bidangilmu!='0' ORDER BY nama_bidangilmu ASC");
+            foreach ($rows as $row): 
+            ?>
+            <tr>
+                <td><?= ++$no ?></td>
+                <td><?= htmlspecialchars($row->nidn) ?></td>
+                <td><?= htmlspecialchars($row->nama_dosen) ?></td>
+                <td><?= htmlspecialchars($row->nama_bidangilmu) ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </body>
+</html>
 <?php
-// Output-Buffer in variable:
-$html=ob_get_contents();
+// Output buffering contents to variable
+$html = ob_get_contents();
 ob_end_clean();
-$pdf=new HTML2FPDF('P', 'mm', 'A3');
+
+// Create PDF
+$pdf = new HTML2FPDF('P', 'mm', 'A4'); // Changed to A4 for better fit
 $pdf->AddPage();
 $pdf->WriteHTML($html);
-if (preg_match("/MSIE/i", $_SERVER["HTTP_USER_AGENT"])){
-    header("Content-type: application/PDF");
-} else {
-    header("Content-type: application/PDF");
-    header("Content-Type: application/pdf");
-}
-$rows   = $db->get_row("SELECT * FROM tb_prodi WHERE prodi_id='$_GET[prodi]'");
-$filename="Data Hasil Pembagian Kelas prodi ".$rows->nama_prodi.".pdf";
-$pdf->Output($filename,"D");
 
+// Set PDF headers
+header("Content-Type: application/pdf");
+header("Content-Disposition: attachment;filename=\"Data_Hasil_Clustering.pdf\"");
+$pdf->Output('Data_Hasil_Clustering.pdf', 'D');
 ?>
-</html>
